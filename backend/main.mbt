@@ -82,57 +82,25 @@ fn delete_todo(
 }
 
 ///|
-fn main {
-  let matches = try {
-    @argparse.parse(
-      @argparse.Command::new(
-        "todo-server",
-        about="Todo List backend server",
-        options=[
-          @argparse.OptionArg::new(
-            "port",
-            short='p',
-            long="port",
-            about="Port to listen on",
-            default_values=["4000"],
-          ),
-        ],
-      ),
-    )
-  } catch {
-    e => {
-      println("\{e}")
-      return
-    }
-  }
-  let port = try {
-    @strconv.parse_int(matches.values["port"][0])
-  } catch {
-    _ => {
-      println("Invalid port number")
-      return
-    }
-  }
-  let conn = try {
-    @sqlite3.Connection::open("todos.db")
-  } catch {
-    e => {
-      println("Failed to open database: \{e}")
-      return
-    }
-  }
-  try {
-    init_db(conn)
-  } catch {
-    e => {
-      println("Failed to init database: \{e}")
-      return
-    }
-  }
+fn main raise {
+  // FIXME: error only highlight `appfn`
+  let matches = @argparse.parse(
+    Command("todo-server", about="Todo List backend server", options=[
+      OptionArg("port", short='p', long="port", about="Port to listen on", default_values=[
+        "4000",
+      ]),
+    ]),
+  )
+  let port = @strconv.parse_int(matches.values["port"][0])
+
+  let conn = @sqlite3.Connection::open("todos.db")
+
+  init_db(conn)
+
   let app = @mocket.new()
   app
   ..use_middleware(@cors.handle_cors())
-  ..get("/", fn(_event) noraise {
+  ..get("/", _ => {
     let html =
       #|<!DOCTYPE html>
       #|<html>
@@ -156,7 +124,7 @@ fn main {
       raw_body=@utf8.encode(html),
     )
   })
-  ..get("/frontend.js", fn(_event) noraise {
+  ..get("/frontend.js", _ => {
     try {
       let bytes = @fs.read_file_to_bytes("./public/frontend.js")
       @mocket.HttpResponse::new(
@@ -168,7 +136,7 @@ fn main {
       _ => @mocket.HttpResponse::new(NotFound).body("Not Found")
     }
   })
-  ..get("/api/todos", fn(_event) noraise {
+  ..get("/api/todos", _ => {
     try {
       let todos = get_all_todos(conn)
       @mocket.HttpResponse::new(OK).json(todos)
@@ -176,16 +144,15 @@ fn main {
       e => @mocket.HttpResponse::new(InternalServerError).body("\{e}")
     }
   })
-  ..post("/api/todos", fn(event) noraise {
+  ..post("/api/todos", event => {
     try {
       let json : Json = event.req.body()
       let text = match json {
         { "text": String(t), .. } => t
-        _ => {
+        _ =>
           return @mocket.HttpResponse::new(BadRequest).body(
             "Missing text field",
           )
-        }
       }
       let todo = create_todo(conn, text)
       @mocket.HttpResponse::new(Created).json(todo)

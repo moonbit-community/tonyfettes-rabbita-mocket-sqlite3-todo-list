@@ -8,7 +8,7 @@ A full-stack todo list application written entirely in [MoonBit](https://www.moo
 ## Quick Start
 
 ```bash
-moon install
+moon update
 make serve
 ```
 

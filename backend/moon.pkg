@@ -9,7 +9,11 @@ import {
   "moonbitlang/x/fs",
 }
 
+// TODO:
+// when target is JS, this package should not show diagnostic errors?
+// supported_targets = "-all+native"
+
 options(
   "is-main": true,
-  "supported-targets": ["native"],
+  "supported-targets": "-all+native",
 )
