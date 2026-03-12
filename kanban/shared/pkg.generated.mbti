@@ -1,0 +1,103 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/kanban/shared"
+
+import {
+  "moonbitlang/core/json",
+}
+
+// Values
+pub let api_board : String
+
+pub fn api_card(Int) -> String
+
+pub fn api_card_move(Int) -> String
+
+pub let api_cards : String
+
+pub fn api_column(Int) -> String
+
+pub fn api_column_move(Int) -> String
+
+pub let api_columns : String
+
+pub fn cards_in_column(Array[Card], Int) -> Array[Card]
+
+pub fn color_to_css(String) -> String
+
+pub fn compute_insert_position(Int, Int) -> Int
+
+pub fn compute_move_position(Array[Card], Int) -> Int
+
+pub let max_card_description : Int
+
+pub let max_card_title : Int
+
+pub let max_cards_per_column : Int
+
+pub let max_column_title : Int
+
+pub let max_columns : Int
+
+pub fn next_position(Array[Int]) -> Int
+
+pub let position_gap : Int
+
+pub fn renumber_positions(Int) -> Array[Int]
+
+pub fn[T] sort_by_position(Array[T], (T) -> Int) -> Array[T]
+
+pub let valid_colors : Array[String]
+
+pub fn validate_card_description(String) -> Bool
+
+pub fn validate_card_title(String) -> Bool
+
+pub fn validate_color(String) -> Bool
+
+pub fn validate_column_title(String) -> Bool
+
+// Errors
+
+// Types and methods
+pub(all) struct Board {
+  columns : Array[Column]
+  cards : Array[Card]
+}
+pub impl Show for Board
+pub impl ToJson for Board
+pub impl @json.FromJson for Board
+
+pub(all) struct Card {
+  id : Int
+  column_id : Int
+  title : String
+  description : String
+  color : String
+  position : Int
+}
+pub impl Show for Card
+pub impl ToJson for Card
+pub impl @json.FromJson for Card
+
+pub(all) struct Column {
+  id : Int
+  title : String
+  position : Int
+}
+pub impl Show for Column
+pub impl ToJson for Column
+pub impl @json.FromJson for Column
+
+pub(all) struct MoveCardRequest {
+  card_id : Int
+  target_column_id : Int
+  new_position : Int
+}
+pub impl Show for MoveCardRequest
+pub impl ToJson for MoveCardRequest
+pub impl @json.FromJson for MoveCardRequest
+
+// Type aliases
+
+// Traits
+
