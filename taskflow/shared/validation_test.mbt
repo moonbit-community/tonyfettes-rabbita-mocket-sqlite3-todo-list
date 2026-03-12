@@ -48,6 +48,17 @@ test "validate_due_date" {
   inspect(@shared.validate_due_date("2026-03-12"), content="true")
   inspect(@shared.validate_due_date("2026-3-12"), content="false")
   inspect(@shared.validate_due_date("March 12"), content="false")
+  // Malformed dates
+  inspect(@shared.validate_due_date("2026-99-99"), content="false")
+  inspect(@shared.validate_due_date("2026-00-15"), content="false")
+  inspect(@shared.validate_due_date("2026-13-01"), content="false")
+  inspect(@shared.validate_due_date("2026-03-00"), content="false")
+  inspect(@shared.validate_due_date("2026-03-32"), content="false")
+  inspect(@shared.validate_due_date("abcd-ef-gh"), content="false")
+  inspect(@shared.validate_due_date("2026/03/12"), content="false")
+  // Edge cases
+  inspect(@shared.validate_due_date("2026-01-01"), content="true")
+  inspect(@shared.validate_due_date("2026-12-31"), content="true")
 }
 
 ///|

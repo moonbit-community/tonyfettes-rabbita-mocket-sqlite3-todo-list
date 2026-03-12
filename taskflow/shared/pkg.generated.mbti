@@ -22,7 +22,7 @@ pub fn completion_percent(Array[Task]) -> Int
 
 pub fn count_by_status(Array[Task], String) -> Int
 
-pub fn filter_tasks(Array[Task], String, Int, String) -> Array[Task]
+pub fn filter_tasks(Array[Task], String, Int, String, query? : String) -> Array[Task]
 
 pub fn find_member(Array[Member], Int) -> Member?
 
@@ -47,6 +47,8 @@ pub fn priority_color(String) -> String
 pub fn priority_label(String) -> String
 
 pub fn priority_weight(String) -> Int
+
+pub fn search_matches(Task, String) -> Bool
 
 pub fn sort_tasks(Array[Task]) -> Array[Task]
 

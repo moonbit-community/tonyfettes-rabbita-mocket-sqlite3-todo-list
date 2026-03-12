@@ -16,9 +16,12 @@ make serve    # Build & run on http://localhost:4006
 - **Team members**: Pre-seeded team (Alice, Bob, Charlie, Diana, Eve) with colored avatars
 - **Priority sorting**: Tasks sorted by priority (Urgent → High → Medium → Low), then by due date
 - **Deadline tracking**: Overdue detection and urgency labels (Overdue, Due today, Upcoming)
-- **Filters**: Filter by status, priority, and assignee
+- **Text search**: Case-insensitive search across task titles and descriptions
+- **Filters**: Filter by status, priority, and assignee — combinable with search
 - **Progress tracking**: Completion percentage and per-status task counts
-- **Validation**: Shared limits enforced on both client and server
+- **Delete confirmation**: Modal dialog prevents accidental task deletion
+- **Error notifications**: Toast notifications for failed server requests
+- **Validation**: Shared limits and proper YYYY-MM-DD date format checking
 
 ## Isomorphic Design
 

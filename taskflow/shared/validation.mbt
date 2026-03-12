@@ -54,7 +54,38 @@ pub fn validate_priority(priority : String) -> Bool {
 }
 
 ///|
-/// Validate a due date: empty (no deadline) or 10-character YYYY-MM-DD format.
+/// Validate a due date: empty (no deadline) or valid YYYY-MM-DD format
+/// with numeric year, month (01-12), and day (01-31).
 pub fn validate_due_date(date : String) -> Bool {
-  date == "" || date.char_length() == 10
+  if date == "" {
+    return true
+  }
+  if date.char_length() != 10 {
+    return false
+  }
+  // Check separators: YYYY-MM-DD
+  if date.get_char(4) != Some('-') || date.get_char(7) != Some('-') {
+    return false
+  }
+  // Check all other positions are digits
+  for i, c in date {
+    if i == 4 || i == 7 {
+      continue
+    }
+    if c < '0' || c > '9' {
+      return false
+    }
+  }
+  // Validate month range 01-12
+  let m1 = date[5].to_int() - '0'.to_int()
+  let m2 = date[6].to_int() - '0'.to_int()
+  let month = m1 * 10 + m2
+  if month < 1 || month > 12 {
+    return false
+  }
+  // Validate day range 01-31
+  let d1 = date[8].to_int() - '0'.to_int()
+  let d2 = date[9].to_int() - '0'.to_int()
+  let day = d1 * 10 + d2
+  day >= 1 && day <= 31
 }

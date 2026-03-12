@@ -127,6 +127,29 @@ test {
 }
 ```
 
+## Text Search
+
+Case-insensitive search across task title and description:
+
+```mbt check
+///|
+test {
+  let task : @shared.Task = {
+    id: 1,
+    title: "Fix Login Bug",
+    description: "OAuth2 flow broken",
+    status: "todo",
+    priority: "high",
+    assignee_id: 1,
+    due_date: "",
+    created_at: "",
+  }
+  inspect(@shared.search_matches(task, "login"), content="true")
+  inspect(@shared.search_matches(task, "oauth"), content="true")
+  inspect(@shared.search_matches(task, "missing"), content="false")
+}
+```
+
 ## Validation
 
 Shared rules enforced on both client and server:

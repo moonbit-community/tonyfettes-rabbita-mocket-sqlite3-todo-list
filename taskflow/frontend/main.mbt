@@ -8,6 +8,7 @@ struct Model {
   filter_status : String
   filter_assignee : Int
   filter_priority : String
+  search_query : String
   // Task creation
   adding_task : Bool
   new_title : String
@@ -22,6 +23,10 @@ struct Model {
   edit_priority : String
   edit_assignee : Int
   edit_due_date : String
+  // Delete confirmation
+  confirm_delete : Int
+  // Error notification
+  error_msg : String
   // Loading
   loading : Bool
 }
@@ -35,6 +40,7 @@ enum Msg {
   SetFilterStatus(String)
   SetFilterAssignee(Int)
   SetFilterPriority(String)
+  SearchChanged(String)
   // Task creation
   ShowAddTask
   HideAddTask
@@ -59,8 +65,12 @@ enum Msg {
   ChangeStatus(Int, String)
   StatusChanged
   // Delete
-  DeleteTask(Int)
+  RequestDelete(Int)
+  CancelDelete
+  ConfirmDelete
   TaskDeleted
+  // Errors
+  DismissError
 }
 
 ///|
@@ -96,11 +106,13 @@ fn update(
           loading: false,
         },
       )
-    GotBoard(Err(_)) => (@rabbita.none, { ..model, loading: false })
+    GotBoard(Err(e)) =>
+      (@rabbita.none, { ..model, loading: false, error_msg: e })
     // ---- Filters ----
     SetFilterStatus(s) => (@rabbita.none, { ..model, filter_status: s })
     SetFilterAssignee(id) => (@rabbita.none, { ..model, filter_assignee: id })
     SetFilterPriority(p) => (@rabbita.none, { ..model, filter_priority: p })
+    SearchChanged(q) => (@rabbita.none, { ..model, search_query: q })
     // ---- Task creation ----
     ShowAddTask =>
       (
@@ -155,7 +167,7 @@ fn update(
       tasks.push(task)
       (@rabbita.none, { ..model, tasks, })
     }
-    TaskAdded(Err(_)) => (@rabbita.none, model)
+    TaskAdded(Err(e)) => (@rabbita.none, { ..model, error_msg: e })
     // ---- Task editing ----
     StartEditTask(task) =>
       (
@@ -253,15 +265,23 @@ fn update(
     }
     StatusChanged => (fetch_board(dispatch), model)
     // ---- Delete ----
-    DeleteTask(id) => {
+    RequestDelete(id) => (@rabbita.none, { ..model, confirm_delete: id })
+    CancelDelete => (@rabbita.none, { ..model, confirm_delete: 0 })
+    ConfirmDelete => {
+      let id = model.confirm_delete
+      if id == 0 {
+        return (@rabbita.none, model)
+      }
       let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
         dispatch(TaskDeleted)
       })
       let cmd = @http.delete(@shared.api_task(id), expect~)
       let tasks = model.tasks.filter(fn(t) { t.id != id })
-      (cmd, { ..model, tasks, })
+      (cmd, { ..model, tasks, confirm_delete: 0 })
     }
     TaskDeleted => (fetch_board(dispatch), model)
+    // ---- Errors ----
+    DismissError => (@rabbita.none, { ..model, error_msg: "" })
   }
 }
 
@@ -338,7 +358,7 @@ fn view_header(
 }
 
 ///|
-/// Render filter buttons for status, priority, and assignee.
+/// Render filter buttons for status, priority, assignee, and search.
 fn view_filters(
   dispatch : @rabbita.Dispatch[Msg],
   model : Model,
@@ -349,6 +369,21 @@ fn view_filters(
       "padding: 12px 16px", "background: white", "border-radius: 10px", "border: 1px solid #e2e8f0",
     ],
     [
+      // Search input
+      @html.div(style=["display: flex", "align-items: center", "gap: 6px"], [
+        @html.span(style=["font-size: 12px", "color: #94a3b8"], "Search:"),
+        @html.input(
+          input_type=Text,
+          placeholder="Filter tasks...",
+          value=model.search_query,
+          on_input=fn(v) { dispatch(SearchChanged(v)) },
+          style=[
+            "padding: 4px 10px", "border: 1px solid #e2e8f0", "border-radius: 6px",
+            "font-size: 12px", "outline: none", "width: 150px",
+          ],
+          "",
+        ),
+      ]),
       // Status filter
       @html.div(
         style=["display: flex", "gap: 4px", "align-items: center"],
@@ -997,7 +1032,7 @@ fn view_task_item(
               "Edit",
             ),
             @html.button(
-              on_click=dispatch(DeleteTask(task.id)),
+              on_click=dispatch(RequestDelete(task.id)),
               style=[
                 "padding: 2px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px",
                 "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626",
@@ -1012,6 +1047,105 @@ fn view_task_item(
 }
 
 ///|
+/// Render the delete confirmation dialog overlay.
+fn view_delete_confirm(
+  dispatch : @rabbita.Dispatch[Msg],
+  model : Model,
+) -> @rabbita.Html {
+  if model.confirm_delete == 0 {
+    return @html.text("")
+  }
+  let mut task_title = "this task"
+  for t in model.tasks {
+    if t.id == model.confirm_delete {
+      task_title = t.title
+      break
+    }
+  }
+  @html.div(
+    style=[
+      "position: fixed", "top: 0", "left: 0", "right: 0", "bottom: 0", "background: rgba(0,0,0,0.4)",
+      "display: flex", "align-items: center", "justify-content: center", "z-index: 1000",
+    ],
+    [
+      @html.div(
+        style=[
+          "background: white", "border-radius: 12px", "padding: 24px", "max-width: 400px",
+          "width: 90%", "box-shadow: 0 20px 60px rgba(0,0,0,0.2)",
+        ],
+        [
+          @html.div(
+            style=[
+              "font-size: 16px", "font-weight: 600", "color: #1e293b", "margin-bottom: 8px",
+            ],
+            [@html.text("Delete Task?")],
+          ),
+          @html.div(
+            style=[
+              "font-size: 13px", "color: #64748b", "margin-bottom: 20px", "line-height: 1.5",
+            ],
+            [@html.text(task_title)],
+          ),
+          @html.div(
+            style=["display: flex", "gap: 8px", "justify-content: flex-end"],
+            [
+              @html.button(
+                on_click=dispatch(CancelDelete),
+                style=[
+                  "padding: 8px 16px", "background: #f1f5f9", "color: #64748b", "border: none",
+                  "border-radius: 6px", "cursor: pointer", "font-size: 13px",
+                ],
+                "Cancel",
+              ),
+              @html.button(
+                on_click=dispatch(ConfirmDelete),
+                style=[
+                  "padding: 8px 16px", "background: #dc2626", "color: white", "border: none",
+                  "border-radius: 6px", "cursor: pointer", "font-size: 13px",
+                ],
+                "Delete",
+              ),
+            ],
+          ),
+        ],
+      ),
+    ],
+  )
+}
+
+///|
+/// Render the error toast notification.
+fn view_error_toast(
+  dispatch : @rabbita.Dispatch[Msg],
+  model : Model,
+) -> @rabbita.Html {
+  if model.error_msg == "" {
+    return @html.text("")
+  }
+  @html.div(
+    style=[
+      "position: fixed", "top: 16px", "right: 16px", "z-index: 1001", "background: #fef2f2",
+      "border: 1px solid #fecaca", "border-radius: 8px", "padding: 12px 16px", "display: flex",
+      "align-items: center", "gap: 10px", "box-shadow: 0 4px 12px rgba(0,0,0,0.1)",
+      "max-width: 400px",
+    ],
+    [
+      @html.div(style=["font-size: 13px", "color: #dc2626", "flex: 1"], [
+        @html.text(model.error_msg),
+      ]),
+      @html.button(
+        on_click=dispatch(DismissError),
+        style=[
+          "background: none", "border: none", "color: #94a3b8", "cursor: pointer",
+          "font-size: 16px", "padding: 0 4px",
+        ],
+        "×",
+      ),
+    ],
+  )
+}
+
+///|
 /// MVU view: render the full task management interface.
 fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   let filtered = @shared.filter_tasks(
@@ -1019,6 +1153,7 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
     model.filter_status,
     model.filter_assignee,
     model.filter_priority,
+    query=model.search_query,
   )
   let sorted = @shared.sort_tasks(filtered)
   @html.div(
@@ -1026,6 +1161,8 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
       "padding: 16px 24px", "min-height: 100vh", "max-width: 900px", "margin: 0 auto",
     ],
     [
+      view_error_toast(dispatch, model),
+      view_delete_confirm(dispatch, model),
       view_header(dispatch, model),
       if model.loading {
         @html.div(
@@ -1071,6 +1208,7 @@ fn main {
       filter_status: "",
       filter_assignee: 0,
       filter_priority: "",
+      search_query: "",
       adding_task: false,
       new_title: "",
       new_desc: "",
@@ -1083,6 +1221,8 @@ fn main {
       edit_priority: "",
       edit_assignee: 0,
       edit_due_date: "",
+      confirm_delete: 0,
+      error_msg: "",
       loading: false,
     },
     update~,

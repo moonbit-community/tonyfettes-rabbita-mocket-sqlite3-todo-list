@@ -216,17 +216,52 @@ pub fn sort_tasks(tasks : Array[Task]) -> Array[Task] {
 }
 
 ///|
-/// Filter tasks by status, assignee, and priority.
+/// Check if a task matches a search query (case-insensitive, matches title
+/// or description). Empty query matches everything.
+///
+/// # Example
+///
+/// ```mbt check
+/// test {
+///   let task : @shared.Task = {
+///     id: 1,
+///     title: "Fix Login Bug",
+///     description: "OAuth2 flow broken",
+///     status: "todo",
+///     priority: "high",
+///     assignee_id: 1,
+///     due_date: "",
+///     created_at: "",
+///   }
+///   inspect(@shared.search_matches(task, ""), content="true")
+///   inspect(@shared.search_matches(task, "login"), content="true")
+///   inspect(@shared.search_matches(task, "LOGIN"), content="true")
+///   inspect(@shared.search_matches(task, "oauth"), content="true")
+///   inspect(@shared.search_matches(task, "missing"), content="false")
+/// }
+/// ```
+pub fn search_matches(task : Task, query : String) -> Bool {
+  if query == "" {
+    return true
+  }
+  let q = query.to_lower()
+  task.title.to_lower().contains(q) || task.description.to_lower().contains(q)
+}
+
+///|
+/// Filter tasks by status, assignee, priority, and text search query.
 /// Empty string or 0 means "all" (no filter).
 pub fn filter_tasks(
   tasks : Array[Task],
   status : String,
   assignee_id : Int,
   priority : String,
+  query? : String = "",
 ) -> Array[Task] {
   tasks.filter(fn(t) {
     (status == "" || t.status == status) &&
     (assignee_id == 0 || t.assignee_id == assignee_id) &&
-    (priority == "" || t.priority == priority)
+    (priority == "" || t.priority == priority) &&
+    search_matches(t, query)
   })
 }

@@ -448,6 +448,62 @@ test "filter_tasks all filters" {
 }
 
 ///|
+test "search_matches title case-insensitive" {
+  let task : @shared.Task = {
+    id: 1,
+    title: "Fix Login Bug",
+    description: "OAuth2 flow broken",
+    status: "todo",
+    priority: "high",
+    assignee_id: 1,
+    due_date: "",
+    created_at: "",
+  }
+  inspect(@shared.search_matches(task, ""), content="true")
+  inspect(@shared.search_matches(task, "login"), content="true")
+  inspect(@shared.search_matches(task, "LOGIN"), content="true")
+  inspect(@shared.search_matches(task, "Fix"), content="true")
+  inspect(@shared.search_matches(task, "oauth"), content="true")
+  inspect(@shared.search_matches(task, "missing"), content="false")
+}
+
+///|
+test "filter_tasks with search query" {
+  let tasks : Array[@shared.Task] = [
+    {
+      id: 1,
+      title: "Fix Login",
+      description: "",
+      status: "todo",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+    {
+      id: 2,
+      title: "Add Dashboard",
+      description: "analytics page",
+      status: "todo",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+  ]
+  let filtered = @shared.filter_tasks(tasks, "", 0, "", query="login")
+  inspect(filtered.length(), content="1")
+  inspect(filtered[0].title, content="Fix Login")
+  // Search in description
+  let filtered2 = @shared.filter_tasks(tasks, "", 0, "", query="analytics")
+  inspect(filtered2.length(), content="1")
+  inspect(filtered2[0].title, content="Add Dashboard")
+  // Empty query returns all
+  let filtered3 = @shared.filter_tasks(tasks, "", 0, "", query="")
+  inspect(filtered3.length(), content="2")
+}
+
+///|
 test "filter_tasks empty filters returns all" {
   let tasks : Array[@shared.Task] = [
     {
