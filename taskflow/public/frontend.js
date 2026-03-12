@@ -1110,95 +1110,99 @@ function _M0DTP38bobzhang8taskflow8frontend3Msg13SearchChanged(param0) {
   this._0 = param0;
 }
 _M0DTP38bobzhang8taskflow8frontend3Msg13SearchChanged.prototype.$tag = 5;
+function _M0DTP38bobzhang8taskflow8frontend3Msg11SetViewMode(param0) {
+  this._0 = param0;
+}
+_M0DTP38bobzhang8taskflow8frontend3Msg11SetViewMode.prototype.$tag = 6;
 function _M0DTP38bobzhang8taskflow8frontend3Msg11ShowAddTask() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg11ShowAddTask.prototype.$tag = 6;
+_M0DTP38bobzhang8taskflow8frontend3Msg11ShowAddTask.prototype.$tag = 7;
 const _M0DTP38bobzhang8taskflow8frontend3Msg11ShowAddTask__ = new _M0DTP38bobzhang8taskflow8frontend3Msg11ShowAddTask();
 function _M0DTP38bobzhang8taskflow8frontend3Msg11HideAddTask() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg11HideAddTask.prototype.$tag = 7;
+_M0DTP38bobzhang8taskflow8frontend3Msg11HideAddTask.prototype.$tag = 8;
 const _M0DTP38bobzhang8taskflow8frontend3Msg11HideAddTask__ = new _M0DTP38bobzhang8taskflow8frontend3Msg11HideAddTask();
 function _M0DTP38bobzhang8taskflow8frontend3Msg15NewTitleChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg15NewTitleChanged.prototype.$tag = 8;
+_M0DTP38bobzhang8taskflow8frontend3Msg15NewTitleChanged.prototype.$tag = 9;
 function _M0DTP38bobzhang8taskflow8frontend3Msg14NewDescChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg14NewDescChanged.prototype.$tag = 9;
+_M0DTP38bobzhang8taskflow8frontend3Msg14NewDescChanged.prototype.$tag = 10;
 function _M0DTP38bobzhang8taskflow8frontend3Msg18NewPriorityChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg18NewPriorityChanged.prototype.$tag = 10;
+_M0DTP38bobzhang8taskflow8frontend3Msg18NewPriorityChanged.prototype.$tag = 11;
 function _M0DTP38bobzhang8taskflow8frontend3Msg18NewAssigneeChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg18NewAssigneeChanged.prototype.$tag = 11;
+_M0DTP38bobzhang8taskflow8frontend3Msg18NewAssigneeChanged.prototype.$tag = 12;
 function _M0DTP38bobzhang8taskflow8frontend3Msg17NewDueDateChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg17NewDueDateChanged.prototype.$tag = 12;
+_M0DTP38bobzhang8taskflow8frontend3Msg17NewDueDateChanged.prototype.$tag = 13;
 function _M0DTP38bobzhang8taskflow8frontend3Msg7AddTask() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg7AddTask.prototype.$tag = 13;
+_M0DTP38bobzhang8taskflow8frontend3Msg7AddTask.prototype.$tag = 14;
 const _M0DTP38bobzhang8taskflow8frontend3Msg7AddTask__ = new _M0DTP38bobzhang8taskflow8frontend3Msg7AddTask();
 function _M0DTP38bobzhang8taskflow8frontend3Msg9TaskAdded(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg9TaskAdded.prototype.$tag = 14;
+_M0DTP38bobzhang8taskflow8frontend3Msg9TaskAdded.prototype.$tag = 15;
 function _M0DTP38bobzhang8taskflow8frontend3Msg13StartEditTask(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg13StartEditTask.prototype.$tag = 15;
+_M0DTP38bobzhang8taskflow8frontend3Msg13StartEditTask.prototype.$tag = 16;
 function _M0DTP38bobzhang8taskflow8frontend3Msg14CancelEditTask() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg14CancelEditTask.prototype.$tag = 16;
+_M0DTP38bobzhang8taskflow8frontend3Msg14CancelEditTask.prototype.$tag = 17;
 const _M0DTP38bobzhang8taskflow8frontend3Msg14CancelEditTask__ = new _M0DTP38bobzhang8taskflow8frontend3Msg14CancelEditTask();
 function _M0DTP38bobzhang8taskflow8frontend3Msg16EditTitleChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg16EditTitleChanged.prototype.$tag = 17;
+_M0DTP38bobzhang8taskflow8frontend3Msg16EditTitleChanged.prototype.$tag = 18;
 function _M0DTP38bobzhang8taskflow8frontend3Msg15EditDescChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg15EditDescChanged.prototype.$tag = 18;
+_M0DTP38bobzhang8taskflow8frontend3Msg15EditDescChanged.prototype.$tag = 19;
 function _M0DTP38bobzhang8taskflow8frontend3Msg19EditPriorityChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg19EditPriorityChanged.prototype.$tag = 19;
+_M0DTP38bobzhang8taskflow8frontend3Msg19EditPriorityChanged.prototype.$tag = 20;
 function _M0DTP38bobzhang8taskflow8frontend3Msg19EditAssigneeChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg19EditAssigneeChanged.prototype.$tag = 20;
+_M0DTP38bobzhang8taskflow8frontend3Msg19EditAssigneeChanged.prototype.$tag = 21;
 function _M0DTP38bobzhang8taskflow8frontend3Msg18EditDueDateChanged(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg18EditDueDateChanged.prototype.$tag = 21;
+_M0DTP38bobzhang8taskflow8frontend3Msg18EditDueDateChanged.prototype.$tag = 22;
 function _M0DTP38bobzhang8taskflow8frontend3Msg12SaveEditTask() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg12SaveEditTask.prototype.$tag = 22;
+_M0DTP38bobzhang8taskflow8frontend3Msg12SaveEditTask.prototype.$tag = 23;
 const _M0DTP38bobzhang8taskflow8frontend3Msg12SaveEditTask__ = new _M0DTP38bobzhang8taskflow8frontend3Msg12SaveEditTask();
 function _M0DTP38bobzhang8taskflow8frontend3Msg11TaskUpdated() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg11TaskUpdated.prototype.$tag = 23;
+_M0DTP38bobzhang8taskflow8frontend3Msg11TaskUpdated.prototype.$tag = 24;
 const _M0DTP38bobzhang8taskflow8frontend3Msg11TaskUpdated__ = new _M0DTP38bobzhang8taskflow8frontend3Msg11TaskUpdated();
 function _M0DTP38bobzhang8taskflow8frontend3Msg12ChangeStatus(param0, param1) {
   this._0 = param0;
   this._1 = param1;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg12ChangeStatus.prototype.$tag = 24;
+_M0DTP38bobzhang8taskflow8frontend3Msg12ChangeStatus.prototype.$tag = 25;
 function _M0DTP38bobzhang8taskflow8frontend3Msg13StatusChanged() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg13StatusChanged.prototype.$tag = 25;
+_M0DTP38bobzhang8taskflow8frontend3Msg13StatusChanged.prototype.$tag = 26;
 const _M0DTP38bobzhang8taskflow8frontend3Msg13StatusChanged__ = new _M0DTP38bobzhang8taskflow8frontend3Msg13StatusChanged();
 function _M0DTP38bobzhang8taskflow8frontend3Msg13RequestDelete(param0) {
   this._0 = param0;
 }
-_M0DTP38bobzhang8taskflow8frontend3Msg13RequestDelete.prototype.$tag = 26;
+_M0DTP38bobzhang8taskflow8frontend3Msg13RequestDelete.prototype.$tag = 27;
 function _M0DTP38bobzhang8taskflow8frontend3Msg12CancelDelete() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg12CancelDelete.prototype.$tag = 27;
+_M0DTP38bobzhang8taskflow8frontend3Msg12CancelDelete.prototype.$tag = 28;
 const _M0DTP38bobzhang8taskflow8frontend3Msg12CancelDelete__ = new _M0DTP38bobzhang8taskflow8frontend3Msg12CancelDelete();
 function _M0DTP38bobzhang8taskflow8frontend3Msg13ConfirmDelete() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg13ConfirmDelete.prototype.$tag = 28;
+_M0DTP38bobzhang8taskflow8frontend3Msg13ConfirmDelete.prototype.$tag = 29;
 const _M0DTP38bobzhang8taskflow8frontend3Msg13ConfirmDelete__ = new _M0DTP38bobzhang8taskflow8frontend3Msg13ConfirmDelete();
 function _M0DTP38bobzhang8taskflow8frontend3Msg11TaskDeleted() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg11TaskDeleted.prototype.$tag = 29;
+_M0DTP38bobzhang8taskflow8frontend3Msg11TaskDeleted.prototype.$tag = 30;
 const _M0DTP38bobzhang8taskflow8frontend3Msg11TaskDeleted__ = new _M0DTP38bobzhang8taskflow8frontend3Msg11TaskDeleted();
 function _M0DTP38bobzhang8taskflow8frontend3Msg12DismissError() {}
-_M0DTP38bobzhang8taskflow8frontend3Msg12DismissError.prototype.$tag = 30;
+_M0DTP38bobzhang8taskflow8frontend3Msg12DismissError.prototype.$tag = 31;
 const _M0DTP38bobzhang8taskflow8frontend3Msg12DismissError__ = new _M0DTP38bobzhang8taskflow8frontend3Msg12DismissError();
 function _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared5BoardsE3Err(param0) {
   this._0 = param0;
@@ -1208,7 +1212,7 @@ function _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared5BoardsE2Ok(param0) 
   this._0 = param0;
 }
 _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared5BoardsE2Ok.prototype.$tag = 1;
-function _M0TP38bobzhang8taskflow8frontend5Model(param0, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15, param16, param17, param18, param19, param20, param21) {
+function _M0TP38bobzhang8taskflow8frontend5Model(param0, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15, param16, param17, param18, param19, param20, param21, param22) {
   this.tasks = param0;
   this.members = param1;
   this.today = param2;
@@ -1216,21 +1220,22 @@ function _M0TP38bobzhang8taskflow8frontend5Model(param0, param1, param2, param3,
   this.filter_assignee = param4;
   this.filter_priority = param5;
   this.search_query = param6;
-  this.adding_task = param7;
-  this.new_title = param8;
-  this.new_desc = param9;
-  this.new_priority = param10;
-  this.new_assignee = param11;
-  this.new_due_date = param12;
-  this.editing_task = param13;
-  this.edit_title = param14;
-  this.edit_desc = param15;
-  this.edit_priority = param16;
-  this.edit_assignee = param17;
-  this.edit_due_date = param18;
-  this.confirm_delete = param19;
-  this.error_msg = param20;
-  this.loading = param21;
+  this.view_mode = param7;
+  this.adding_task = param8;
+  this.new_title = param9;
+  this.new_desc = param10;
+  this.new_priority = param11;
+  this.new_assignee = param12;
+  this.new_due_date = param13;
+  this.editing_task = param14;
+  this.edit_title = param15;
+  this.edit_desc = param16;
+  this.edit_priority = param17;
+  this.edit_assignee = param18;
+  this.edit_due_date = param19;
+  this.confirm_delete = param20;
+  this.error_msg = param21;
+  this.loading = param22;
 }
 function _M0TPB9ArrayViewGUsRPB4JsonEE(param0, param1, param2) {
   this.buf = param0;
@@ -14867,277 +14872,287 @@ function _M0FP38bobzhang8taskflow8frontend6update(dispatch, msg, model) {
                             _L$14: {
                               let v$8;
                               _L$15: {
-                                let q;
+                                let m;
                                 _L$16: {
-                                  let p;
+                                  let q;
                                   _L$17: {
-                                    let id$5;
+                                    let p;
                                     _L$18: {
-                                      let s;
+                                      let id$5;
                                       _L$19: {
-                                        let e$2;
+                                        let s;
                                         _L$20: {
-                                          let board;
+                                          let e$2;
                                           _L$21: {
-                                            switch (msg.$tag) {
-                                              case 0: {
-                                                return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, true) };
-                                              }
-                                              case 1: {
-                                                const _GotBoard = msg;
-                                                const _x = _GotBoard._0;
-                                                if (_x.$tag === 1) {
-                                                  const _Ok = _x;
-                                                  const _board = _Ok._0;
-                                                  board = _board;
-                                                  break _L$21;
-                                                } else {
-                                                  const _Err = _x;
-                                                  const _e = _Err._0;
-                                                  e$2 = _e;
+                                            let board;
+                                            _L$22: {
+                                              switch (msg.$tag) {
+                                                case 0: {
+                                                  return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, true) };
+                                                }
+                                                case 1: {
+                                                  const _GotBoard = msg;
+                                                  const _x = _GotBoard._0;
+                                                  if (_x.$tag === 1) {
+                                                    const _Ok = _x;
+                                                    const _board = _Ok._0;
+                                                    board = _board;
+                                                    break _L$22;
+                                                  } else {
+                                                    const _Err = _x;
+                                                    const _e = _Err._0;
+                                                    e$2 = _e;
+                                                    break _L$21;
+                                                  }
+                                                }
+                                                case 2: {
+                                                  const _SetFilterStatus = msg;
+                                                  const _s = _SetFilterStatus._0;
+                                                  s = _s;
                                                   break _L$20;
                                                 }
-                                              }
-                                              case 2: {
-                                                const _SetFilterStatus = msg;
-                                                const _s = _SetFilterStatus._0;
-                                                s = _s;
-                                                break _L$19;
-                                              }
-                                              case 3: {
-                                                const _SetFilterAssignee = msg;
-                                                const _id = _SetFilterAssignee._0;
-                                                id$5 = _id;
-                                                break _L$18;
-                                              }
-                                              case 4: {
-                                                const _SetFilterPriority = msg;
-                                                const _p = _SetFilterPriority._0;
-                                                p = _p;
-                                                break _L$17;
-                                              }
-                                              case 5: {
-                                                const _SearchChanged = msg;
-                                                const _q = _SearchChanged._0;
-                                                q = _q;
-                                                break _L$16;
-                                              }
-                                              case 6: {
-                                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, true, "", "", "medium", 0, "", model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
-                                              }
-                                              case 7: {
-                                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, false, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
-                                              }
-                                              case 8: {
-                                                const _NewTitleChanged = msg;
-                                                const _v = _NewTitleChanged._0;
-                                                v$8 = _v;
-                                                break _L$15;
-                                              }
-                                              case 9: {
-                                                const _NewDescChanged = msg;
-                                                const _v$2 = _NewDescChanged._0;
-                                                v$7 = _v$2;
-                                                break _L$14;
-                                              }
-                                              case 10: {
-                                                const _NewPriorityChanged = msg;
-                                                const _v$3 = _NewPriorityChanged._0;
-                                                v$6 = _v$3;
-                                                break _L$13;
-                                              }
-                                              case 11: {
-                                                const _NewAssigneeChanged = msg;
-                                                const _id$2 = _NewAssigneeChanged._0;
-                                                id$4 = _id$2;
-                                                break _L$12;
-                                              }
-                                              case 12: {
-                                                const _NewDueDateChanged = msg;
-                                                const _v$4 = _NewDueDateChanged._0;
-                                                v$5 = _v$4;
-                                                break _L$11;
-                                              }
-                                              case 13: {
-                                                if (!_M0FP38bobzhang8taskflow6shared21validate__task__title(model.new_title)) {
-                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                                case 3: {
+                                                  const _SetFilterAssignee = msg;
+                                                  const _id = _SetFilterAssignee._0;
+                                                  id$5 = _id;
+                                                  break _L$19;
                                                 }
-                                                const title = model.new_title;
-                                                const desc = model.new_desc;
-                                                const priority = model.new_priority;
-                                                const assignee = model.new_assignee;
-                                                const due = model.new_due_date;
-                                                const _bind = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title) }, { _0: "description", _1: _M0IPC16string6StringPB6ToJson8to__json(desc) }, { _0: "priority", _1: _M0IPC16string6StringPB6ToJson8to__json(priority) }, { _0: "assignee_id", _1: _M0IPC16double6DoublePB6ToJson8to__json(assignee + 0) }, { _0: "due_date", _1: _M0IPC16string6StringPB6ToJson8to__json(due) }];
-                                                const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGRP38bobzhang8taskflow6shared4TaskE(_M0FP38bobzhang8taskflow6shared10api__tasks, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind, 0, 5)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang8taskflow6shared4TaskE4Json((result) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg9TaskAdded(result)), (json) => {
-                                                  let _try_err;
-                                                  _L$22: {
-                                                    const _bind$2 = _M0FPC14json10from__jsonGRP38bobzhang8taskflow6shared4TaskE(json, undefined);
-                                                    let _tmp;
-                                                    if (_bind$2.$tag === 1) {
-                                                      const _ok = _bind$2;
-                                                      _tmp = _ok._0;
-                                                    } else {
-                                                      const _err = _bind$2;
-                                                      _try_err = _err._0;
-                                                      break _L$22;
-                                                    }
-                                                    return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared4TasksE2Ok(_tmp);
+                                                case 4: {
+                                                  const _SetFilterPriority = msg;
+                                                  const _p = _SetFilterPriority._0;
+                                                  p = _p;
+                                                  break _L$18;
+                                                }
+                                                case 5: {
+                                                  const _SearchChanged = msg;
+                                                  const _q = _SearchChanged._0;
+                                                  q = _q;
+                                                  break _L$17;
+                                                }
+                                                case 6: {
+                                                  const _SetViewMode = msg;
+                                                  const _m = _SetViewMode._0;
+                                                  m = _m;
+                                                  break _L$16;
+                                                }
+                                                case 7: {
+                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, true, "", "", "medium", 0, "", model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                                }
+                                                case 8: {
+                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, false, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                                }
+                                                case 9: {
+                                                  const _NewTitleChanged = msg;
+                                                  const _v = _NewTitleChanged._0;
+                                                  v$8 = _v;
+                                                  break _L$15;
+                                                }
+                                                case 10: {
+                                                  const _NewDescChanged = msg;
+                                                  const _v$2 = _NewDescChanged._0;
+                                                  v$7 = _v$2;
+                                                  break _L$14;
+                                                }
+                                                case 11: {
+                                                  const _NewPriorityChanged = msg;
+                                                  const _v$3 = _NewPriorityChanged._0;
+                                                  v$6 = _v$3;
+                                                  break _L$13;
+                                                }
+                                                case 12: {
+                                                  const _NewAssigneeChanged = msg;
+                                                  const _id$2 = _NewAssigneeChanged._0;
+                                                  id$4 = _id$2;
+                                                  break _L$12;
+                                                }
+                                                case 13: {
+                                                  const _NewDueDateChanged = msg;
+                                                  const _v$4 = _NewDueDateChanged._0;
+                                                  v$5 = _v$4;
+                                                  break _L$11;
+                                                }
+                                                case 14: {
+                                                  if (!_M0FP38bobzhang8taskflow6shared21validate__task__title(model.new_title)) {
+                                                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
                                                   }
-                                                  return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared4TasksE3Err("Failed to decode task");
-                                                }));
-                                                return { _0: cmd, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, false, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
-                                              }
-                                              case 14: {
-                                                const _TaskAdded = msg;
-                                                const _x$2 = _TaskAdded._0;
-                                                if (_x$2.$tag === 1) {
-                                                  const _Ok = _x$2;
-                                                  const _task = _Ok._0;
-                                                  task$2 = _task;
-                                                  break _L$10;
-                                                } else {
-                                                  const _Err = _x$2;
-                                                  const _e = _Err._0;
-                                                  e = _e;
-                                                  break _L$9;
+                                                  const title = model.new_title;
+                                                  const desc = model.new_desc;
+                                                  const priority = model.new_priority;
+                                                  const assignee = model.new_assignee;
+                                                  const due = model.new_due_date;
+                                                  const _bind = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title) }, { _0: "description", _1: _M0IPC16string6StringPB6ToJson8to__json(desc) }, { _0: "priority", _1: _M0IPC16string6StringPB6ToJson8to__json(priority) }, { _0: "assignee_id", _1: _M0IPC16double6DoublePB6ToJson8to__json(assignee + 0) }, { _0: "due_date", _1: _M0IPC16string6StringPB6ToJson8to__json(due) }];
+                                                  const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGRP38bobzhang8taskflow6shared4TaskE(_M0FP38bobzhang8taskflow6shared10api__tasks, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind, 0, 5)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang8taskflow6shared4TaskE4Json((result) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg9TaskAdded(result)), (json) => {
+                                                    let _try_err;
+                                                    _L$23: {
+                                                      const _bind$2 = _M0FPC14json10from__jsonGRP38bobzhang8taskflow6shared4TaskE(json, undefined);
+                                                      let _tmp;
+                                                      if (_bind$2.$tag === 1) {
+                                                        const _ok = _bind$2;
+                                                        _tmp = _ok._0;
+                                                      } else {
+                                                        const _err = _bind$2;
+                                                        _try_err = _err._0;
+                                                        break _L$23;
+                                                      }
+                                                      return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared4TasksE2Ok(_tmp);
+                                                    }
+                                                    return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared4TasksE3Err("Failed to decode task");
+                                                  }));
+                                                  return { _0: cmd, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, false, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                                                 }
-                                              }
-                                              case 15: {
-                                                const _StartEditTask = msg;
-                                                const _task = _StartEditTask._0;
-                                                task = _task;
-                                                break _L$8;
-                                              }
-                                              case 16: {
-                                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, 0, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
-                                              }
-                                              case 17: {
-                                                const _EditTitleChanged = msg;
-                                                const _v$5 = _EditTitleChanged._0;
-                                                v$4 = _v$5;
-                                                break _L$7;
-                                              }
-                                              case 18: {
-                                                const _EditDescChanged = msg;
-                                                const _v$6 = _EditDescChanged._0;
-                                                v$3 = _v$6;
-                                                break _L$6;
-                                              }
-                                              case 19: {
-                                                const _EditPriorityChanged = msg;
-                                                const _v$7 = _EditPriorityChanged._0;
-                                                v$2 = _v$7;
-                                                break _L$5;
-                                              }
-                                              case 20: {
-                                                const _EditAssigneeChanged = msg;
-                                                const _id$3 = _EditAssigneeChanged._0;
-                                                id$3 = _id$3;
-                                                break _L$4;
-                                              }
-                                              case 21: {
-                                                const _EditDueDateChanged = msg;
-                                                const _v$8 = _EditDueDateChanged._0;
-                                                v = _v$8;
-                                                break _L$3;
-                                              }
-                                              case 22: {
-                                                const id$6 = model.editing_task;
-                                                if (id$6 === 0 || !_M0FP38bobzhang8taskflow6shared21validate__task__title(model.edit_title)) {
-                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                                case 15: {
+                                                  const _TaskAdded = msg;
+                                                  const _x$2 = _TaskAdded._0;
+                                                  if (_x$2.$tag === 1) {
+                                                    const _Ok = _x$2;
+                                                    const _task = _Ok._0;
+                                                    task$2 = _task;
+                                                    break _L$10;
+                                                  } else {
+                                                    const _Err = _x$2;
+                                                    const _e = _Err._0;
+                                                    e = _e;
+                                                    break _L$9;
+                                                  }
                                                 }
-                                                const title$2 = model.edit_title;
-                                                const desc$2 = model.edit_desc;
-                                                const priority$2 = model.edit_priority;
-                                                const assignee$2 = model.edit_assignee;
-                                                const due$2 = model.edit_due_date;
-                                                const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg11TaskUpdated__));
-                                                const _tmp = _M0FP38bobzhang8taskflow6shared9api__task(id$6);
-                                                const _bind$2 = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$2) }, { _0: "description", _1: _M0IPC16string6StringPB6ToJson8to__json(desc$2) }, { _0: "priority", _1: _M0IPC16string6StringPB6ToJson8to__json(priority$2) }, { _0: "assignee_id", _1: _M0IPC16double6DoublePB6ToJson8to__json(assignee$2 + 0) }, { _0: "due_date", _1: _M0IPC16string6StringPB6ToJson8to__json(due$2) }];
-                                                const cmd$2 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 5)))), expect);
-                                                const tasks = _M0MPC15array5Array3mapGRP38bobzhang8taskflow6shared4TaskRP38bobzhang8taskflow6shared4TaskE(model.tasks, (t) => t.id === id$6 ? new _M0TP38bobzhang8taskflow6shared4Task(t.id, title$2, desc$2, t.status, priority$2, assignee$2, due$2, t.created_at) : t);
-                                                return { _0: cmd$2, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, 0, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
-                                              }
-                                              case 23: {
-                                                return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: model };
-                                              }
-                                              case 24: {
-                                                const _ChangeStatus = msg;
-                                                const _id$4 = _ChangeStatus._0;
-                                                const _new_status = _ChangeStatus._1;
-                                                id$2 = _id$4;
-                                                new_status = _new_status;
-                                                break _L$2;
-                                              }
-                                              case 25: {
-                                                return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: model };
-                                              }
-                                              case 26: {
-                                                const _RequestDelete = msg;
-                                                const _id$5 = _RequestDelete._0;
-                                                id = _id$5;
-                                                break _L;
-                                              }
-                                              case 27: {
-                                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, 0, model.error_msg, model.loading) };
-                                              }
-                                              case 28: {
-                                                const id$7 = model.confirm_delete;
-                                                if (id$7 === 0) {
-                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                                case 16: {
+                                                  const _StartEditTask = msg;
+                                                  const _task = _StartEditTask._0;
+                                                  task = _task;
+                                                  break _L$8;
                                                 }
-                                                const expect$2 = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg11TaskDeleted__));
-                                                const cmd$3 = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang8taskflow6shared9api__task(id$7), expect$2);
-                                                const tasks$2 = _M0MPC15array5Array6filterGRP38bobzhang8taskflow6shared4TaskE(model.tasks, (t) => t.id !== id$7);
-                                                return { _0: cmd$3, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks$2, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, 0, model.error_msg, model.loading) };
-                                              }
-                                              case 29: {
-                                                return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: model };
-                                              }
-                                              default: {
-                                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, "", model.loading) };
+                                                case 17: {
+                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, 0, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                                }
+                                                case 18: {
+                                                  const _EditTitleChanged = msg;
+                                                  const _v$5 = _EditTitleChanged._0;
+                                                  v$4 = _v$5;
+                                                  break _L$7;
+                                                }
+                                                case 19: {
+                                                  const _EditDescChanged = msg;
+                                                  const _v$6 = _EditDescChanged._0;
+                                                  v$3 = _v$6;
+                                                  break _L$6;
+                                                }
+                                                case 20: {
+                                                  const _EditPriorityChanged = msg;
+                                                  const _v$7 = _EditPriorityChanged._0;
+                                                  v$2 = _v$7;
+                                                  break _L$5;
+                                                }
+                                                case 21: {
+                                                  const _EditAssigneeChanged = msg;
+                                                  const _id$3 = _EditAssigneeChanged._0;
+                                                  id$3 = _id$3;
+                                                  break _L$4;
+                                                }
+                                                case 22: {
+                                                  const _EditDueDateChanged = msg;
+                                                  const _v$8 = _EditDueDateChanged._0;
+                                                  v = _v$8;
+                                                  break _L$3;
+                                                }
+                                                case 23: {
+                                                  const id$6 = model.editing_task;
+                                                  if (id$6 === 0 || !_M0FP38bobzhang8taskflow6shared21validate__task__title(model.edit_title)) {
+                                                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                                  }
+                                                  const title$2 = model.edit_title;
+                                                  const desc$2 = model.edit_desc;
+                                                  const priority$2 = model.edit_priority;
+                                                  const assignee$2 = model.edit_assignee;
+                                                  const due$2 = model.edit_due_date;
+                                                  const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg11TaskUpdated__));
+                                                  const _tmp = _M0FP38bobzhang8taskflow6shared9api__task(id$6);
+                                                  const _bind$2 = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$2) }, { _0: "description", _1: _M0IPC16string6StringPB6ToJson8to__json(desc$2) }, { _0: "priority", _1: _M0IPC16string6StringPB6ToJson8to__json(priority$2) }, { _0: "assignee_id", _1: _M0IPC16double6DoublePB6ToJson8to__json(assignee$2 + 0) }, { _0: "due_date", _1: _M0IPC16string6StringPB6ToJson8to__json(due$2) }];
+                                                  const cmd$2 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 5)))), expect);
+                                                  const tasks = _M0MPC15array5Array3mapGRP38bobzhang8taskflow6shared4TaskRP38bobzhang8taskflow6shared4TaskE(model.tasks, (t) => t.id === id$6 ? new _M0TP38bobzhang8taskflow6shared4Task(t.id, title$2, desc$2, t.status, priority$2, assignee$2, due$2, t.created_at) : t);
+                                                  return { _0: cmd$2, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, 0, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                                }
+                                                case 24: {
+                                                  return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: model };
+                                                }
+                                                case 25: {
+                                                  const _ChangeStatus = msg;
+                                                  const _id$4 = _ChangeStatus._0;
+                                                  const _new_status = _ChangeStatus._1;
+                                                  id$2 = _id$4;
+                                                  new_status = _new_status;
+                                                  break _L$2;
+                                                }
+                                                case 26: {
+                                                  return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: model };
+                                                }
+                                                case 27: {
+                                                  const _RequestDelete = msg;
+                                                  const _id$5 = _RequestDelete._0;
+                                                  id = _id$5;
+                                                  break _L;
+                                                }
+                                                case 28: {
+                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, 0, model.error_msg, model.loading) };
+                                                }
+                                                case 29: {
+                                                  const id$7 = model.confirm_delete;
+                                                  if (id$7 === 0) {
+                                                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                                  }
+                                                  const expect$2 = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg11TaskDeleted__));
+                                                  const cmd$3 = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang8taskflow6shared9api__task(id$7), expect$2);
+                                                  const tasks$2 = _M0MPC15array5Array6filterGRP38bobzhang8taskflow6shared4TaskE(model.tasks, (t) => t.id !== id$7);
+                                                  return { _0: cmd$3, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks$2, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, 0, model.error_msg, model.loading) };
+                                                }
+                                                case 30: {
+                                                  return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: model };
+                                                }
+                                                default: {
+                                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, "", model.loading) };
+                                                }
                                               }
                                             }
+                                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(board.tasks, board.members, board.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, false) };
                                           }
-                                          return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(board.tasks, board.members, board.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, false) };
+                                          return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, e$2, false) };
                                         }
-                                        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, e$2, false) };
+                                        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, s, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                                       }
-                                      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, s, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, id$5, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                                     }
-                                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, id$5, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, p, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                                   }
-                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, p, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, q, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                                 }
-                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, q, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, m, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                               }
-                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, v$8, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, v$8, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                             }
-                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, v$7, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, v$7, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                           }
-                          return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, v$6, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                          return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, v$6, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                         }
-                        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, id$4, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, id$4, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                       }
-                      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, v$5, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, v$5, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                     }
                     const tasks = _M0MPC15array5Array4copyGRP38bobzhang8taskflow6shared4TaskE(model.tasks);
                     _M0MPC15array5Array4pushGRP38bobzhang8taskflow6shared4TaskE(tasks, task$2);
-                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
                   }
-                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, e, model.loading) };
+                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, e, model.loading) };
                 }
-                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, task.id, task.title, task.description, task.priority, task.assignee_id, task.due_date, model.confirm_delete, model.error_msg, model.loading) };
+                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, task.id, task.title, task.description, task.priority, task.assignee_id, task.due_date, model.confirm_delete, model.error_msg, model.loading) };
               }
-              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, v$4, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, v$4, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
             }
-            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, v$3, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, v$3, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
           }
-          return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, v$2, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+          return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, v$2, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
         }
-        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, id$3, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, id$3, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
       }
-      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, v, model.confirm_delete, model.error_msg, model.loading) };
+      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, v, model.confirm_delete, model.error_msg, model.loading) };
     }
     const current_status = new _M0TPC13ref3RefGsE("");
     const _bind = model.tasks;
@@ -15165,15 +15180,25 @@ function _M0FP38bobzhang8taskflow8frontend6update(dispatch, msg, model) {
     const _bind$3 = [{ _0: "status", _1: _M0IPC16string6StringPB6ToJson8to__json(new_status) }];
     const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp$2, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$3, 0, 1)))), expect);
     const tasks = _M0MPC15array5Array3mapGRP38bobzhang8taskflow6shared4TaskRP38bobzhang8taskflow6shared4TaskE(model.tasks, (t) => t.id === id$2 ? new _M0TP38bobzhang8taskflow6shared4Task(t.id, t.title, t.description, new_status, t.priority, t.assignee_id, t.due_date, t.created_at) : t);
-    return { _0: cmd, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
+    return { _0: cmd, _1: new _M0TP38bobzhang8taskflow8frontend5Model(tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.confirm_delete, model.error_msg, model.loading) };
   }
-  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, id, model.error_msg, model.loading) };
+  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.tasks, model.members, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.view_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, id, model.error_msg, model.loading) };
 }
 function _M0FP38bobzhang8taskflow8frontend12view__header(dispatch, model) {
   const pct = _M0FP38bobzhang8taskflow6shared19completion__percent(model.tasks);
   const total = model.tasks.length;
   const done = _M0FP38bobzhang8taskflow6shared17count__by__status(model.tasks, "done");
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)", "padding: 20px 32px", "margin-bottom: 16px", "border-radius: 12px", "display: flex", "justify-content: space-between", "align-items: center"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE([], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html10h1_2einnerGsE(["color: white", "font-size: 22px", "font-weight: 700", "letter-spacing: -0.3px", "margin-bottom: 4px"], undefined, undefined, undefined, -1, undefined, undefined, "TaskFlow"), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["color: rgba(255,255,255,0.8)", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(`${_M0IP016_24default__implPB4Show10to__stringGiE(pct)}% complete`), _M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["margin-left: 12px", "color: rgba(255,255,255,0.6)"], undefined, undefined, undefined, -1, undefined, `${_M0IP016_24default__implPB4Show10to__stringGiE(done)}/${_M0IP016_24default__implPB4Show10to__stringGiE(total)} tasks done`)])]), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "align-items: center", "gap: 12px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["width: 120px", "height: 6px", "background: rgba(255,255,255,0.2)", "border-radius: 3px", "overflow: hidden"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE([`width: ${_M0IP016_24default__implPB4Show10to__stringGiE(pct)}%`, "height: 100%", "background: #a5f3fc", "border-radius: 3px", "transition: width 0.3s"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("")])]), model.adding_task ? _M0FP319moonbit_2dcommunity7rabbita4html4text("") : _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 8px 16px", "background: rgba(255,255,255,0.2)", "color: white", "border: 1px solid rgba(255,255,255,0.3)", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg11ShowAddTask__), undefined, "+ New Task")])]);
+  const _tmp = ["background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)", "padding: 20px 32px", "margin-bottom: 16px", "border-radius: 12px", "display: flex", "justify-content: space-between", "align-items: center"];
+  const _tmp$2 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE([], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html10h1_2einnerGsE(["color: white", "font-size: 22px", "font-weight: 700", "letter-spacing: -0.3px", "margin-bottom: 4px"], undefined, undefined, undefined, -1, undefined, undefined, "TaskFlow"), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["color: rgba(255,255,255,0.8)", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(`${_M0IP016_24default__implPB4Show10to__stringGiE(pct)}% complete`), _M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["margin-left: 12px", "color: rgba(255,255,255,0.6)"], undefined, undefined, undefined, -1, undefined, `${_M0IP016_24default__implPB4Show10to__stringGiE(done)}/${_M0IP016_24default__implPB4Show10to__stringGiE(total)} tasks done`)])]);
+  const _tmp$3 = ["display: flex", "align-items: center", "gap: 12px"];
+  const _tmp$4 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["width: 120px", "height: 6px", "background: rgba(255,255,255,0.2)", "border-radius: 3px", "overflow: hidden"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE([`width: ${_M0IP016_24default__implPB4Show10to__stringGiE(pct)}%`, "height: 100%", "background: #a5f3fc", "border-radius: 3px", "transition: width 0.3s"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("")])]);
+  const _tmp$5 = ["display: flex", "gap: 2px"];
+  const is_list = model.view_mode === "list";
+  const bg = is_list ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.1)";
+  const _tmp$6 = _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 6px 10px", "border: none", "cursor: pointer", "font-size: 12px", "color: white", "border-radius: 4px 0 0 4px", `background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg11SetViewMode("list")), undefined, "List");
+  const is_board = model.view_mode === "kanban";
+  const bg$2 = is_board ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.1)";
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$3, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$4, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$5, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$6, _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 6px 10px", "border: none", "cursor: pointer", "font-size: 12px", "color: white", "border-radius: 0 4px 4px 0", `background: ${_M0IPC16string6StringPB4Show10to__string(bg$2)}`], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg11SetViewMode("kanban")), undefined, "Board")]), model.adding_task ? _M0FP319moonbit_2dcommunity7rabbita4html4text("") : _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 8px 16px", "background: rgba(255,255,255,0.2)", "color: white", "border: 1px solid rgba(255,255,255,0.3)", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg11ShowAddTask__), undefined, "+ New Task")])]);
 }
 function _M0FP38bobzhang8taskflow8frontend13view__filters(dispatch, model) {
   const _tmp = ["display: flex", "gap: 16px", "margin-bottom: 16px", "flex-wrap: wrap", "align-items: center", "padding: 12px 16px", "background: white", "border-radius: 10px", "border: 1px solid #e2e8f0"];
@@ -15343,6 +15368,96 @@ function _M0FP38bobzhang8taskflow8frontend16view__task__item(dispatch, model, ta
     return _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 8px", "border-radius: 4px", "border: none", "cursor: pointer", "font-size: 10px", "color: white", `background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg12ChangeStatus(task.id, target)), undefined, label);
   })), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 3px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #e2e8f0", "background: #f8fafc", "color: #64748b"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg13StartEditTask(task)), undefined, "Edit"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg13RequestDelete(task.id)), undefined, "Del")])])]);
 }
+function _M0FP38bobzhang8taskflow8frontend18view__kanban__card(dispatch, model, task) {
+  if (model.editing_task === task.id) {
+    return _M0FP38bobzhang8taskflow8frontend22view__edit__task__form(dispatch, model);
+  }
+  const border_color = _M0FP38bobzhang8taskflow6shared15priority__color(task.priority);
+  const is_done = task.status === "done";
+  const title_color = is_done ? "#94a3b8" : "#1e293b";
+  const title_decoration = is_done ? "line-through" : "none";
+  const transitions = _M0FP38bobzhang8taskflow6shared20allowed__transitions(task.status);
+  let assignee_html;
+  let m;
+  _L: {
+    _L$2: {
+      const _bind = _M0FP38bobzhang8taskflow6shared12find__member(model.members, task.assignee_id);
+      if (_bind === undefined) {
+        assignee_html = _M0FP319moonbit_2dcommunity7rabbita4html4text("");
+      } else {
+        const _Some = _bind;
+        const _m = _Some;
+        m = _m;
+        break _L$2;
+      }
+      break _L;
+    }
+    const bg = _M0FP38bobzhang8taskflow6shared13member__color(m.color);
+    const initial = _M0FP38bobzhang8taskflow6shared15member__initial(m.name);
+    assignee_html = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["width: 20px", "height: 20px", "border-radius: 50%", "display: flex", "align-items: center", "justify-content: center", "font-size: 9px", "color: white", "font-weight: 600", `background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(initial)]);
+  }
+  const _tmp = ["background: white", "border-radius: 6px", "padding: 10px", "margin-bottom: 6px", `border-left: 3px solid ${_M0IPC16string6StringPB4Show10to__string(border_color)}`, "box-shadow: 0 1px 2px rgba(0,0,0,0.05)"];
+  const _tmp$2 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "justify-content: space-between", "align-items: flex-start", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 12px", "font-weight: 500", `color: ${_M0IPC16string6StringPB4Show10to__string(title_color)}`, `text-decoration: ${_M0IPC16string6StringPB4Show10to__string(title_decoration)}`, "flex: 1", "line-height: 1.4"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(task.title)]), assignee_html]);
+  let _tmp$3;
+  if (_M0IP016_24default__implPB2Eq10not__equalGsE(task.due_date, "")) {
+    const urgency = _M0FP38bobzhang8taskflow6shared14urgency__label(task.due_date, model.today);
+    let due_color;
+    switch (urgency) {
+      case "Overdue": {
+        due_color = "#ef4444";
+        break;
+      }
+      case "Due today": {
+        due_color = "#f97316";
+        break;
+      }
+      default: {
+        due_color = "#94a3b8";
+      }
+    }
+    _tmp$3 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 10px", `color: ${_M0IPC16string6StringPB4Show10to__string(due_color)}`, "margin-top: 4px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(task.due_date)]);
+  } else {
+    _tmp$3 = _M0FP319moonbit_2dcommunity7rabbita4html4text("");
+  }
+  const _tmp$4 = _tmp$3;
+  const _tmp$5 = ["display: flex", "gap: 2px", "margin-top: 6px", "flex-wrap: wrap"];
+  const buttons = _M0MPC15array5Array3mapGsRP319moonbit_2dcommunity7rabbita4html4HtmlE(transitions, (target) => {
+    const label = _M0FP38bobzhang8taskflow6shared17transition__label(task.status, target);
+    const bg = _M0FP38bobzhang8taskflow6shared13status__color(target);
+    return _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 1px 6px", "border-radius: 3px", "border: none", "cursor: pointer", "font-size: 9px", "color: white", `background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg12ChangeStatus(task.id, target)), undefined, label);
+  });
+  _M0MPC15array5Array4pushGRP38bobzhang8taskflow6shared4TaskE(buttons, _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 1px 6px", "font-size: 9px", "cursor: pointer", "border-radius: 3px", "border: 1px solid #e2e8f0", "background: #f8fafc", "color: #94a3b8"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg13StartEditTask(task)), undefined, "Edit"));
+  _M0MPC15array5Array4pushGRP38bobzhang8taskflow6shared4TaskE(buttons, _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 1px 6px", "font-size: 9px", "cursor: pointer", "border-radius: 3px", "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg13RequestDelete(task.id)), undefined, "Del"));
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _tmp$4, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$5, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, buttons)]);
+}
+function _M0FP38bobzhang8taskflow8frontend12view__kanban(dispatch, model, tasks) {
+  const column_statuses = ["todo", "in_progress", "review", "done", "blocked"];
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 12px", "overflow-x: auto", "padding-bottom: 8px", "min-height: 400px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, _M0MPC15array5Array3mapGsRP319moonbit_2dcommunity7rabbita4html4HtmlE(column_statuses, (status) => {
+    const col_tasks = _M0MPC15array5Array6filterGRP38bobzhang8taskflow6shared4TaskE(tasks, (t) => t.status === status);
+    const col_color = _M0FP38bobzhang8taskflow6shared13status__color(status);
+    const count = col_tasks.length;
+    const _tmp = ["min-width: 200px", "flex: 1", "background: #f8fafc", "border-radius: 8px", "padding: 10px", "border: 1px solid #e2e8f0"];
+    const items = [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "align-items: center", "gap: 6px", "margin-bottom: 10px", "padding-bottom: 8px", `border-bottom: 2px solid ${_M0IPC16string6StringPB4Show10to__string(col_color)}`], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["font-size: 12px", "font-weight: 600", "color: #334155"], undefined, undefined, undefined, -1, undefined, _M0FP38bobzhang8taskflow6shared13status__label(status)), _M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["font-size: 10px", "color: #94a3b8", "background: #e2e8f0", "padding: 1px 6px", "border-radius: 8px"], undefined, undefined, undefined, -1, undefined, _M0IP016_24default__implPB4Show10to__stringGiE(count))])];
+    const _bind = _M0FP38bobzhang8taskflow6shared11sort__tasks(col_tasks);
+    const _bind$2 = _bind.length;
+    let _tmp$2 = 0;
+    while (true) {
+      const _ = _tmp$2;
+      if (_ < _bind$2) {
+        const t = _bind[_];
+        _M0MPC15array5Array4pushGRP38bobzhang8taskflow6shared4TaskE(items, _M0FP38bobzhang8taskflow8frontend18view__kanban__card(dispatch, model, t));
+        _tmp$2 = _ + 1 | 0;
+        continue;
+      } else {
+        break;
+      }
+    }
+    if (count === 0) {
+      _M0MPC15array5Array4pushGRP38bobzhang8taskflow6shared4TaskE(items, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["text-align: center", "padding: 20px 0", "color: #cbd5e1", "font-size: 11px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("No tasks")]));
+    }
+    return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, items);
+  }));
+}
 function _M0FP38bobzhang8taskflow8frontend21view__delete__confirm(dispatch, model) {
   if (model.confirm_delete === 0) {
     return _M0FP319moonbit_2dcommunity7rabbita4html4text("");
@@ -15376,13 +15491,13 @@ function _M0FP38bobzhang8taskflow8frontend18view__error__toast(dispatch, model) 
 function _M0FP38bobzhang8taskflow8frontend4view(dispatch, model) {
   const filtered = _M0FP38bobzhang8taskflow6shared21filter__tasks_2einner(model.tasks, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query);
   const sorted = _M0FP38bobzhang8taskflow6shared11sort__tasks(filtered);
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["padding: 16px 24px", "min-height: 100vh", "max-width: 900px", "margin: 0 auto"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP38bobzhang8taskflow8frontend18view__error__toast(dispatch, model), _M0FP38bobzhang8taskflow8frontend21view__delete__confirm(dispatch, model), _M0FP38bobzhang8taskflow8frontend12view__header(dispatch, model), model.loading ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["text-align: center", "padding: 60px 0", "color: #94a3b8", "font-size: 15px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("Loading...")]) : _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE([], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP38bobzhang8taskflow8frontend13view__filters(dispatch, model), model.adding_task ? _M0FP38bobzhang8taskflow8frontend21view__add__task__form(dispatch, model) : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), sorted.length === 0 ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["text-align: center", "padding: 40px 0", "color: #94a3b8", "font-size: 14px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("No tasks match your filters")]) : _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "flex-direction: column"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, _M0MPC15array5Array3mapGRP38bobzhang8taskflow6shared4TaskRP319moonbit_2dcommunity7rabbita4html4HtmlE(sorted, (task) => _M0FP38bobzhang8taskflow8frontend16view__task__item(dispatch, model, task)))])]);
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["padding: 16px 24px", "min-height: 100vh", "max-width: 900px", "margin: 0 auto"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP38bobzhang8taskflow8frontend18view__error__toast(dispatch, model), _M0FP38bobzhang8taskflow8frontend21view__delete__confirm(dispatch, model), _M0FP38bobzhang8taskflow8frontend12view__header(dispatch, model), model.loading ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["text-align: center", "padding: 60px 0", "color: #94a3b8", "font-size: 15px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("Loading...")]) : _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE([], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP38bobzhang8taskflow8frontend13view__filters(dispatch, model), model.adding_task ? _M0FP38bobzhang8taskflow8frontend21view__add__task__form(dispatch, model) : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), model.view_mode === "kanban" ? _M0FP38bobzhang8taskflow8frontend12view__kanban(dispatch, model, sorted) : sorted.length === 0 ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["text-align: center", "padding: 40px 0", "color: #94a3b8", "font-size: 14px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("No tasks match your filters")]) : _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "flex-direction: column"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, _M0MPC15array5Array3mapGRP38bobzhang8taskflow6shared4TaskRP319moonbit_2dcommunity7rabbita4html4HtmlE(sorted, (task) => _M0FP38bobzhang8taskflow8frontend16view__task__item(dispatch, model, task)))])]);
 }
 (() => {
   let dispatch;
   let app_cell;
   _L: {
-    const _bind = _M0FP219moonbit_2dcommunity7rabbita20cell__with__dispatchGRP38bobzhang8taskflow8frontend5ModelRP38bobzhang8taskflow8frontend3MsgE(new _M0TP38bobzhang8taskflow8frontend5Model([], [], "", "", 0, "", "", false, "", "", "medium", 0, "", 0, "", "", "", 0, "", 0, "", false), _M0FP38bobzhang8taskflow8frontend6update, _M0FP38bobzhang8taskflow8frontend4view);
+    const _bind = _M0FP219moonbit_2dcommunity7rabbita20cell__with__dispatchGRP38bobzhang8taskflow8frontend5ModelRP38bobzhang8taskflow8frontend3MsgE(new _M0TP38bobzhang8taskflow8frontend5Model([], [], "", "", 0, "", "", "list", false, "", "", "medium", 0, "", 0, "", "", "", 0, "", 0, "", false), _M0FP38bobzhang8taskflow8frontend6update, _M0FP38bobzhang8taskflow8frontend4view);
     const _dispatch = _bind._0;
     const _app_cell = _bind._1;
     dispatch = _dispatch;

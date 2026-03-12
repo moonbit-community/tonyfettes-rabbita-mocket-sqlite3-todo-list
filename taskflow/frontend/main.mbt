@@ -9,6 +9,7 @@ struct Model {
   filter_assignee : Int
   filter_priority : String
   search_query : String
+  view_mode : String
   // Task creation
   adding_task : Bool
   new_title : String
@@ -41,6 +42,7 @@ enum Msg {
   SetFilterAssignee(Int)
   SetFilterPriority(String)
   SearchChanged(String)
+  SetViewMode(String)
   // Task creation
   ShowAddTask
   HideAddTask
@@ -113,6 +115,7 @@ fn update(
     SetFilterAssignee(id) => (@rabbita.none, { ..model, filter_assignee: id })
     SetFilterPriority(p) => (@rabbita.none, { ..model, filter_priority: p })
     SearchChanged(q) => (@rabbita.none, { ..model, search_query: q })
+    SetViewMode(m) => (@rabbita.none, { ..model, view_mode: m })
     // ---- Task creation ----
     ShowAddTask =>
       (
@@ -319,7 +322,7 @@ fn view_header(
           ),
         ]),
       ]),
-      // Progress bar
+      // Progress bar + controls
       @html.div(style=["display: flex", "align-items: center", "gap: 12px"], [
         @html.div(
           style=[
@@ -339,6 +342,51 @@ fn view_header(
             ),
           ],
         ),
+        // View mode toggle
+        @html.div(style=["display: flex", "gap: 2px"], [
+          {
+            let is_list = model.view_mode == "list"
+            let bg = if is_list {
+              "rgba(255,255,255,0.3)"
+            } else {
+              "rgba(255,255,255,0.1)"
+            }
+            @html.button(
+              on_click=dispatch(SetViewMode("list")),
+              style=[
+                "padding: 6px 10px",
+                "border: none",
+                "cursor: pointer",
+                "font-size: 12px",
+                "color: white",
+                "border-radius: 4px 0 0 4px",
+                "background: \{bg}",
+              ],
+              "List",
+            )
+          },
+          {
+            let is_board = model.view_mode == "kanban"
+            let bg = if is_board {
+              "rgba(255,255,255,0.3)"
+            } else {
+              "rgba(255,255,255,0.1)"
+            }
+            @html.button(
+              on_click=dispatch(SetViewMode("kanban")),
+              style=[
+                "padding: 6px 10px",
+                "border: none",
+                "cursor: pointer",
+                "font-size: 12px",
+                "color: white",
+                "border-radius: 0 4px 4px 0",
+                "background: \{bg}",
+              ],
+              "Board",
+            )
+          },
+        ]),
         if model.adding_task {
           @html.text("")
         } else {
@@ -1047,6 +1095,210 @@ fn view_task_item(
 }
 
 ///|
+/// Render a compact task card for the kanban board column.
+fn view_kanban_card(
+  dispatch : @rabbita.Dispatch[Msg],
+  model : Model,
+  task : @shared.Task,
+) -> @rabbita.Html {
+  if model.editing_task == task.id {
+    return view_edit_task_form(dispatch, model)
+  }
+  let border_color = @shared.priority_color(task.priority)
+  let is_done = task.status == "done"
+  let title_color = if is_done { "#94a3b8" } else { "#1e293b" }
+  let title_decoration = if is_done { "line-through" } else { "none" }
+  let transitions = @shared.allowed_transitions(task.status)
+  // Assignee avatar
+  let assignee_html = match
+    @shared.find_member(model.members, task.assignee_id) {
+    Some(m) => {
+      let bg = @shared.member_color(m.color)
+      let initial = @shared.member_initial(m.name)
+      @html.div(
+        style=[
+          "width: 20px",
+          "height: 20px",
+          "border-radius: 50%",
+          "display: flex",
+          "align-items: center",
+          "justify-content: center",
+          "font-size: 9px",
+          "color: white",
+          "font-weight: 600",
+          "background: \{bg}",
+        ],
+        [@html.text(initial)],
+      )
+    }
+    None => @html.text("")
+  }
+  @html.div(
+    style=[
+      "background: white",
+      "border-radius: 6px",
+      "padding: 10px",
+      "margin-bottom: 6px",
+      "border-left: 3px solid \{border_color}",
+      "box-shadow: 0 1px 2px rgba(0,0,0,0.05)",
+    ],
+    [
+      // Title + assignee
+      @html.div(
+        style=[
+          "display: flex", "justify-content: space-between", "align-items: flex-start",
+          "gap: 6px",
+        ],
+        [
+          @html.div(
+            style=[
+              "font-size: 12px",
+              "font-weight: 500",
+              "color: \{title_color}",
+              "text-decoration: \{title_decoration}",
+              "flex: 1",
+              "line-height: 1.4",
+            ],
+            [@html.text(task.title)],
+          ),
+          assignee_html,
+        ],
+      ),
+      // Due date
+      if task.due_date != "" {
+        let urgency = @shared.urgency_label(task.due_date, model.today)
+        let due_color = match urgency {
+          "Overdue" => "#ef4444"
+          "Due today" => "#f97316"
+          _ => "#94a3b8"
+        }
+        @html.div(
+          style=["font-size: 10px", "color: \{due_color}", "margin-top: 4px"],
+          [@html.text(task.due_date)],
+        )
+      } else {
+        @html.text("")
+      },
+      // Action buttons
+      @html.div(
+        style=[
+          "display: flex", "gap: 2px", "margin-top: 6px", "flex-wrap: wrap",
+        ],
+        {
+          let buttons : Array[@rabbita.Html] = transitions.map(fn(target) {
+            let label = @shared.transition_label(task.status, target)
+            let bg = @shared.status_color(target)
+            @html.button(
+              on_click=dispatch(ChangeStatus(task.id, target)),
+              style=[
+                "padding: 1px 6px",
+                "border-radius: 3px",
+                "border: none",
+                "cursor: pointer",
+                "font-size: 9px",
+                "color: white",
+                "background: \{bg}",
+              ],
+              label,
+            )
+          })
+          buttons.push(
+            @html.button(
+              on_click=dispatch(StartEditTask(task)),
+              style=[
+                "padding: 1px 6px", "font-size: 9px", "cursor: pointer", "border-radius: 3px",
+                "border: 1px solid #e2e8f0", "background: #f8fafc", "color: #94a3b8",
+              ],
+              "Edit",
+            ),
+          )
+          buttons.push(
+            @html.button(
+              on_click=dispatch(RequestDelete(task.id)),
+              style=[
+                "padding: 1px 6px", "font-size: 9px", "cursor: pointer", "border-radius: 3px",
+                "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626",
+              ],
+              "Del",
+            ),
+          )
+          buttons
+        },
+      ),
+    ],
+  )
+}
+
+///|
+/// Render the kanban board with tasks grouped by status columns.
+fn view_kanban(
+  dispatch : @rabbita.Dispatch[Msg],
+  model : Model,
+  tasks : Array[@shared.Task],
+) -> @rabbita.Html {
+  let column_statuses = ["todo", "in_progress", "review", "done", "blocked"]
+  @html.div(
+    style=[
+      "display: flex", "gap: 12px", "overflow-x: auto", "padding-bottom: 8px", "min-height: 400px",
+    ],
+    column_statuses.map(fn(status) {
+      let col_tasks = tasks.filter(fn(t) { t.status == status })
+      let col_color = @shared.status_color(status)
+      let count = col_tasks.length()
+      @html.div(
+        style=[
+          "min-width: 200px", "flex: 1", "background: #f8fafc", "border-radius: 8px",
+          "padding: 10px", "border: 1px solid #e2e8f0",
+        ],
+        {
+          let items : Array[@rabbita.Html] = [
+            @html.div(
+              style=[
+                "display: flex",
+                "align-items: center",
+                "gap: 6px",
+                "margin-bottom: 10px",
+                "padding-bottom: 8px",
+                "border-bottom: 2px solid \{col_color}",
+              ],
+              [
+                @html.span(
+                  style=[
+                    "font-size: 12px", "font-weight: 600", "color: #334155",
+                  ],
+                  @shared.status_label(status),
+                ),
+                @html.span(
+                  style=[
+                    "font-size: 10px", "color: #94a3b8", "background: #e2e8f0", "padding: 1px 6px",
+                    "border-radius: 8px",
+                  ],
+                  "\{count}",
+                ),
+              ],
+            ),
+          ]
+          for t in @shared.sort_tasks(col_tasks) {
+            items.push(view_kanban_card(dispatch, model, t))
+          }
+          if count == 0 {
+            items.push(
+              @html.div(
+                style=[
+                  "text-align: center", "padding: 20px 0", "color: #cbd5e1", "font-size: 11px",
+                ],
+                [@html.text("No tasks")],
+              ),
+            )
+          }
+          items
+        },
+      )
+    }),
+  )
+}
+
+///|
 /// Render the delete confirmation dialog overlay.
 fn view_delete_confirm(
   dispatch : @rabbita.Dispatch[Msg],
@@ -1179,7 +1431,9 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
           } else {
             @html.text("")
           },
-          if sorted.length() == 0 {
+          if model.view_mode == "kanban" {
+            view_kanban(dispatch, model, sorted)
+          } else if sorted.length() == 0 {
             @html.div(
               style=[
                 "text-align: center", "padding: 40px 0", "color: #94a3b8", "font-size: 14px",
@@ -1209,6 +1463,7 @@ fn main {
       filter_assignee: 0,
       filter_priority: "",
       search_query: "",
+      view_mode: "list",
       adding_task: false,
       new_title: "",
       new_desc: "",

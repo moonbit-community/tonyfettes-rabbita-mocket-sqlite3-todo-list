@@ -28,6 +28,16 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   )
   s2.step_once()
   s2.finalize()
+  // Indexes for common query patterns
+  let idx_stmts = [
+    "CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status)", "CREATE INDEX IF NOT EXISTS idx_tasks_assignee ON tasks(assignee_id)",
+    "CREATE INDEX IF NOT EXISTS idx_tasks_due ON tasks(due_date)",
+  ]
+  for sql in idx_stmts {
+    let s = conn.prepare(sql)
+    s.step_once()
+    s.finalize()
+  }
   // Seed default members if table is empty
   let check = conn.prepare("SELECT COUNT(*) FROM members")
   guard check.step()
