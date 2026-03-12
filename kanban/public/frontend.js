@@ -9952,18 +9952,18 @@ function _M0MPC13set3Set9to__arrayGRP419moonbit_2dcommunity7rabbita8internal7run
   }
   return arr;
 }
-function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_107, _x_108) {
-  const _de_columns_110 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4None__);
-  const _de_cards_109 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared4CardEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4None__);
+function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_119, _x_120) {
+  const _de_columns_122 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4None__);
+  const _de_cards_121 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared4CardEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4None__);
   let _map;
   _L: {
-    if (_x_107.$tag === 6) {
-      const _Object = _x_107;
+    if (_x_119.$tag === 6) {
+      const _Object = _x_119;
       const __map = _Object._0;
       _map = __map;
       break _L;
     } else {
-      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_108, _1: "Expected object to deserialize Board" }));
+      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_120, _1: "Expected object to deserialize Board" }));
     }
   }
   let _v;
@@ -9979,7 +9979,7 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_107
       }
       break _L$2;
     }
-    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared6ColumnE(_v, _M0MPC14json8JsonPath8add__key(_x_108, "columns"));
+    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared6ColumnE(_v, _M0MPC14json8JsonPath8add__key(_x_120, "columns"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -9987,7 +9987,7 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_107
     } else {
       return _bind;
     }
-    _de_columns_110.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4Some(_tmp);
+    _de_columns_122.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4Some(_tmp);
   }
   let _v$2;
   _L$3: {
@@ -10002,7 +10002,7 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_107
       }
       break _L$3;
     }
-    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared4CardE(_v$2, _M0MPC14json8JsonPath8add__key(_x_108, "cards"));
+    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared4CardE(_v$2, _M0MPC14json8JsonPath8add__key(_x_120, "cards"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10010,41 +10010,41 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_107
     } else {
       return _bind;
     }
-    _de_cards_109.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4Some(_tmp);
+    _de_cards_121.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4Some(_tmp);
   }
-  let _de_columns_110$2;
-  const _bind = _de_columns_110.val;
+  let _de_columns_122$2;
+  const _bind = _de_columns_122.val;
   if (_bind.$tag === 1) {
     const _Some = _bind;
     const _v$3 = _Some._0;
-    _de_columns_110$2 = _v$3;
+    _de_columns_122$2 = _v$3;
   } else {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_108, _1: "Missing field columns" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_120, _1: "Missing field columns" }));
   }
-  let _de_cards_109$2;
-  const _bind$2 = _de_cards_109.val;
+  let _de_cards_121$2;
+  const _bind$2 = _de_cards_121.val;
   if (_bind$2.$tag === 1) {
     const _Some = _bind$2;
     const _v$3 = _Some._0;
-    _de_cards_109$2 = _v$3;
+    _de_cards_121$2 = _v$3;
   } else {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_108, _1: "Missing field cards" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_120, _1: "Missing field cards" }));
   }
-  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared5Board(_de_columns_110$2, _de_cards_109$2));
+  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared5Board(_de_columns_122$2, _de_cards_121$2));
 }
-function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_80, _x_81) {
-  const _de_title_84 = new _M0TPC13ref3RefGOsE(undefined);
-  const _de_position_83 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_id_82 = new _M0TPC13ref3RefGOiE(undefined);
+function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88, _x_89) {
+  const _de_title_92 = new _M0TPC13ref3RefGOsE(undefined);
+  const _de_position_91 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_id_90 = new _M0TPC13ref3RefGOiE(undefined);
   let _map;
   _L: {
-    if (_x_80.$tag === 6) {
-      const _Object = _x_80;
+    if (_x_88.$tag === 6) {
+      const _Object = _x_88;
       const __map = _Object._0;
       _map = __map;
       break _L;
     } else {
-      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_81, _1: "Expected object to deserialize Column" }));
+      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Expected object to deserialize Column" }));
     }
   }
   let _v;
@@ -10060,7 +10060,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_80
       }
       break _L$2;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_81, "id"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_89, "id"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10068,7 +10068,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_80
     } else {
       return _bind;
     }
-    _de_id_82.val = _tmp;
+    _de_id_90.val = _tmp;
   }
   let _v$2;
   _L$3: {
@@ -10083,7 +10083,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_80
       }
       break _L$3;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_81, "title"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_89, "title"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10091,7 +10091,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_80
     } else {
       return _bind;
     }
-    _de_title_84.val = _tmp;
+    _de_title_92.val = _tmp;
   }
   let _v$3;
   _L$4: {
@@ -10106,7 +10106,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_80
       }
       break _L$4;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_81, "position"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_89, "position"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10114,53 +10114,53 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_80
     } else {
       return _bind;
     }
-    _de_position_83.val = _tmp;
+    _de_position_91.val = _tmp;
   }
-  let _de_title_84$2;
-  const _bind = _de_title_84.val;
+  let _de_title_92$2;
+  const _bind = _de_title_92.val;
   if (_bind === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_81, _1: "Missing field title" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Missing field title" }));
   } else {
     const _Some = _bind;
     const _v$4 = _Some;
-    _de_title_84$2 = _v$4;
+    _de_title_92$2 = _v$4;
   }
-  let _de_position_83$2;
-  const _bind$2 = _de_position_83.val;
+  let _de_position_91$2;
+  const _bind$2 = _de_position_91.val;
   if (_bind$2 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_81, _1: "Missing field position" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Missing field position" }));
   } else {
     const _Some = _bind$2;
     const _v$4 = _Some;
-    _de_position_83$2 = _v$4;
+    _de_position_91$2 = _v$4;
   }
-  let _de_id_82$2;
-  const _bind$3 = _de_id_82.val;
+  let _de_id_90$2;
+  const _bind$3 = _de_id_90.val;
   if (_bind$3 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_81, _1: "Missing field id" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Missing field id" }));
   } else {
     const _Some = _bind$3;
     const _v$4 = _Some;
-    _de_id_82$2 = _v$4;
+    _de_id_90$2 = _v$4;
   }
-  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared6Column(_de_id_82$2, _de_title_84$2, _de_position_83$2));
+  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared6Column(_de_id_90$2, _de_title_92$2, _de_position_91$2));
 }
-function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, _x_39) {
-  const _de_title_45 = new _M0TPC13ref3RefGOsE(undefined);
-  const _de_position_44 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_id_43 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_description_42 = new _M0TPC13ref3RefGOsE(undefined);
-  const _de_column_id_41 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_color_40 = new _M0TPC13ref3RefGOsE(undefined);
+function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, _x_43) {
+  const _de_title_49 = new _M0TPC13ref3RefGOsE(undefined);
+  const _de_position_48 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_id_47 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_description_46 = new _M0TPC13ref3RefGOsE(undefined);
+  const _de_column_id_45 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_color_44 = new _M0TPC13ref3RefGOsE(undefined);
   let _map;
   _L: {
-    if (_x_38.$tag === 6) {
-      const _Object = _x_38;
+    if (_x_42.$tag === 6) {
+      const _Object = _x_42;
       const __map = _Object._0;
       _map = __map;
       break _L;
     } else {
-      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_39, _1: "Expected object to deserialize Card" }));
+      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Expected object to deserialize Card" }));
     }
   }
   let _v;
@@ -10176,7 +10176,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
       }
       break _L$2;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_39, "id"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_43, "id"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10184,7 +10184,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
     } else {
       return _bind;
     }
-    _de_id_43.val = _tmp;
+    _de_id_47.val = _tmp;
   }
   let _v$2;
   _L$3: {
@@ -10199,7 +10199,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
       }
       break _L$3;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_39, "column_id"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_43, "column_id"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10207,7 +10207,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
     } else {
       return _bind;
     }
-    _de_column_id_41.val = _tmp;
+    _de_column_id_45.val = _tmp;
   }
   let _v$3;
   _L$4: {
@@ -10222,7 +10222,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
       }
       break _L$4;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_39, "title"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_43, "title"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10230,7 +10230,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
     } else {
       return _bind;
     }
-    _de_title_45.val = _tmp;
+    _de_title_49.val = _tmp;
   }
   let _v$4;
   _L$5: {
@@ -10245,7 +10245,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
       }
       break _L$5;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$4, _M0MPC14json8JsonPath8add__key(_x_39, "description"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$4, _M0MPC14json8JsonPath8add__key(_x_43, "description"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10253,7 +10253,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
     } else {
       return _bind;
     }
-    _de_description_42.val = _tmp;
+    _de_description_46.val = _tmp;
   }
   let _v$5;
   _L$6: {
@@ -10268,7 +10268,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
       }
       break _L$6;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$5, _M0MPC14json8JsonPath8add__key(_x_39, "color"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$5, _M0MPC14json8JsonPath8add__key(_x_43, "color"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10276,7 +10276,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
     } else {
       return _bind;
     }
-    _de_color_40.val = _tmp;
+    _de_color_44.val = _tmp;
   }
   let _v$6;
   _L$7: {
@@ -10291,7 +10291,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
       }
       break _L$7;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$6, _M0MPC14json8JsonPath8add__key(_x_39, "position"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$6, _M0MPC14json8JsonPath8add__key(_x_43, "position"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10299,63 +10299,63 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_38, 
     } else {
       return _bind;
     }
-    _de_position_44.val = _tmp;
+    _de_position_48.val = _tmp;
   }
-  let _de_title_45$2;
-  const _bind = _de_title_45.val;
+  let _de_title_49$2;
+  const _bind = _de_title_49.val;
   if (_bind === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_39, _1: "Missing field title" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field title" }));
   } else {
     const _Some = _bind;
     const _v$7 = _Some;
-    _de_title_45$2 = _v$7;
+    _de_title_49$2 = _v$7;
   }
-  let _de_position_44$2;
-  const _bind$2 = _de_position_44.val;
+  let _de_position_48$2;
+  const _bind$2 = _de_position_48.val;
   if (_bind$2 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_39, _1: "Missing field position" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field position" }));
   } else {
     const _Some = _bind$2;
     const _v$7 = _Some;
-    _de_position_44$2 = _v$7;
+    _de_position_48$2 = _v$7;
   }
-  let _de_id_43$2;
-  const _bind$3 = _de_id_43.val;
+  let _de_id_47$2;
+  const _bind$3 = _de_id_47.val;
   if (_bind$3 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_39, _1: "Missing field id" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field id" }));
   } else {
     const _Some = _bind$3;
     const _v$7 = _Some;
-    _de_id_43$2 = _v$7;
+    _de_id_47$2 = _v$7;
   }
-  let _de_description_42$2;
-  const _bind$4 = _de_description_42.val;
+  let _de_description_46$2;
+  const _bind$4 = _de_description_46.val;
   if (_bind$4 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_39, _1: "Missing field description" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field description" }));
   } else {
     const _Some = _bind$4;
     const _v$7 = _Some;
-    _de_description_42$2 = _v$7;
+    _de_description_46$2 = _v$7;
   }
-  let _de_column_id_41$2;
-  const _bind$5 = _de_column_id_41.val;
+  let _de_column_id_45$2;
+  const _bind$5 = _de_column_id_45.val;
   if (_bind$5 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_39, _1: "Missing field column_id" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field column_id" }));
   } else {
     const _Some = _bind$5;
     const _v$7 = _Some;
-    _de_column_id_41$2 = _v$7;
+    _de_column_id_45$2 = _v$7;
   }
-  let _de_color_40$2;
-  const _bind$6 = _de_color_40.val;
+  let _de_color_44$2;
+  const _bind$6 = _de_color_44.val;
   if (_bind$6 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_39, _1: "Missing field color" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field color" }));
   } else {
     const _Some = _bind$6;
     const _v$7 = _Some;
-    _de_color_40$2 = _v$7;
+    _de_color_44$2 = _v$7;
   }
-  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared4Card(_de_id_43$2, _de_column_id_41$2, _de_title_45$2, _de_description_42$2, _de_color_40$2, _de_position_44$2));
+  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared4Card(_de_id_47$2, _de_column_id_45$2, _de_title_49$2, _de_description_46$2, _de_color_44$2, _de_position_48$2));
 }
 function _M0FP38bobzhang6kanban6shared21validate__card__title(title) {
   return _M0IP016_24default__implPB2Eq10not__equalGsE(title, "") && _M0MPC16string6String20char__length_2einner(title, 0, undefined) <= _M0FP38bobzhang6kanban6shared16max__card__title;
@@ -14544,9 +14544,10 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                               return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
                                             }
                                             const title$3 = model.rename_column_title;
+                                            const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13ColumnRenamed__));
                                             const _tmp = _M0FP38bobzhang6kanban6shared11api__column(id$6);
                                             const _bind$2 = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$3) }];
-                                            const cmd$2 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 1)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13ColumnRenamed__)));
+                                            const cmd$2 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 1)))), expect);
                                             const columns = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared6ColumnRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.id === id$6 ? new _M0TP38bobzhang6kanban6shared6Column(c.id, title$3, c.position) : c);
                                             return { _0: cmd$2, _1: new _M0TP38bobzhang6kanban8frontend5Model(columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, 0, model.rename_column_title, model.moving_card, model.loading) };
                                           }
@@ -14679,9 +14680,10 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             const title$5 = model.edit_title;
                                             const desc$2 = model.edit_desc;
                                             const color$2 = model.edit_color;
+                                            const expect$2 = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11CardUpdated__));
                                             const _tmp$2 = _M0FP38bobzhang6kanban6shared9api__card(id$7);
                                             const _bind$4 = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$5) }, { _0: "description", _1: _M0IPC16string6StringPB6ToJson8to__json(desc$2) }, { _0: "color", _1: _M0IPC16string6StringPB6ToJson8to__json(color$2) }];
-                                            const cmd$4 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp$2, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$4, 0, 3)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11CardUpdated__)));
+                                            const cmd$4 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp$2, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$4, 0, 3)))), expect$2);
                                             const cards = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared4CardRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.id === id$7 ? new _M0TP38bobzhang6kanban6shared4Card(c.id, c.column_id, title$5, desc$2, color$2, c.position) : c);
                                             return { _0: cmd$4, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, 0, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
                                           }
@@ -14731,7 +14733,8 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                               }
                               return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, v$7, model.moving_card, model.loading) };
                             }
-                            const cmd = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang6kanban6shared11api__column(id$4), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13ColumnDeleted__)));
+                            const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13ColumnDeleted__));
+                            const cmd = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang6kanban6shared11api__column(id$4), expect);
                             const columns = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.id !== id$4);
                             const cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.column_id !== id$4);
                             return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
@@ -14766,9 +14769,10 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                           const other = _M0MPC15array5Array2atGRP38bobzhang6kanban6shared6ColumnE(sorted, target_idx$2);
                           const this_col = _M0MPC15array5Array2atGRP38bobzhang6kanban6shared6ColumnE(sorted, idx.val);
                           const new_pos = other.position;
+                          const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11ColumnMoved__));
                           const _tmp$2 = _M0FP38bobzhang6kanban6shared17api__column__move(id$3);
                           const _bind$2 = [{ _0: "new_position", _1: _M0IPC16double6DoublePB6ToJson8to__json(new_pos + 0) }];
-                          const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp$2, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 1)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11ColumnMoved__)));
+                          const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp$2, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 1)))), expect);
                           const columns = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared6ColumnRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.id === id$3 ? new _M0TP38bobzhang6kanban6shared6Column(c.id, c.title, other.position) : c.id === other.id ? new _M0TP38bobzhang6kanban6shared6Column(c.id, c.title, this_col.position) : c);
                           return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
                         }
@@ -14792,7 +14796,8 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
         }
         return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, v, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
       }
-      const cmd = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang6kanban6shared9api__card(id$2), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11CardDeleted__)));
+      const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11CardDeleted__));
+      const cmd = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang6kanban6shared9api__card(id$2), expect);
       const cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.id !== id$2);
       return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
     }
@@ -14804,9 +14809,10 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
   }
   const col_cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(_M0FP38bobzhang6kanban6shared17cards__in__column(model.cards, target_col), (c) => c.id !== card_id);
   const new_position = _M0FP38bobzhang6kanban6shared23compute__move__position(col_cards, target_idx);
+  const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg9CardMoved__));
   const _tmp = _M0FP38bobzhang6kanban6shared15api__card__move(card_id);
   const _bind = [{ _0: "target_column_id", _1: _M0IPC16double6DoublePB6ToJson8to__json(target_col + 0) }, { _0: "new_position", _1: _M0IPC16double6DoublePB6ToJson8to__json(new_position + 0) }];
-  const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind, 0, 2)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg9CardMoved__)));
+  const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind, 0, 2)))), expect);
   const pos = new_position === 0 ? _M0FP38bobzhang6kanban6shared13position__gap : new_position;
   const cards = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared4CardRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.id === card_id ? new _M0TP38bobzhang6kanban6shared4Card(c.id, target_col, c.title, c.description, c.color, pos) : c);
   return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, 0, model.loading) };

@@ -136,10 +136,13 @@ fn update(
         return (@rabbita.none, model)
       }
       let title = model.rename_column_title
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(ColumnRenamed)
+      })
       let cmd = @http.post(
         @shared.api_column(id),
         Json(({ "title": title } : Json)),
-        expect=Text(fn(_result) { dispatch(ColumnRenamed) }),
+        expect~,
       )
       // Optimistically update
       let columns = model.columns.map(fn(c) {
@@ -153,10 +156,10 @@ fn update(
     }
     ColumnRenamed => (fetch_board(dispatch), model)
     DeleteColumn(id) => {
-      let cmd = @http.delete(
-        @shared.api_column(id),
-        expect=Text(fn(_result) { dispatch(ColumnDeleted) }),
-      )
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(ColumnDeleted)
+      })
+      let cmd = @http.delete(@shared.api_column(id), expect~)
       let columns = model.columns.filter(fn(c) { c.id != id })
       let cards = model.cards.filter(fn(c) { c.column_id != id })
       (cmd, { ..model, columns, cards })
@@ -182,10 +185,13 @@ fn update(
       let other = sorted[target_idx]
       let this_col = sorted[idx]
       let new_pos = other.position
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(ColumnMoved)
+      })
       let cmd = @http.post(
         @shared.api_column_move(id),
         Json(({ "new_position": new_pos.to_double() } : Json)),
-        expect=Text(fn(_result) { dispatch(ColumnMoved) }),
+        expect~,
       )
       // Optimistic swap
       let columns = model.columns.map(fn(c) {
@@ -272,10 +278,13 @@ fn update(
       let title = model.edit_title
       let desc = model.edit_desc
       let color = model.edit_color
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(CardUpdated)
+      })
       let cmd = @http.post(
         @shared.api_card(id),
         Json(({ "title": title, "description": desc, "color": color } : Json)),
-        expect=Text(fn(_result) { dispatch(CardUpdated) }),
+        expect~,
       )
       // Optimistic update
       let cards = model.cards.map(fn(c) {
@@ -289,10 +298,10 @@ fn update(
     }
     CardUpdated => (fetch_board(dispatch), model)
     DeleteCard(id) => {
-      let cmd = @http.delete(
-        @shared.api_card(id),
-        expect=Text(fn(_result) { dispatch(CardDeleted) }),
-      )
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(CardDeleted)
+      })
+      let cmd = @http.delete(@shared.api_card(id), expect~)
       let cards = model.cards.filter(fn(c) { c.id != id })
       (cmd, { ..model, cards, })
     }
@@ -317,6 +326,9 @@ fn update(
         c.id != card_id
       })
       let new_position = @shared.compute_move_position(col_cards, target_idx)
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(CardMoved)
+      })
       let cmd = @http.post(
         @shared.api_card_move(card_id),
         Json(
@@ -326,7 +338,7 @@ fn update(
               "new_position": new_position.to_double(),
             } : Json),
         ),
-        expect=Text(fn(_result) { dispatch(CardMoved) }),
+        expect~,
       )
       // Optimistic move
       let pos = if new_position == 0 {
