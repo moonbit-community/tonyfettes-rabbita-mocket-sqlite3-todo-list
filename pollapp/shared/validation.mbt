@@ -1,13 +1,17 @@
 ///|
+/// Maximum allowed length (in characters) for a poll question.
 pub let max_question_length : Int = 200
 
 ///|
+/// Maximum allowed length (in characters) for a single poll option.
 pub let max_option_length : Int = 100
 
 ///|
+/// Minimum number of options required to create a poll.
 pub let min_options : Int = 2
 
 ///|
+/// Maximum number of options allowed on a single poll.
 pub let max_options : Int = 6
 
 /// Validate a poll question: non-empty and within length limit.

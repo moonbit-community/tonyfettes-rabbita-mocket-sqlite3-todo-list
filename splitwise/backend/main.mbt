@@ -1,4 +1,5 @@
 ///|
+/// Create the people, expenses, and expense_splits tables if they don't already exist.
 fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   let stmt = conn.prepare(
     (
@@ -36,6 +37,7 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
 }
 
 ///|
+/// Fetch all people from the database, ordered by id.
 fn get_all_people(
   conn : @sqlite3.Connection,
 ) -> Array[@shared.Person] raise @sqlite3.SqliteError {
@@ -51,6 +53,7 @@ fn get_all_people(
 }
 
 ///|
+/// Insert a new person and return the created record with its assigned id.
 fn create_person(
   conn : @sqlite3.Connection,
   name : String,
@@ -67,6 +70,7 @@ fn create_person(
 }
 
 ///|
+/// Return the list of person ids that a given expense is split among.
 fn get_splits_for_expense(
   conn : @sqlite3.Connection,
   expense_id : Int,
@@ -85,6 +89,7 @@ fn get_splits_for_expense(
 }
 
 ///|
+/// Fetch all expenses with their split participant lists, ordered by id.
 fn get_all_expenses(
   conn : @sqlite3.Connection,
 ) -> Array[@shared.Expense] raise @sqlite3.SqliteError {
@@ -105,6 +110,7 @@ fn get_all_expenses(
 }
 
 ///|
+/// Insert a new expense and its split records, returning the created expense.
 fn create_expense(
   conn : @sqlite3.Connection,
   description : String,
@@ -137,6 +143,7 @@ fn create_expense(
 }
 
 ///|
+/// Delete an expense and its associated split records from the database.
 fn delete_expense(
   conn : @sqlite3.Connection,
   id : Int,
@@ -153,6 +160,7 @@ fn delete_expense(
 }
 
 ///|
+/// Build the full application state: all people, all expenses, and computed settlements.
 fn get_state(conn : @sqlite3.Connection) -> @shared.AppState raise @sqlite3.SqliteError {
   let people = get_all_people(conn)
   let expenses = get_all_expenses(conn)
@@ -161,6 +169,7 @@ fn get_state(conn : @sqlite3.Connection) -> @shared.AppState raise @sqlite3.Sqli
 }
 
 ///|
+/// Start the HTTP server with routes for the HTML shell, frontend JS, and REST API.
 fn main raise {
   guard @argparse.parse(
       Command("splitwise", about="Expense Splitter backend", options=[

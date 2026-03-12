@@ -1,4 +1,5 @@
 ///|
+/// Application state for the poll app frontend.
 struct Model {
   polls : Array[@shared.Poll]
   /// Create poll form: question input
@@ -10,25 +11,36 @@ struct Model {
 }
 
 ///|
+/// Messages that drive state transitions in the Elm-architecture update loop.
 enum Msg {
+  /// Fired once on app startup to fetch the initial poll list.
   Init
+  /// Result of fetching all polls from the server.
   GotPolls(Result[Array[@shared.Poll], String])
-  // Create poll form
+  /// User edited the question text field.
   QuestionInputChanged(String)
+  /// User edited a specific option input (index, new value).
   OptionInputChanged(Int, String)
+  /// User clicked the "Add Option" button.
   AddOptionInput
+  /// User clicked the remove button on an option (by index).
   RemoveOptionInput(Int)
+  /// User submitted the create-poll form.
   CreatePoll
+  /// Result of the POST request to create a new poll.
   PollCreated(Result[@shared.Poll, String])
-  // Voting
+  /// User clicked an option to cast a vote (poll_id, option_id).
   Vote(Int, Int)
+  /// Result of the POST vote request, returns the updated poll.
   Voted(Result[@shared.Poll, String])
-  // Delete
+  /// User clicked the delete button on a poll.
   DeletePoll(Int)
+  /// Result of the DELETE request, returns the deleted poll's ID.
   PollDeleted(Result[Int, String])
 }
 
 ///|
+/// Fetch all polls from the backend and dispatch `GotPolls` with the result.
 fn fetch_polls(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
   @http.get(
     @shared.api_polls,
@@ -41,6 +53,7 @@ fn fetch_polls(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
 }
 
 ///|
+/// Handle each `Msg` by returning an updated model and an optional side-effect command.
 fn update(
   dispatch : @rabbita.Dispatch[Msg],
   msg : Msg,
@@ -189,6 +202,7 @@ fn has_voted(model : Model, poll_id : Int) -> Bool {
 }
 
 ///|
+/// Top-level view: renders the header, create-poll form, and all poll cards.
 fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   @html.div(
     style=[
@@ -501,6 +515,7 @@ fn view_card(
 }
 
 ///|
+/// Entry point: initializes the Rabbita app, wires up the MVU loop, and mounts to the DOM.
 fn main {
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model={

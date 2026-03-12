@@ -1,4 +1,6 @@
 ///|
+/// Create the `notes` table if it does not already exist. Title and content
+/// are stored as BLOB columns to preserve UTF-8 encoding.
 fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   let stmt = conn.prepare(
     (
@@ -15,6 +17,8 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
 }
 
 ///|
+/// Retrieve all notes from the database, ordered by pinned status (descending)
+/// then by id (descending). Uses `column_blob_as_string` for UTF-8 safety.
 fn get_all_notes(
   conn : @sqlite3.Connection,
 ) -> Array[@shared.Note] raise @sqlite3.SqliteError {
@@ -35,6 +39,8 @@ fn get_all_notes(
 }
 
 ///|
+/// Insert a new note with the given title and content. Returns the created
+/// note with its auto-generated id. Uses `bind_string_as_blob` for UTF-8 safety.
 fn create_note(
   conn : @sqlite3.Connection,
   title : String,
@@ -55,6 +61,8 @@ fn create_note(
 }
 
 ///|
+/// Toggle the pinned status of the note with the given id and return
+/// the updated note.
 fn toggle_pin(
   conn : @sqlite3.Connection,
   id : Int,
@@ -79,6 +87,7 @@ fn toggle_pin(
 }
 
 ///|
+/// Delete the note with the given id from the database.
 fn delete_note(
   conn : @sqlite3.Connection,
   id : Int,
@@ -90,6 +99,9 @@ fn delete_note(
 }
 
 ///|
+/// Entry point. Parses CLI args for the port, opens the SQLite database,
+/// initializes the schema, registers all HTTP routes (HTML shell, static JS,
+/// and REST API), then starts the Mocket server.
 fn main raise {
   guard @argparse.parse(
       Command("noteapp", about="Note Taking App backend", options=[

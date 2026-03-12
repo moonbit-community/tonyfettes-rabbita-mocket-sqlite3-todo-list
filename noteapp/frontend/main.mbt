@@ -1,4 +1,5 @@
 ///|
+/// Application state for the notes frontend, following the Elm architecture.
 struct Model {
   notes : Array[@shared.Note]
   /// New note form
@@ -9,24 +10,36 @@ struct Model {
 }
 
 ///|
+/// Messages that drive state transitions in the update loop.
 enum Msg {
+  /// Trigger initial data fetch on app startup.
   Init
+  /// Response from fetching all notes from the API.
   GotNotes(Result[Array[@shared.Note], String])
-  // Form
+  /// User typed in the title input field.
   TitleInputChanged(String)
+  /// User typed in the content textarea.
   ContentInputChanged(String)
+  /// User submitted the new-note form.
   SaveNote
+  /// Response after creating a note via the API.
   NoteSaved(Result[@shared.Note, String])
-  // Actions
+  /// User clicked a note to view its detail.
   SelectNote(Int)
+  /// User clicked back from the detail view.
   DeselectNote
+  /// User toggled a note's pinned status.
   TogglePin(Int)
+  /// Response after toggling pin via the API.
   NotePinToggled(Result[@shared.Note, String])
+  /// User requested deletion of a note.
   DeleteNote(Int)
+  /// Response after deleting a note via the API.
   NoteDeleted(Result[Int, String])
 }
 
 ///|
+/// Fetch all notes from the backend API and dispatch `GotNotes` with the result.
 fn fetch_notes(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
   @http.get(
     @shared.api_notes,
@@ -39,6 +52,8 @@ fn fetch_notes(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
 }
 
 ///|
+/// Elm-architecture update function. Processes each `Msg` and returns the
+/// next model state along with any side-effect commands (HTTP requests).
 fn update(
   dispatch : @rabbita.Dispatch[Msg],
   msg : Msg,
@@ -157,6 +172,7 @@ fn find_note(notes : Array[@shared.Note], id : Int) -> @shared.Note? {
 }
 
 ///|
+/// Render the entire UI: header, new-note form or detail view, and notes list.
 fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   @html.div(
     style=[
@@ -472,6 +488,8 @@ fn view_card(
 }
 
 ///|
+/// Entry point. Initializes the Rabbita app with MVU wiring and mounts it
+/// into the `#app` DOM element, then triggers the initial notes fetch.
 fn main {
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model={

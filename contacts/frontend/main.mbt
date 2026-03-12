@@ -1,4 +1,6 @@
 ///|
+/// Application state for the contacts frontend.
+/// Holds the contact list, search query, and add-contact form fields.
 struct Model {
   contacts : Array[@shared.Contact]
   /// Search query
@@ -12,27 +14,38 @@ struct Model {
 }
 
 ///|
+/// Messages that drive the Elm-architecture update loop.
 enum Msg {
+  /// Fired on app start to trigger the initial contact fetch.
   Init
+  /// Response from fetching all contacts from the server.
   GotContacts(Result[Array[@shared.Contact], String])
-  // Search
+  /// User changed the search input text.
   SearchChanged(String)
-  // Form visibility
+  /// Toggle visibility of the add-contact form.
   ToggleForm
-  // Form inputs
+  /// User changed the name field in the add-contact form.
   NameInputChanged(String)
+  /// User changed the email field in the add-contact form.
   EmailInputChanged(String)
+  /// User changed the phone field in the add-contact form.
   PhoneInputChanged(String)
-  // Actions
+  /// User submitted the add-contact form.
   AddContact
+  /// Response from the server after creating a new contact.
   ContactAdded(Result[@shared.Contact, String])
+  /// User clicked the favorite star on a contact.
   ToggleFavorite(Int)
+  /// Response from the server after toggling favorite status.
   FavoriteToggled(Result[@shared.Contact, String])
+  /// User clicked the delete button on a contact.
   DeleteContact(Int)
+  /// Response from the server after deleting a contact.
   ContactDeleted(Result[Int, String])
 }
 
 ///|
+/// Fetch all contacts from the backend via GET /api/contacts.
 fn fetch_contacts(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
   @http.get(
     @shared.api_contacts,
@@ -45,6 +58,8 @@ fn fetch_contacts(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
 }
 
 ///|
+/// Elm-architecture update function. Processes each `Msg` and returns the
+/// next command and model state.
 fn update(
   dispatch : @rabbita.Dispatch[Msg],
   msg : Msg,
@@ -150,6 +165,8 @@ fn update(
 }
 
 ///|
+/// Render the full contacts UI: header, search bar, add-contact form,
+/// favorites section, and all-contacts section.
 fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   let sorted = @shared.sort_contacts(model.contacts)
   let filtered = @shared.filter_contacts(sorted, model.search_query)
@@ -466,6 +483,8 @@ fn person_color(id : Int) -> String {
 }
 
 ///|
+/// Entry point. Initializes the Rabbita app with the Model-Update-View
+/// cell and mounts it to the "app" DOM element.
 fn main {
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model={

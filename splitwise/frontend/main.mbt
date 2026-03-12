@@ -1,4 +1,5 @@
 ///|
+/// Application state holding people, expenses, computed settlements, and form inputs.
 struct Model {
   people : Array[@shared.Person]
   expenses : Array[@shared.Expense]
@@ -12,25 +13,36 @@ struct Model {
 }
 
 ///|
+/// Messages that drive the Elm-architecture update loop.
 enum Msg {
+  /// Trigger initial data fetch on app startup.
   Init
+  /// Handle the response from fetching full app state.
   GotState(Result[@shared.AppState, String])
-  // Person form
+  /// Update the person name input field.
   PersonInputChanged(String)
+  /// Submit the add-person form.
   AddPerson
+  /// Handle the response after creating a person.
   PersonAdded(Result[@shared.Person, String])
-  // Expense form
+  /// Update the expense description input field.
   DescInputChanged(String)
+  /// Update the expense amount input field.
   AmountInputChanged(String)
+  /// Change which person is selected as the payer.
   PaidByChanged(Int)
+  /// Submit the add-expense form.
   AddExpense
+  /// Handle the response after creating an expense.
   ExpenseAdded(Result[@shared.Expense, String])
-  // Actions
+  /// Request deletion of an expense by id.
   DeleteExpense(Int)
+  /// Handle the response after deleting an expense.
   ExpenseDeleted(Result[Int, String])
 }
 
 ///|
+/// Fetch the full application state (people, expenses, settlements) from the backend.
 fn fetch_state(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
   @http.get(
     @shared.api_state,
@@ -43,6 +55,7 @@ fn fetch_state(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
 }
 
 ///|
+/// Handle each message: issue HTTP commands and return the updated model.
 fn update(
   dispatch : @rabbita.Dispatch[Msg],
   msg : Msg,
@@ -197,6 +210,7 @@ fn parse_dollars_to_cents(input : String) -> Int {
 }
 
 ///|
+/// Render the entire UI: header, total banner, people card, expense form, expense list, and settlements.
 fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   @html.div(
     style=[
@@ -579,6 +593,7 @@ fn compute_total(expenses : Array[@shared.Expense]) -> Int {
 }
 
 ///|
+/// Look up a person's name by their id, returning "Unknown" if not found.
 fn find_person_name(people : Array[@shared.Person], id : Int) -> String {
   for p in people {
     if p.id == id {
@@ -589,6 +604,7 @@ fn find_person_name(people : Array[@shared.Person], id : Int) -> String {
 }
 
 ///|
+/// Entry point: initialize the Rabbita app with empty state and mount it to the DOM.
 fn main {
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model={

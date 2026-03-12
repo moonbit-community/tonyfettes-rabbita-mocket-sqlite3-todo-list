@@ -1,4 +1,5 @@
 ///|
+/// Create the `polls` and `poll_options` tables if they do not already exist.
 fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   let stmt = conn.prepare(
     (
@@ -25,6 +26,7 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
 }
 
 ///|
+/// Fetch all options for a given poll, ordered by ID.
 fn get_options_for_poll(
   conn : @sqlite3.Connection,
   poll_id : Int,
@@ -45,6 +47,7 @@ fn get_options_for_poll(
 }
 
 ///|
+/// Fetch all polls (newest first) with their options.
 fn get_all_polls(
   conn : @sqlite3.Connection,
 ) -> Array[@shared.Poll] raise @sqlite3.SqliteError {
@@ -61,6 +64,7 @@ fn get_all_polls(
 }
 
 ///|
+/// Insert a new poll with the given question and options. Returns the created poll.
 fn create_poll(
   conn : @sqlite3.Connection,
   question : String,
@@ -93,6 +97,7 @@ fn create_poll(
 }
 
 ///|
+/// Increment the vote count for a poll option by one.
 fn vote_on_option(
   conn : @sqlite3.Connection,
   option_id : Int,
@@ -106,6 +111,7 @@ fn vote_on_option(
 }
 
 ///|
+/// Delete a poll and all its options from the database.
 fn delete_poll(
   conn : @sqlite3.Connection,
   id : Int,
@@ -122,6 +128,7 @@ fn delete_poll(
 }
 
 ///|
+/// Look up a single poll by ID, returning `None` if it does not exist.
 fn get_poll_by_id(
   conn : @sqlite3.Connection,
   id : Int,
@@ -141,6 +148,7 @@ fn get_poll_by_id(
 }
 
 ///|
+/// Start the Mocket HTTP server: open SQLite, register routes, and listen on the configured port.
 fn main raise {
   guard @argparse.parse(
       Command("pollapp", about="Poll/Voting App backend", options=[

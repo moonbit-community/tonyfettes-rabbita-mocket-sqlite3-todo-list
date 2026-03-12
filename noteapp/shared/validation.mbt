@@ -1,7 +1,9 @@
 ///|
+/// Maximum allowed character length for a note title.
 pub let max_title_length : Int = 100
 
 ///|
+/// Maximum allowed character length for note body content.
 pub let max_content_length : Int = 5000
 
 /// Validate a note title: non-empty and within length limit.

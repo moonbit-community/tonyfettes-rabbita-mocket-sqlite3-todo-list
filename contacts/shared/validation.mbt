@@ -1,10 +1,13 @@
 ///|
+/// Maximum allowed character length for a contact's name.
 pub let max_name_length : Int = 50
 
 ///|
+/// Maximum allowed character length for a contact's email address.
 pub let max_email_length : Int = 100
 
 ///|
+/// Maximum allowed character length for a contact's phone number.
 pub let max_phone_length : Int = 20
 
 /// Validate a contact's name: non-empty and within length limit.

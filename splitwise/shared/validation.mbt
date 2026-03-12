@@ -1,7 +1,9 @@
 ///|
+/// Maximum allowed character length for a person's name.
 pub let max_name_length : Int = 50
 
 ///|
+/// Maximum allowed character length for an expense description.
 pub let max_description_length : Int = 100
 
 /// Validate a person's name: non-empty and within length limit.

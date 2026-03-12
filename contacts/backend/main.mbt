@@ -1,4 +1,6 @@
 ///|
+/// Create the contacts table if it does not already exist.
+/// Text columns are stored as BLOB for UTF-8 safety.
 fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   let stmt = conn.prepare(
     (
@@ -16,6 +18,7 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
 }
 
 ///|
+/// Retrieve all contacts from the database, ordered by id.
 fn get_all_contacts(
   conn : @sqlite3.Connection,
 ) -> Array[@shared.Contact] raise @sqlite3.SqliteError {
@@ -36,6 +39,7 @@ fn get_all_contacts(
 }
 
 ///|
+/// Insert a new contact and return the created record with its assigned id.
 fn create_contact(
   conn : @sqlite3.Connection,
   name : String,
@@ -58,6 +62,7 @@ fn create_contact(
 }
 
 ///|
+/// Flip the favorite flag for the given contact and return the updated record.
 fn toggle_favorite(
   conn : @sqlite3.Connection,
   id : Int,
@@ -83,6 +88,7 @@ fn toggle_favorite(
 }
 
 ///|
+/// Delete a contact by id.
 fn delete_contact(
   conn : @sqlite3.Connection,
   id : Int,
@@ -94,6 +100,8 @@ fn delete_contact(
 }
 
 ///|
+/// Entry point. Parses CLI args, opens the SQLite database, registers
+/// REST API routes and static file handlers, then starts the Mocket server.
 fn main raise {
   guard @argparse.parse(
       Command("contacts", about="Contact Manager backend", options=[
