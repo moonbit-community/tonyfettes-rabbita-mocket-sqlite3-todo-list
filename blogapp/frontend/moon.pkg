@@ -1,5 +1,5 @@
 import {
-  "haoxiang/blog-app/shared",
+  "bobzhang/blog-app/shared",
   "moonbit-community/rabbita",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/http",

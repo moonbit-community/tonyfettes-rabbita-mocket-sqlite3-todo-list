@@ -1,5 +1,5 @@
 import {
-  "haoxiang/splitwise/shared",
+  "bobzhang/splitwise/shared",
   "moonbit-community/rabbita",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/http",

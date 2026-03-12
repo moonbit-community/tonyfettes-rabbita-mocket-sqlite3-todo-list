@@ -1,5 +1,5 @@
 import {
-  "haoxiang/splitwise/shared",
+  "bobzhang/splitwise/shared",
   "oboard/mocket",
   "oboard/mocket/cors",
   "myfreess/sqlite3",

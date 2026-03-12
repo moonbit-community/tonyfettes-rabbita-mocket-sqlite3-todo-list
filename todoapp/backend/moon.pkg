@@ -1,5 +1,5 @@
 import {
-  "haoxiang/todo-list/shared",
+  "bobzhang/todo-list/shared",
   "oboard/mocket",
   "oboard/mocket/cors",
   "myfreess/sqlite3",
