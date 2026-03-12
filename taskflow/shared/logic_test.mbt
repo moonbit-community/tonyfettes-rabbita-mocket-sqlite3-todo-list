@@ -504,6 +504,36 @@ test "filter_tasks with search query" {
 }
 
 ///|
+test "filter_tasks combined search and status" {
+  let tasks : Array[@shared.Task] = [
+    {
+      id: 1,
+      title: "Fix Login",
+      description: "",
+      status: "todo",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+    {
+      id: 2,
+      title: "Fix Signup",
+      description: "",
+      status: "done",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+  ]
+  // Search "fix" but only in "todo" status
+  let filtered = @shared.filter_tasks(tasks, "todo", 0, "", query="fix")
+  inspect(filtered.length(), content="1")
+  inspect(filtered[0].title, content="Fix Login")
+}
+
+///|
 test "filter_tasks empty filters returns all" {
   let tasks : Array[@shared.Task] = [
     {
@@ -529,4 +559,80 @@ test "filter_tasks empty filters returns all" {
   ]
   let filtered = @shared.filter_tasks(tasks, "", 0, "")
   inspect(filtered.length(), content="2")
+}
+
+///|
+test "sort_tasks empty array" {
+  let sorted = @shared.sort_tasks([])
+  inspect(sorted.length(), content="0")
+}
+
+///|
+test "completion_percent single done" {
+  let tasks : Array[@shared.Task] = [
+    {
+      id: 1,
+      title: "A",
+      description: "",
+      status: "done",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+  ]
+  inspect(@shared.completion_percent(tasks), content="100")
+}
+
+///|
+test "completion_percent none done" {
+  let tasks : Array[@shared.Task] = [
+    {
+      id: 1,
+      title: "A",
+      description: "",
+      status: "todo",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+    {
+      id: 2,
+      title: "B",
+      description: "",
+      status: "in_progress",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+  ]
+  inspect(@shared.completion_percent(tasks), content="0")
+}
+
+///|
+test "search_matches empty description" {
+  let task : @shared.Task = {
+    id: 1,
+    title: "Test",
+    description: "",
+    status: "todo",
+    priority: "low",
+    assignee_id: 0,
+    due_date: "",
+    created_at: "",
+  }
+  inspect(@shared.search_matches(task, "test"), content="true")
+  inspect(@shared.search_matches(task, "desc"), content="false")
+}
+
+///|
+test "is_overdue boundary" {
+  // Same date is not overdue
+  inspect(@shared.is_overdue("2026-03-12", "2026-03-12"), content="false")
+  // One day before is overdue
+  inspect(@shared.is_overdue("2026-03-11", "2026-03-12"), content="true")
+  // One day after is not overdue
+  inspect(@shared.is_overdue("2026-03-13", "2026-03-12"), content="false")
 }

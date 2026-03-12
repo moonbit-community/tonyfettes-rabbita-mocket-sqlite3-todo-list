@@ -62,6 +62,31 @@ test "validate_due_date" {
 }
 
 ///|
+test "validate_task_title edge cases" {
+  // Single character is valid
+  inspect(@shared.validate_task_title("x"), content="true")
+  // Exactly at limit
+  inspect(@shared.validate_task_title("a".repeat(100)), content="true")
+  // One over limit
+  inspect(@shared.validate_task_title("a".repeat(101)), content="false")
+  // Whitespace-only title is technically valid (non-empty)
+  inspect(@shared.validate_task_title(" "), content="true")
+}
+
+///|
+test "validate_due_date edge dates" {
+  // Leap day
+  inspect(@shared.validate_due_date("2024-02-29"), content="true")
+  // Month boundaries
+  inspect(@shared.validate_due_date("2026-01-31"), content="true")
+  inspect(@shared.validate_due_date("2026-06-30"), content="true")
+  // Very far future
+  inspect(@shared.validate_due_date("9999-12-31"), content="true")
+  // Zero-padded correctly
+  inspect(@shared.validate_due_date("2026-01-01"), content="true")
+}
+
+///|
 test "constants" {
   inspect(@shared.max_task_title, content="100")
   inspect(@shared.max_task_description, content="500")
