@@ -74,6 +74,8 @@ enum Msg {
   CancelDelete
   ConfirmDelete
   TaskDeleted
+  // Keyboard
+  KeyPressed(String)
   // Errors
   DismissError
 }
@@ -288,6 +290,48 @@ fn update(
       (cmd, { ..model, tasks, confirm_delete: 0 })
     }
     TaskDeleted => (fetch_board(dispatch), model)
+    // ---- Keyboard shortcuts ----
+    KeyPressed(key) => {
+      // Skip shortcuts when typing in forms
+      if model.adding_task || model.editing_task != 0 {
+        if key == "Escape" {
+          if model.adding_task {
+            return (@rabbita.none, { ..model, adding_task: false })
+          }
+          return (@rabbita.none, { ..model, editing_task: 0 })
+        }
+        return (@rabbita.none, model)
+      }
+      // Dismiss dialogs/errors with Escape
+      if key == "Escape" {
+        if model.confirm_delete != 0 {
+          return (@rabbita.none, { ..model, confirm_delete: 0 })
+        }
+        if model.error_msg != "" {
+          return (@rabbita.none, { ..model, error_msg: "" })
+        }
+        return (@rabbita.none, model)
+      }
+      match key {
+        "n" =>
+          (
+            @rabbita.none,
+            {
+              ..model,
+              adding_task: true,
+              new_title: "",
+              new_desc: "",
+              new_priority: "medium",
+              new_assignee: 0,
+              new_due_date: "",
+            },
+          )
+        "l" => (@rabbita.none, { ..model, view_mode: "list" })
+        "b" => (@rabbita.none, { ..model, view_mode: "kanban" })
+        "/" => (@rabbita.none, model) // Search focus handled by browser
+        _ => (@rabbita.none, model)
+      }
+    }
     // ---- Errors ----
     DismissError => (@rabbita.none, { ..model, error_msg: "" })
   }
@@ -1524,7 +1568,10 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   @html.div(
     style=[
       "padding: 16px 24px", "min-height: 100vh", "max-width: 900px", "margin: 0 auto",
+      "outline: none",
     ],
+    on_keydown=fn(kb) { dispatch(KeyPressed(kb.key())) },
+    attrs=@html.Attrs::build().tabindex(0),
     [
       view_error_toast(dispatch, model),
       view_delete_confirm(dispatch, model),
@@ -1560,6 +1607,14 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
             )
           },
           view_activity_feed(model),
+          // Keyboard shortcuts hint
+          @html.div(
+            style=[
+              "text-align: center", "padding: 12px 0", "color: #cbd5e1", "font-size: 11px",
+              "margin-top: 8px",
+            ],
+            [@html.text("n: new task | l: list | b: board | Esc: close")],
+          ),
         ])
       },
     ],
