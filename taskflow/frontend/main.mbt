@@ -12,6 +12,7 @@ struct Model {
   search_query : String
   filter_urgency : String
   view_mode : String
+  dark_mode : Bool
   // Task creation
   adding_task : Bool
   new_title : String
@@ -46,6 +47,7 @@ enum Msg {
   SearchChanged(String)
   SetFilterUrgency(String)
   SetViewMode(String)
+  ToggleDarkMode
   // Task creation
   ShowAddTask
   HideAddTask
@@ -78,6 +80,56 @@ enum Msg {
   KeyPressed(String)
   // Errors
   DismissError
+}
+
+///|
+/// Theme colors based on dark/light mode.
+struct Theme {
+  bg : String
+  card_bg : String
+  card_border : String
+  text : String
+  text_secondary : String
+  text_muted : String
+  input_bg : String
+  input_border : String
+  filter_bg : String
+  filter_inactive : String
+  column_bg : String
+}
+
+///|
+/// Get theme colors for current mode.
+fn get_theme(dark : Bool) -> Theme {
+  if dark {
+    {
+      bg: "#0f172a",
+      card_bg: "#1e293b",
+      card_border: "#334155",
+      text: "#f1f5f9",
+      text_secondary: "#94a3b8",
+      text_muted: "#64748b",
+      input_bg: "#1e293b",
+      input_border: "#475569",
+      filter_bg: "#1e293b",
+      filter_inactive: "#334155",
+      column_bg: "#1e293b",
+    }
+  } else {
+    {
+      bg: "#f8fafc",
+      card_bg: "white",
+      card_border: "#f0f0f5",
+      text: "#1e293b",
+      text_secondary: "#64748b",
+      text_muted: "#94a3b8",
+      input_bg: "white",
+      input_border: "#e2e8f0",
+      filter_bg: "white",
+      filter_inactive: "#f1f5f9",
+      column_bg: "#f8fafc",
+    }
+  }
 }
 
 ///|
@@ -123,6 +175,8 @@ fn update(
     SearchChanged(q) => (@rabbita.none, { ..model, search_query: q })
     SetFilterUrgency(u) => (@rabbita.none, { ..model, filter_urgency: u })
     SetViewMode(m) => (@rabbita.none, { ..model, view_mode: m })
+    ToggleDarkMode =>
+      (@rabbita.none, { ..model, dark_mode: not(model.dark_mode) })
     // ---- Task creation ----
     ShowAddTask =>
       (
@@ -328,6 +382,7 @@ fn update(
           )
         "l" => (@rabbita.none, { ..model, view_mode: "list" })
         "b" => (@rabbita.none, { ..model, view_mode: "kanban" })
+        "d" => (@rabbita.none, { ..model, dark_mode: not(model.dark_mode) })
         "/" => (@rabbita.none, model) // Search focus handled by browser
         _ => (@rabbita.none, model)
       }
@@ -436,6 +491,18 @@ fn view_header(
             )
           },
         ]),
+        // Dark mode toggle
+        {
+          let icon = if model.dark_mode { "Light" } else { "Dark" }
+          @html.button(
+            on_click=dispatch(ToggleDarkMode),
+            style=[
+              "padding: 6px 10px", "border: none", "cursor: pointer", "font-size: 12px",
+              "color: white", "border-radius: 4px", "background: rgba(255,255,255,0.15)",
+            ],
+            icon,
+          )
+        },
         if model.adding_task {
           @html.text("")
         } else {
@@ -460,23 +527,40 @@ fn view_filters(
   dispatch : @rabbita.Dispatch[Msg],
   model : Model,
 ) -> @rabbita.Html {
+  let theme = get_theme(model.dark_mode)
   @html.div(
     style=[
-      "display: flex", "gap: 16px", "margin-bottom: 16px", "flex-wrap: wrap", "align-items: center",
-      "padding: 12px 16px", "background: white", "border-radius: 10px", "border: 1px solid #e2e8f0",
+      "display: flex",
+      "gap: 16px",
+      "margin-bottom: 16px",
+      "flex-wrap: wrap",
+      "align-items: center",
+      "padding: 12px 16px",
+      "background: \{theme.filter_bg}",
+      "border-radius: 10px",
+      "border: 1px solid \{theme.input_border}",
     ],
     [
       // Search input
       @html.div(style=["display: flex", "align-items: center", "gap: 6px"], [
-        @html.span(style=["font-size: 12px", "color: #94a3b8"], "Search:"),
+        @html.span(
+          style=["font-size: 12px", "color: \{theme.text_muted}"],
+          "Search:",
+        ),
         @html.input(
           input_type=Text,
           placeholder="Filter tasks...",
           value=model.search_query,
           on_input=fn(v) { dispatch(SearchChanged(v)) },
           style=[
-            "padding: 4px 10px", "border: 1px solid #e2e8f0", "border-radius: 6px",
-            "font-size: 12px", "outline: none", "width: 150px",
+            "padding: 4px 10px",
+            "border: 1px solid \{theme.input_border}",
+            "border-radius: 6px",
+            "font-size: 12px",
+            "outline: none",
+            "width: 150px",
+            "background: \{theme.input_bg}",
+            "color: \{theme.text}",
           ],
           "",
         ),
@@ -487,13 +571,17 @@ fn view_filters(
         {
           let items : Array[@rabbita.Html] = [
             @html.span(
-              style=["font-size: 12px", "color: #94a3b8", "margin-right: 4px"],
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-right: 4px",
+              ],
               "Status:",
             ),
             {
               let is_sel = model.filter_status == ""
-              let bg = if is_sel { "#4f46e5" } else { "#f1f5f9" }
-              let fg = if is_sel { "white" } else { "#64748b" }
+              let bg = if is_sel { "#4f46e5" } else { theme.filter_inactive }
+              let fg = if is_sel { "white" } else { theme.text_secondary }
               @html.button(
                 on_click=dispatch(SetFilterStatus("")),
                 style=[
@@ -511,8 +599,12 @@ fn view_filters(
           ]
           for s in @shared.valid_statuses {
             let is_sel = model.filter_status == s
-            let bg = if is_sel { @shared.status_color(s) } else { "#f1f5f9" }
-            let fg = if is_sel { "white" } else { "#64748b" }
+            let bg = if is_sel {
+              @shared.status_color(s)
+            } else {
+              theme.filter_inactive
+            }
+            let fg = if is_sel { "white" } else { theme.text_secondary }
             items.push(
               @html.button(
                 on_click=dispatch(SetFilterStatus(s)),
@@ -538,13 +630,17 @@ fn view_filters(
         {
           let items : Array[@rabbita.Html] = [
             @html.span(
-              style=["font-size: 12px", "color: #94a3b8", "margin-right: 4px"],
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-right: 4px",
+              ],
               "Priority:",
             ),
             {
               let is_sel = model.filter_priority == ""
-              let bg = if is_sel { "#4f46e5" } else { "#f1f5f9" }
-              let fg = if is_sel { "white" } else { "#64748b" }
+              let bg = if is_sel { "#4f46e5" } else { theme.filter_inactive }
+              let fg = if is_sel { "white" } else { theme.text_secondary }
               @html.button(
                 on_click=dispatch(SetFilterPriority("")),
                 style=[
@@ -562,8 +658,12 @@ fn view_filters(
           ]
           for p in @shared.valid_priorities {
             let is_sel = model.filter_priority == p
-            let bg = if is_sel { @shared.priority_color(p) } else { "#f1f5f9" }
-            let fg = if is_sel { "white" } else { "#64748b" }
+            let bg = if is_sel {
+              @shared.priority_color(p)
+            } else {
+              theme.filter_inactive
+            }
+            let fg = if is_sel { "white" } else { theme.text_secondary }
             items.push(
               @html.button(
                 on_click=dispatch(SetFilterPriority(p)),
@@ -589,7 +689,11 @@ fn view_filters(
         {
           let items : Array[@rabbita.Html] = [
             @html.span(
-              style=["font-size: 12px", "color: #94a3b8", "margin-right: 4px"],
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-right: 4px",
+              ],
               "Assignee:",
             ),
             {
@@ -664,14 +768,18 @@ fn view_filters(
           ]
           let items : Array[@rabbita.Html] = [
             @html.span(
-              style=["font-size: 12px", "color: #94a3b8", "margin-right: 4px"],
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-right: 4px",
+              ],
               "Due:",
             ),
           ]
           for opt in urgency_options {
             let is_sel = model.filter_urgency == opt.0
-            let bg = if is_sel { "#4f46e5" } else { "#f1f5f9" }
-            let fg = if is_sel { "white" } else { "#64748b" }
+            let bg = if is_sel { "#4f46e5" } else { theme.filter_inactive }
+            let fg = if is_sel { "white" } else { theme.text_secondary }
             items.push(
               @html.button(
                 on_click=dispatch(SetFilterUrgency(opt.0)),
@@ -806,15 +914,22 @@ fn view_add_task_form(
   dispatch : @rabbita.Dispatch[Msg],
   model : Model,
 ) -> @rabbita.Html {
+  let theme = get_theme(model.dark_mode)
   @html.div(
     style=[
-      "background: white", "border-radius: 10px", "padding: 16px", "border: 2px dashed #c7d2fe",
+      "background: \{theme.card_bg}",
+      "border-radius: 10px",
+      "padding: 16px",
+      "border: 2px dashed #c7d2fe",
       "margin-bottom: 16px",
     ],
     [
       @html.div(
         style=[
-          "font-size: 14px", "font-weight: 600", "color: #334155", "margin-bottom: 12px",
+          "font-size: 14px",
+          "font-weight: 600",
+          "color: \{theme.text}",
+          "margin-bottom: 12px",
         ],
         [@html.text("New Task")],
       ),
@@ -824,8 +939,15 @@ fn view_add_task_form(
         value=model.new_title,
         on_input=fn(v) { dispatch(NewTitleChanged(v)) },
         style=[
-          "width: 100%", "padding: 8px 10px", "border: 1px solid #e2e8f0", "border-radius: 6px",
-          "font-size: 14px", "outline: none", "margin-bottom: 8px",
+          "width: 100%",
+          "padding: 8px 10px",
+          "border: 1px solid \{theme.input_border}",
+          "border-radius: 6px",
+          "font-size: 14px",
+          "outline: none",
+          "margin-bottom: 8px",
+          "background: \{theme.input_bg}",
+          "color: \{theme.text}",
         ],
         "",
       ),
@@ -835,9 +957,17 @@ fn view_add_task_form(
         on_input=fn(v) { dispatch(NewDescChanged(v)) },
         rows=2,
         style=[
-          "width: 100%", "padding: 8px 10px", "border: 1px solid #e2e8f0", "border-radius: 6px",
-          "font-size: 13px", "outline: none", "resize: vertical", "font-family: inherit",
+          "width: 100%",
+          "padding: 8px 10px",
+          "border: 1px solid \{theme.input_border}",
+          "border-radius: 6px",
+          "font-size: 13px",
+          "outline: none",
+          "resize: vertical",
+          "font-family: inherit",
           "margin-bottom: 8px",
+          "background: \{theme.input_bg}",
+          "color: \{theme.text}",
         ],
         "",
       ),
@@ -848,7 +978,11 @@ fn view_add_task_form(
         [
           @html.div(style=[], [
             @html.div(
-              style=["font-size: 12px", "color: #94a3b8", "margin-bottom: 4px"],
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-bottom: 4px",
+              ],
               [@html.text("Priority")],
             ),
             view_priority_picker(dispatch, model.new_priority, fn(p) {
@@ -857,7 +991,11 @@ fn view_add_task_form(
           ]),
           @html.div(style=[], [
             @html.div(
-              style=["font-size: 12px", "color: #94a3b8", "margin-bottom: 4px"],
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-bottom: 4px",
+              ],
               [@html.text("Assignee")],
             ),
             view_assignee_picker(dispatch, model.members, model.new_assignee, fn(
@@ -868,7 +1006,11 @@ fn view_add_task_form(
           ]),
           @html.div(style=[], [
             @html.div(
-              style=["font-size: 12px", "color: #94a3b8", "margin-bottom: 4px"],
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-bottom: 4px",
+              ],
               [@html.text("Due Date")],
             ),
             @html.input(
@@ -877,8 +1019,14 @@ fn view_add_task_form(
               value=model.new_due_date,
               on_input=fn(v) { dispatch(NewDueDateChanged(v)) },
               style=[
-                "padding: 6px 10px", "border: 1px solid #e2e8f0", "border-radius: 6px",
-                "font-size: 13px", "outline: none", "width: 130px",
+                "padding: 6px 10px",
+                "border: 1px solid \{theme.input_border}",
+                "border-radius: 6px",
+                "font-size: 13px",
+                "outline: none",
+                "width: 130px",
+                "background: \{theme.input_bg}",
+                "color: \{theme.text}",
               ],
               "",
             ),
@@ -897,8 +1045,13 @@ fn view_add_task_form(
         @html.button(
           on_click=dispatch(HideAddTask),
           style=[
-            "padding: 6px 14px", "background: #f1f5f9", "color: #64748b", "border: none",
-            "border-radius: 6px", "cursor: pointer", "font-size: 13px",
+            "padding: 6px 14px",
+            "background: \{theme.filter_inactive}",
+            "color: \{theme.text_secondary}",
+            "border: none",
+            "border-radius: 6px",
+            "cursor: pointer",
+            "font-size: 13px",
           ],
           "Cancel",
         ),
@@ -913,9 +1066,13 @@ fn view_edit_task_form(
   dispatch : @rabbita.Dispatch[Msg],
   model : Model,
 ) -> @rabbita.Html {
+  let theme = get_theme(model.dark_mode)
   @html.div(
     style=[
-      "background: white", "border-radius: 8px", "padding: 14px", "border: 1px solid #4f46e5",
+      "background: \{theme.card_bg}",
+      "border-radius: 8px",
+      "padding: 14px",
+      "border: 1px solid #4f46e5",
       "margin-bottom: 8px",
     ],
     [
@@ -925,8 +1082,15 @@ fn view_edit_task_form(
         value=model.edit_title,
         on_input=fn(v) { dispatch(EditTitleChanged(v)) },
         style=[
-          "width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px",
-          "font-size: 13px", "outline: none", "margin-bottom: 6px",
+          "width: 100%",
+          "padding: 6px 8px",
+          "border: 1px solid \{theme.input_border}",
+          "border-radius: 4px",
+          "font-size: 13px",
+          "outline: none",
+          "margin-bottom: 6px",
+          "background: \{theme.input_bg}",
+          "color: \{theme.text}",
         ],
         "",
       ),
@@ -936,9 +1100,17 @@ fn view_edit_task_form(
         on_input=fn(v) { dispatch(EditDescChanged(v)) },
         rows=2,
         style=[
-          "width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px",
-          "font-size: 12px", "outline: none", "resize: vertical", "font-family: inherit",
+          "width: 100%",
+          "padding: 6px 8px",
+          "border: 1px solid \{theme.input_border}",
+          "border-radius: 4px",
+          "font-size: 12px",
+          "outline: none",
+          "resize: vertical",
+          "font-family: inherit",
           "margin-bottom: 6px",
+          "background: \{theme.input_bg}",
+          "color: \{theme.text}",
         ],
         "",
       ),
@@ -949,7 +1121,11 @@ fn view_edit_task_form(
         [
           @html.div(style=[], [
             @html.div(
-              style=["font-size: 11px", "color: #94a3b8", "margin-bottom: 2px"],
+              style=[
+                "font-size: 11px",
+                "color: \{theme.text_muted}",
+                "margin-bottom: 2px",
+              ],
               [@html.text("Priority")],
             ),
             view_priority_picker(dispatch, model.edit_priority, fn(p) {
@@ -958,7 +1134,11 @@ fn view_edit_task_form(
           ]),
           @html.div(style=[], [
             @html.div(
-              style=["font-size: 11px", "color: #94a3b8", "margin-bottom: 2px"],
+              style=[
+                "font-size: 11px",
+                "color: \{theme.text_muted}",
+                "margin-bottom: 2px",
+              ],
               [@html.text("Assignee")],
             ),
             view_assignee_picker(dispatch, model.members, model.edit_assignee, fn(
@@ -969,7 +1149,11 @@ fn view_edit_task_form(
           ]),
           @html.div(style=[], [
             @html.div(
-              style=["font-size: 11px", "color: #94a3b8", "margin-bottom: 2px"],
+              style=[
+                "font-size: 11px",
+                "color: \{theme.text_muted}",
+                "margin-bottom: 2px",
+              ],
               [@html.text("Due Date")],
             ),
             @html.input(
@@ -978,8 +1162,14 @@ fn view_edit_task_form(
               value=model.edit_due_date,
               on_input=fn(v) { dispatch(EditDueDateChanged(v)) },
               style=[
-                "padding: 4px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px",
-                "font-size: 12px", "outline: none", "width: 120px",
+                "padding: 4px 8px",
+                "border: 1px solid \{theme.input_border}",
+                "border-radius: 4px",
+                "font-size: 12px",
+                "outline: none",
+                "width: 120px",
+                "background: \{theme.input_bg}",
+                "color: \{theme.text}",
               ],
               "",
             ),
@@ -998,8 +1188,13 @@ fn view_edit_task_form(
         @html.button(
           on_click=dispatch(CancelEditTask),
           style=[
-            "padding: 5px 12px", "background: #f1f5f9", "color: #64748b", "border: none",
-            "border-radius: 4px", "cursor: pointer", "font-size: 12px",
+            "padding: 5px 12px",
+            "background: \{theme.filter_inactive}",
+            "color: \{theme.text_secondary}",
+            "border: none",
+            "border-radius: 4px",
+            "cursor: pointer",
+            "font-size: 12px",
           ],
           "Cancel",
         ),
@@ -1018,9 +1213,10 @@ fn view_task_item(
   if model.editing_task == task.id {
     return view_edit_task_form(dispatch, model)
   }
+  let theme = get_theme(model.dark_mode)
   let border_color = @shared.priority_color(task.priority)
   let is_done = task.status == "done"
-  let title_color = if is_done { "#94a3b8" } else { "#1e293b" }
+  let title_color = if is_done { theme.text_muted } else { theme.text }
   let title_decoration = if is_done { "line-through" } else { "none" }
   let status_bg = @shared.status_color(task.status)
   let transitions = @shared.allowed_transitions(task.status)
@@ -1062,7 +1258,7 @@ fn view_task_item(
     let due_color = match urgency {
       "Overdue" => "#ef4444"
       "Due today" => "#f97316"
-      _ => "#64748b"
+      _ => theme.text_secondary
     }
     @html.div(style=["font-size: 11px", "color: \{due_color}"], [
       @html.text(task.due_date),
@@ -1072,11 +1268,11 @@ fn view_task_item(
   }
   @html.div(
     style=[
-      "background: white",
+      "background: \{theme.card_bg}",
       "border-radius: 8px",
       "padding: 12px 16px",
       "margin-bottom: 8px",
-      "border: 1px solid #f0f0f5",
+      "border: 1px solid \{theme.card_border}",
       "border-left: 4px solid \{border_color}",
       "transition: all 0.15s",
     ],
@@ -1101,7 +1297,10 @@ fn view_task_item(
             if task.description != "" {
               @html.div(
                 style=[
-                  "font-size: 12px", "color: #64748b", "margin-top: 2px", "line-height: 1.4",
+                  "font-size: 12px",
+                  "color: \{theme.text_secondary}",
+                  "margin-top: 2px",
+                  "line-height: 1.4",
                 ],
                 [@html.text(task.description)],
               )
@@ -1163,8 +1362,13 @@ fn view_task_item(
             @html.button(
               on_click=dispatch(StartEditTask(task)),
               style=[
-                "padding: 2px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px",
-                "border: 1px solid #e2e8f0", "background: #f8fafc", "color: #64748b",
+                "padding: 2px 8px",
+                "font-size: 11px",
+                "cursor: pointer",
+                "border-radius: 4px",
+                "border: 1px solid \{theme.input_border}",
+                "background: \{theme.filter_inactive}",
+                "color: \{theme.text_secondary}",
               ],
               "Edit",
             ),
@@ -1193,9 +1397,10 @@ fn view_kanban_card(
   if model.editing_task == task.id {
     return view_edit_task_form(dispatch, model)
   }
+  let theme = get_theme(model.dark_mode)
   let border_color = @shared.priority_color(task.priority)
   let is_done = task.status == "done"
-  let title_color = if is_done { "#94a3b8" } else { "#1e293b" }
+  let title_color = if is_done { theme.text_muted } else { theme.text }
   let title_decoration = if is_done { "line-through" } else { "none" }
   let transitions = @shared.allowed_transitions(task.status)
   // Assignee avatar
@@ -1224,7 +1429,7 @@ fn view_kanban_card(
   }
   @html.div(
     style=[
-      "background: white",
+      "background: \{theme.card_bg}",
       "border-radius: 6px",
       "padding: 10px",
       "margin-bottom: 6px",
@@ -1325,6 +1530,7 @@ fn view_kanban(
   model : Model,
   tasks : Array[@shared.Task],
 ) -> @rabbita.Html {
+  let theme = get_theme(model.dark_mode)
   let column_statuses = ["todo", "in_progress", "review", "done", "blocked"]
   @html.div(
     style=[
@@ -1336,8 +1542,12 @@ fn view_kanban(
       let count = col_tasks.length()
       @html.div(
         style=[
-          "min-width: 200px", "flex: 1", "background: #f8fafc", "border-radius: 8px",
-          "padding: 10px", "border: 1px solid #e2e8f0",
+          "min-width: 200px",
+          "flex: 1",
+          "background: \{theme.column_bg}",
+          "border-radius: 8px",
+          "padding: 10px",
+          "border: 1px solid \{theme.input_border}",
         ],
         {
           let items : Array[@rabbita.Html] = [
@@ -1353,13 +1563,18 @@ fn view_kanban(
               [
                 @html.span(
                   style=[
-                    "font-size: 12px", "font-weight: 600", "color: #334155",
+                    "font-size: 12px",
+                    "font-weight: 600",
+                    "color: \{theme.text}",
                   ],
                   @shared.status_label(status),
                 ),
                 @html.span(
                   style=[
-                    "font-size: 10px", "color: #94a3b8", "background: #e2e8f0", "padding: 1px 6px",
+                    "font-size: 10px",
+                    "color: \{theme.text_muted}",
+                    "background: \{theme.filter_inactive}",
+                    "padding: 1px 6px",
                     "border-radius: 8px",
                   ],
                   "\{count}",
@@ -1390,20 +1605,27 @@ fn view_kanban(
 ///|
 /// Render the activity feed showing recent status changes.
 fn view_activity_feed(model : Model) -> @rabbita.Html {
+  let theme = get_theme(model.dark_mode)
   let activities = @shared.recent_activities(model.activities, 10)
   if activities.length() == 0 {
     return @html.text("")
   }
   @html.div(
     style=[
-      "background: white", "border-radius: 10px", "padding: 14px 16px", "border: 1px solid #e2e8f0",
+      "background: \{theme.card_bg}",
+      "border-radius: 10px",
+      "padding: 14px 16px",
+      "border: 1px solid \{theme.input_border}",
       "margin-top: 16px",
     ],
     {
       let items : Array[@rabbita.Html] = [
         @html.div(
           style=[
-            "font-size: 13px", "font-weight: 600", "color: #334155", "margin-bottom: 10px",
+            "font-size: 13px",
+            "font-weight: 600",
+            "color: \{theme.text}",
+            "margin-bottom: 10px",
           ],
           [@html.text("Recent Activity")],
         ),
@@ -1419,8 +1641,11 @@ fn view_activity_feed(model : Model) -> @rabbita.Html {
         items.push(
           @html.div(
             style=[
-              "display: flex", "align-items: center", "gap: 8px", "padding: 4px 0",
-              "border-bottom: 1px solid #f1f5f9",
+              "display: flex",
+              "align-items: center",
+              "gap: 8px",
+              "padding: 4px 0",
+              "border-bottom: 1px solid \{theme.card_border}",
             ],
             [
               @html.span(
@@ -1435,12 +1660,18 @@ fn view_activity_feed(model : Model) -> @rabbita.Html {
                 label,
               ),
               @html.span(
-                style=["font-size: 12px", "color: #64748b", "flex: 1"],
+                style=[
+                  "font-size: 12px",
+                  "color: \{theme.text_secondary}",
+                  "flex: 1",
+                ],
                 desc,
               ),
               @html.span(
                 style=[
-                  "font-size: 10px", "color: #94a3b8", "white-space: nowrap",
+                  "font-size: 10px",
+                  "color: \{theme.text_muted}",
+                  "white-space: nowrap",
                 ],
                 act.timestamp,
               ),
@@ -1462,6 +1693,7 @@ fn view_delete_confirm(
   if model.confirm_delete == 0 {
     return @html.text("")
   }
+  let theme = get_theme(model.dark_mode)
   let mut task_title = "this task"
   for t in model.tasks {
     if t.id == model.confirm_delete {
@@ -1477,19 +1709,29 @@ fn view_delete_confirm(
     [
       @html.div(
         style=[
-          "background: white", "border-radius: 12px", "padding: 24px", "max-width: 400px",
-          "width: 90%", "box-shadow: 0 20px 60px rgba(0,0,0,0.2)",
+          "background: \{theme.card_bg}",
+          "border-radius: 12px",
+          "padding: 24px",
+          "max-width: 400px",
+          "width: 90%",
+          "box-shadow: 0 20px 60px rgba(0,0,0,0.2)",
         ],
         [
           @html.div(
             style=[
-              "font-size: 16px", "font-weight: 600", "color: #1e293b", "margin-bottom: 8px",
+              "font-size: 16px",
+              "font-weight: 600",
+              "color: \{theme.text}",
+              "margin-bottom: 8px",
             ],
             [@html.text("Delete Task?")],
           ),
           @html.div(
             style=[
-              "font-size: 13px", "color: #64748b", "margin-bottom: 20px", "line-height: 1.5",
+              "font-size: 13px",
+              "color: \{theme.text_secondary}",
+              "margin-bottom: 20px",
+              "line-height: 1.5",
             ],
             [@html.text(task_title)],
           ),
@@ -1499,8 +1741,13 @@ fn view_delete_confirm(
               @html.button(
                 on_click=dispatch(CancelDelete),
                 style=[
-                  "padding: 8px 16px", "background: #f1f5f9", "color: #64748b", "border: none",
-                  "border-radius: 6px", "cursor: pointer", "font-size: 13px",
+                  "padding: 8px 16px",
+                  "background: \{theme.filter_inactive}",
+                  "color: \{theme.text_secondary}",
+                  "border: none",
+                  "border-radius: 6px",
+                  "cursor: pointer",
+                  "font-size: 13px",
                 ],
                 "Cancel",
               ),
@@ -1555,6 +1802,7 @@ fn view_error_toast(
 ///|
 /// MVU view: render the full task management interface.
 fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
+  let theme = get_theme(model.dark_mode)
   let filtered = @shared.filter_tasks(
     model.tasks,
     model.filter_status,
@@ -1567,8 +1815,13 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   let sorted = @shared.sort_tasks(filtered)
   @html.div(
     style=[
-      "padding: 16px 24px", "min-height: 100vh", "max-width: 900px", "margin: 0 auto",
+      "padding: 16px 24px",
+      "min-height: 100vh",
+      "max-width: 900px",
+      "margin: 0 auto",
       "outline: none",
+      "background: \{theme.bg}",
+      "color: \{theme.text}",
     ],
     on_keydown=fn(kb) { dispatch(KeyPressed(kb.key())) },
     attrs=@html.Attrs::build().tabindex(0),
@@ -1579,7 +1832,10 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
       if model.loading {
         @html.div(
           style=[
-            "text-align: center", "padding: 60px 0", "color: #94a3b8", "font-size: 15px",
+            "text-align: center",
+            "padding: 60px 0",
+            "color: \{theme.text_muted}",
+            "font-size: 15px",
           ],
           [@html.text("Loading...")],
         )
@@ -1596,7 +1852,10 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
           } else if sorted.length() == 0 {
             @html.div(
               style=[
-                "text-align: center", "padding: 40px 0", "color: #94a3b8", "font-size: 14px",
+                "text-align: center",
+                "padding: 40px 0",
+                "color: \{theme.text_muted}",
+                "font-size: 14px",
               ],
               [@html.text("No tasks match your filters")],
             )
@@ -1610,10 +1869,17 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
           // Keyboard shortcuts hint
           @html.div(
             style=[
-              "text-align: center", "padding: 12px 0", "color: #cbd5e1", "font-size: 11px",
+              "text-align: center",
+              "padding: 12px 0",
+              "color: \{theme.text_muted}",
+              "font-size: 11px",
               "margin-top: 8px",
             ],
-            [@html.text("n: new task | l: list | b: board | Esc: close")],
+            [
+              @html.text(
+                "n: new task | l: list | b: board | d: dark mode | Esc: close",
+              ),
+            ],
           ),
         ])
       },
@@ -1647,6 +1913,7 @@ fn main {
       edit_priority: "",
       edit_assignee: 0,
       edit_due_date: "",
+      dark_mode: false,
       confirm_delete: 0,
       error_msg: "",
       loading: false,
