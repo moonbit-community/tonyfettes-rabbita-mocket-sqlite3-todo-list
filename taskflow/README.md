@@ -18,6 +18,8 @@ make serve    # Build & run on http://localhost:4006
 - **Deadline tracking**: Overdue detection and urgency labels (Overdue, Due today, Upcoming)
 - **Text search**: Case-insensitive search across task titles and descriptions
 - **Filters**: Filter by status, priority, and assignee — combinable with search
+- **Kanban board view**: Toggle between list and board views — board groups tasks in status columns
+- **Activity tracking**: Status changes logged with timestamps, shown in activity feed
 - **Progress tracking**: Completion percentage and per-status task counts
 - **Delete confirmation**: Modal dialog prevents accidental task deletion
 - **Error notifications**: Toast notifications for failed server requests
