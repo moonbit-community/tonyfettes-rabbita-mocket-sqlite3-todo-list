@@ -22,7 +22,7 @@ pub fn completion_percent(Array[Task]) -> Int
 
 pub fn count_by_status(Array[Task], String) -> Int
 
-pub fn filter_tasks(Array[Task], String, Int, String, query? : String) -> Array[Task]
+pub fn filter_tasks(Array[Task], String, Int, String, query? : String, urgency? : String, today? : String) -> Array[Task]
 
 pub fn find_member(Array[Member], Int) -> Member?
 
@@ -33,6 +33,8 @@ pub fn is_overdue(String, String) -> Bool
 pub fn is_terminal(String) -> Bool
 
 pub fn is_valid_transition(String, String) -> Bool
+
+pub fn matches_urgency(Task, String, String) -> Bool
 
 pub let max_task_description : Int
 

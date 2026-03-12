@@ -674,6 +674,116 @@ test "recent_activities limit" {
 }
 
 ///|
+test "matches_urgency" {
+  let overdue : @shared.Task = {
+    id: 1,
+    title: "A",
+    description: "",
+    status: "todo",
+    priority: "low",
+    assignee_id: 0,
+    due_date: "2026-03-01",
+    created_at: "",
+  }
+  let today_task : @shared.Task = {
+    id: 2,
+    title: "B",
+    description: "",
+    status: "todo",
+    priority: "low",
+    assignee_id: 0,
+    due_date: "2026-03-12",
+    created_at: "",
+  }
+  let no_due : @shared.Task = {
+    id: 3,
+    title: "C",
+    description: "",
+    status: "todo",
+    priority: "low",
+    assignee_id: 0,
+    due_date: "",
+    created_at: "",
+  }
+  let today = "2026-03-12"
+  // All
+  inspect(@shared.matches_urgency(overdue, "", today), content="true")
+  // Overdue
+  inspect(@shared.matches_urgency(overdue, "overdue", today), content="true")
+  inspect(
+    @shared.matches_urgency(today_task, "overdue", today),
+    content="false",
+  )
+  // Due today
+  inspect(
+    @shared.matches_urgency(today_task, "due_today", today),
+    content="true",
+  )
+  inspect(@shared.matches_urgency(overdue, "due_today", today), content="false")
+  // Has deadline
+  inspect(
+    @shared.matches_urgency(overdue, "has_deadline", today),
+    content="true",
+  )
+  inspect(
+    @shared.matches_urgency(no_due, "has_deadline", today),
+    content="false",
+  )
+  // No deadline
+  inspect(@shared.matches_urgency(no_due, "no_deadline", today), content="true")
+  inspect(
+    @shared.matches_urgency(overdue, "no_deadline", today),
+    content="false",
+  )
+}
+
+///|
+test "filter_tasks with urgency" {
+  let tasks : Array[@shared.Task] = [
+    {
+      id: 1,
+      title: "Overdue",
+      description: "",
+      status: "todo",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "2026-03-01",
+      created_at: "",
+    },
+    {
+      id: 2,
+      title: "Today",
+      description: "",
+      status: "todo",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "2026-03-12",
+      created_at: "",
+    },
+    {
+      id: 3,
+      title: "No due",
+      description: "",
+      status: "todo",
+      priority: "low",
+      assignee_id: 0,
+      due_date: "",
+      created_at: "",
+    },
+  ]
+  let f = @shared.filter_tasks(
+    tasks,
+    "",
+    0,
+    "",
+    urgency="overdue",
+    today="2026-03-12",
+  )
+  inspect(f.length(), content="1")
+  inspect(f[0].title, content="Overdue")
+}
+
+///|
 test "is_overdue boundary" {
   // Same date is not overdue
   inspect(@shared.is_overdue("2026-03-12", "2026-03-12"), content="false")

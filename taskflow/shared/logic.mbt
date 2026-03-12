@@ -259,6 +259,46 @@ pub fn recent_activities(
 }
 
 ///|
+/// Check if a task matches an urgency filter.
+/// Values: "" (all), "overdue", "due_today", "has_deadline", "no_deadline".
+///
+/// # Example
+///
+/// ```mbt check
+/// test {
+///   let task : @shared.Task = {
+///     id: 1,
+///     title: "A",
+///     description: "",
+///     status: "todo",
+///     priority: "low",
+///     assignee_id: 0,
+///     due_date: "2026-03-10",
+///     created_at: "",
+///   }
+///   inspect(@shared.matches_urgency(task, "", "2026-03-12"), content="true")
+///   inspect(
+///     @shared.matches_urgency(task, "overdue", "2026-03-12"),
+///     content="true",
+///   )
+///   inspect(
+///     @shared.matches_urgency(task, "due_today", "2026-03-12"),
+///     content="false",
+///   )
+/// }
+/// ```
+pub fn matches_urgency(task : Task, urgency : String, today : String) -> Bool {
+  match urgency {
+    "" => true
+    "overdue" => is_overdue(task.due_date, today)
+    "due_today" => task.due_date == today
+    "has_deadline" => task.due_date != ""
+    "no_deadline" => task.due_date == ""
+    _ => true
+  }
+}
+
+///|
 /// Check if a task matches a search query (case-insensitive, matches title
 /// or description). Empty query matches everything.
 ///
@@ -300,11 +340,14 @@ pub fn filter_tasks(
   assignee_id : Int,
   priority : String,
   query? : String = "",
+  urgency? : String = "",
+  today? : String = "",
 ) -> Array[Task] {
   tasks.filter(fn(t) {
     (status == "" || t.status == status) &&
     (assignee_id == 0 || t.assignee_id == assignee_id) &&
     (priority == "" || t.priority == priority) &&
-    search_matches(t, query)
+    search_matches(t, query) &&
+    matches_urgency(t, urgency, today)
   })
 }

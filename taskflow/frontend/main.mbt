@@ -10,6 +10,7 @@ struct Model {
   filter_assignee : Int
   filter_priority : String
   search_query : String
+  filter_urgency : String
   view_mode : String
   // Task creation
   adding_task : Bool
@@ -43,6 +44,7 @@ enum Msg {
   SetFilterAssignee(Int)
   SetFilterPriority(String)
   SearchChanged(String)
+  SetFilterUrgency(String)
   SetViewMode(String)
   // Task creation
   ShowAddTask
@@ -117,6 +119,7 @@ fn update(
     SetFilterAssignee(id) => (@rabbita.none, { ..model, filter_assignee: id })
     SetFilterPriority(p) => (@rabbita.none, { ..model, filter_priority: p })
     SearchChanged(q) => (@rabbita.none, { ..model, search_query: q })
+    SetFilterUrgency(u) => (@rabbita.none, { ..model, filter_urgency: u })
     SetViewMode(m) => (@rabbita.none, { ..model, view_mode: m })
     // ---- Task creation ----
     ShowAddTask =>
@@ -598,6 +601,46 @@ fn view_filters(
                   "border: \{border}",
                 ],
                 [@html.text(initial)],
+              ),
+            )
+          }
+          items
+        },
+      ),
+      // Urgency filter
+      @html.div(
+        style=["display: flex", "gap: 4px", "align-items: center"],
+        {
+          let urgency_options = [
+            ("", "All"),
+            ("overdue", "Overdue"),
+            ("due_today", "Today"),
+            ("has_deadline", "Has Due"),
+            ("no_deadline", "No Due"),
+          ]
+          let items : Array[@rabbita.Html] = [
+            @html.span(
+              style=["font-size: 12px", "color: #94a3b8", "margin-right: 4px"],
+              "Due:",
+            ),
+          ]
+          for opt in urgency_options {
+            let is_sel = model.filter_urgency == opt.0
+            let bg = if is_sel { "#4f46e5" } else { "#f1f5f9" }
+            let fg = if is_sel { "white" } else { "#64748b" }
+            items.push(
+              @html.button(
+                on_click=dispatch(SetFilterUrgency(opt.0)),
+                style=[
+                  "padding: 3px 10px",
+                  "border-radius: 12px",
+                  "border: none",
+                  "cursor: pointer",
+                  "font-size: 11px",
+                  "background: \{bg}",
+                  "color: \{fg}",
+                ],
+                opt.1,
               ),
             )
           }
@@ -1474,6 +1517,8 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
     model.filter_assignee,
     model.filter_priority,
     query=model.search_query,
+    urgency=model.filter_urgency,
+    today=model.today,
   )
   let sorted = @shared.sort_tasks(filtered)
   @html.div(
@@ -1533,6 +1578,7 @@ fn main {
       filter_assignee: 0,
       filter_priority: "",
       search_query: "",
+      filter_urgency: "",
       view_mode: "list",
       adding_task: false,
       new_title: "",
