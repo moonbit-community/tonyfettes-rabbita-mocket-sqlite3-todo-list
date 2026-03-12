@@ -1,13 +1,6 @@
 ///|
-struct Todo {
-  id : Int
-  text : String
-  done : Bool
-} derive(FromJson)
-
-///|
 struct Model {
-  todos : Array[Todo]
+  todos : Array[@shared.Todo]
   input : String
   loading : Bool
 }
@@ -15,12 +8,12 @@ struct Model {
 ///|
 enum Msg {
   Init
-  GotTodos(Result[Array[Todo], String])
+  GotTodos(Result[Array[@shared.Todo], String])
   InputChanged(String)
   AddTodo
-  TodoAdded(Result[Todo, String])
+  TodoAdded(Result[@shared.Todo, String])
   ToggleTodo(Int)
-  TodoToggled(Result[Todo, String])
+  TodoToggled(Result[@shared.Todo, String])
   DeleteTodo(Int)
   TodoDeleted(Result[Int, String])
 }
@@ -28,7 +21,7 @@ enum Msg {
 ///|
 fn fetch_todos(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
   @http.get(
-    "/api/todos",
+    @shared.api_todos,
     expect=Json(fn(result) { dispatch(GotTodos(result)) }, fn(json) {
       Ok(@json.from_json(json)) catch {
         _ => Err("Failed to decode todos")
@@ -49,12 +42,12 @@ fn update(
     GotTodos(Err(_)) => (@rabbita.none, { ..model, loading: false })
     InputChanged(value) => (@rabbita.none, { ..model, input: value })
     AddTodo => {
-      if model.input == "" {
+      if not(@shared.validate_text(model.input)) {
         return (@rabbita.none, model)
       }
       let text = model.input
       let cmd = @http.post(
-        "/api/todos",
+        @shared.api_todos,
         Json(({ "text": text } : Json)),
         expect=Json(fn(result) { dispatch(TodoAdded(result)) }, fn(json) {
           Ok(@json.from_json(json)) catch {
@@ -72,7 +65,7 @@ fn update(
     TodoAdded(Err(_)) => (@rabbita.none, model)
     ToggleTodo(id) => {
       let cmd = @http.post(
-        "/api/todos/\{id}/toggle",
+        @shared.api_todo_toggle(id),
         Json(({} : Json)),
         expect=Json(fn(result) { dispatch(TodoToggled(result)) }, fn(json) {
           Ok(@json.from_json(json)) catch {
@@ -95,7 +88,7 @@ fn update(
     TodoToggled(Err(_)) => (@rabbita.none, model)
     DeleteTodo(id) => {
       let cmd = @http.delete(
-        "/api/todos/\{id}",
+        @shared.api_todo(id),
         expect=Text(fn(result) {
           dispatch(
             TodoDeleted(

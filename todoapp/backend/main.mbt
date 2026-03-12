@@ -14,21 +14,21 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
 }
 
 ///|
-fn todo_to_json(id : Int, text : String, done : Int) -> Json {
-  { "id": id, "text": text, "done": done != 0 }
+fn read_todo_from_stmt(stmt : @sqlite3.Statement) -> @shared.Todo {
+  let id : Int = stmt.column(index=0)
+  let text : String = stmt.column_blob_as_string(index=1)
+  let done : Int = stmt.column(index=2)
+  { id, text, done: done != 0 }
 }
 
 ///|
 fn get_all_todos(
   conn : @sqlite3.Connection,
-) -> Array[Json] raise @sqlite3.SqliteError {
+) -> Array[@shared.Todo] raise @sqlite3.SqliteError {
   let stmt = conn.prepare("SELECT id, text, done FROM todos ORDER BY id")
-  let todos : Array[Json] = []
+  let todos : Array[@shared.Todo] = []
   while stmt.step() {
-    let id : Int = stmt.column(index=0)
-    let text : String = stmt.column_blob_as_string(index=1)
-    let done : Int = stmt.column(index=2)
-    todos.push(todo_to_json(id, text, done))
+    todos.push(read_todo_from_stmt(stmt))
   }
   stmt.finalize()
   todos
@@ -38,7 +38,7 @@ fn get_all_todos(
 fn create_todo(
   conn : @sqlite3.Connection,
   text : String,
-) -> Json raise @sqlite3.SqliteError {
+) -> @shared.Todo raise @sqlite3.SqliteError {
   let stmt = conn.prepare("INSERT INTO todos (text, done) VALUES (?, 0)")
   stmt.bind_string_as_blob(index=1, val=text)
   stmt.step_once()
@@ -47,14 +47,14 @@ fn create_todo(
   guard stmt2.step()
   let id : Int = stmt2.column(index=0)
   stmt2.finalize()
-  todo_to_json(id, text, 0)
+  { id, text, done: false }
 }
 
 ///|
 fn toggle_todo(
   conn : @sqlite3.Connection,
   id : Int,
-) -> Json raise @sqlite3.SqliteError {
+) -> @shared.Todo raise @sqlite3.SqliteError {
   let stmt = conn.prepare(
     "UPDATE todos SET done = CASE WHEN done = 0 THEN 1 ELSE 0 END WHERE id = ?",
   )
@@ -64,10 +64,9 @@ fn toggle_todo(
   let stmt2 = conn.prepare("SELECT id, text, done FROM todos WHERE id = ?")
   stmt2.bind(index=1, val=id)
   guard stmt2.step()
-  let text : String = stmt2.column_blob_as_string(index=1)
-  let done_val : Int = stmt2.column(index=2)
+  let todo = read_todo_from_stmt(stmt2)
   stmt2.finalize()
-  todo_to_json(id, text, done_val)
+  todo
 }
 
 ///|
@@ -143,8 +142,8 @@ fn main raise {
       }
     }
   })
-  ..get("/api/todos", _ => {
-    println("GET /api/todos")
+  ..get(@shared.api_todos, _ => {
+    println("GET \{@shared.api_todos}")
     try {
       let todos = get_all_todos(conn)
       println("  -> 200 (\{todos.length()} todos)")
@@ -156,8 +155,8 @@ fn main raise {
       }
     }
   })
-  ..post("/api/todos", event => {
-    println("POST /api/todos")
+  ..post(@shared.api_todos, event => {
+    println("POST \{@shared.api_todos}")
     try {
       let json : Json = event.req.body()
       let text = match json {
@@ -169,6 +168,12 @@ fn main raise {
           )
         }
       }
+      if not(@shared.validate_text(text)) {
+        println("  -> 400 Invalid todo text")
+        return @mocket.HttpResponse::new(BadRequest).body(
+          "Todo text must be between 1 and \{@shared.max_todo_length} characters",
+        )
+      }
       let todo = create_todo(conn, text)
       println("  -> 201 created todo: \{text}")
       @mocket.HttpResponse::new(Created).json(todo)
@@ -179,7 +184,7 @@ fn main raise {
       }
     }
   })
-  ..post("/api/todos/:id/toggle", fn(event) noraise {
+  ..post("\{@shared.api_todos}/:id/toggle", fn(event) noraise {
     let id_str = event.params.get("id").unwrap().to_string()
     println("POST /api/todos/\{id_str}/toggle")
     try {
@@ -194,7 +199,7 @@ fn main raise {
       }
     }
   })
-  .delete("/api/todos/:id", fn(event) noraise {
+  .delete("\{@shared.api_todos}/:id", fn(event) noraise {
     let id_str = event.params.get("id").unwrap().to_string()
     println("DELETE /api/todos/\{id_str}")
     try {
