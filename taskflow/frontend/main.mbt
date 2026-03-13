@@ -21,6 +21,8 @@ struct Model {
   search_query : String
   filter_urgency : String
   view_mode : String
+  sort_by : String
+  sort_asc : Bool
   dark_mode : Bool
   // Task creation
   adding_task : Bool
@@ -76,6 +78,8 @@ enum Msg {
   SearchChanged(String)
   SetFilterUrgency(String)
   SetViewMode(String)
+  SetSortBy(String)
+  ToggleSortOrder
   ToggleDarkMode
   // Task creation
   ShowAddTask
@@ -386,6 +390,8 @@ fn update(
     SearchChanged(q) => (@rabbita.none, { ..model, search_query: q })
     SetFilterUrgency(u) => (@rabbita.none, { ..model, filter_urgency: u })
     SetViewMode(m) => (@rabbita.none, { ..model, view_mode: m })
+    SetSortBy(s) => (@rabbita.none, { ..model, sort_by: s })
+    ToggleSortOrder => (@rabbita.none, { ..model, sort_asc: not(model.sort_asc) })
     ToggleDarkMode =>
       (@rabbita.none, { ..model, dark_mode: not(model.dark_mode) })
     // ---- Task creation ----
@@ -1430,6 +1436,59 @@ fn view_filters(
               ),
             )
           }
+          items
+        },
+      ),
+      // Sort controls
+      @html.div(
+        style=["display: flex", "gap: 4px", "align-items: center"],
+        {
+          let items : Array[@rabbita.Html] = [
+            @html.span(
+              style=[
+                "font-size: 12px",
+                "color: \{theme.text_muted}",
+                "margin-right: 4px",
+              ],
+              @shared.t(model.lang, "sort"),
+            ),
+          ]
+          for opt in @shared.sort_options {
+            let is_sel = model.sort_by == opt
+            let bg = if is_sel { "#4f46e5" } else { theme.filter_inactive }
+            let fg = if is_sel { "white" } else { theme.text_secondary }
+            items.push(
+              @html.button(
+                on_click=dispatch(SetSortBy(opt)),
+                style=[
+                  "padding: 3px 10px",
+                  "border-radius: 12px",
+                  "border: none",
+                  "cursor: pointer",
+                  "font-size: 11px",
+                  "background: \{bg}",
+                  "color: \{fg}",
+                ],
+                @shared.t(model.lang, "sort_\{opt}"),
+              ),
+            )
+          }
+          // Ascending/Descending toggle
+          items.push(
+            @html.button(
+              on_click=dispatch(ToggleSortOrder),
+              style=[
+                "padding: 3px 8px",
+                "border-radius: 12px",
+                "border: 1px solid \{theme.input_border}",
+                "cursor: pointer",
+                "font-size: 11px",
+                "background: \{theme.filter_inactive}",
+                "color: \{theme.text_secondary}",
+              ],
+              if model.sort_asc { "↑" } else { "↓" },
+            ),
+          )
           items
         },
       ),
@@ -2844,7 +2903,7 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
     urgency=model.filter_urgency,
     today=model.today,
   )
-  let sorted = @shared.sort_tasks(filtered)
+  let sorted = @shared.sort_tasks_by(filtered, model.sort_by, model.sort_asc)
   @html.div(
     style=[
       "padding: 16px 24px",
@@ -2948,6 +3007,8 @@ fn main {
       search_query: "",
       filter_urgency: "",
       view_mode: "list",
+      sort_by: "priority",
+      sort_asc: true,
       adding_task: false,
       new_title: "",
       new_desc: "",

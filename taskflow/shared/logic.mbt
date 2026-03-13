@@ -185,6 +185,93 @@ pub fn find_member(members : Array[Member], id : Int) -> Member? {
 }
 
 ///|
+/// All available sort criteria.
+pub let sort_options : Array[String] = [
+  "priority", "due_date", "title", "created_at",
+]
+
+///|
+/// Human-readable label for a sort option.
+pub fn sort_label(sort_by : String) -> String {
+  match sort_by {
+    "priority" => "Priority"
+    "due_date" => "Due Date"
+    "title" => "Title"
+    "created_at" => "Created"
+    _ => sort_by
+  }
+}
+
+///|
+/// Sort tasks by the given criterion and direction. Falls back to ID for stability.
+///
+/// # Example
+///
+/// ```mbt check
+/// test {
+///   let tasks : Array[@shared.Task] = [
+///     {
+///       id: 1, title: "B", description: "", status: "todo",
+///       priority: "low", assignee_id: 0, due_date: "", created_at: "2026-03-01",
+///     },
+///     {
+///       id: 2, title: "A", description: "", status: "todo",
+///       priority: "high", assignee_id: 0, due_date: "", created_at: "2026-03-02",
+///     },
+///   ]
+///   let by_title = @shared.sort_tasks_by(tasks, "title", true)
+///   inspect(by_title[0].title, content="A")
+///   let by_title_desc = @shared.sort_tasks_by(tasks, "title", false)
+///   inspect(by_title_desc[0].title, content="B")
+///   let by_created = @shared.sort_tasks_by(tasks, "created_at", false)
+///   inspect(by_created[0].id, content="2")
+/// }
+/// ```
+pub fn sort_tasks_by(
+  tasks : Array[Task],
+  sort_by : String,
+  ascending : Bool,
+) -> Array[Task] {
+  let result = tasks.copy()
+  result.sort_by(fn(a, b) {
+    let cmp = match sort_by {
+      "title" => a.title.to_lower().compare(b.title.to_lower())
+      "due_date" => {
+        if a.due_date == "" && b.due_date == "" {
+          0
+        } else if a.due_date == "" {
+          1
+        } else if b.due_date == "" {
+          -1
+        } else {
+          a.due_date.compare(b.due_date)
+        }
+      }
+      "created_at" => a.created_at.compare(b.created_at)
+      _ => {
+        // Default: priority
+        let pa = priority_weight(a.priority)
+        let pb = priority_weight(b.priority)
+        if pa != pb {
+          pa - pb
+        } else if a.due_date == "" && b.due_date == "" {
+          0
+        } else if a.due_date == "" {
+          1
+        } else if b.due_date == "" {
+          -1
+        } else {
+          a.due_date.compare(b.due_date)
+        }
+      }
+    }
+    let directed = if ascending { cmp } else { -cmp }
+    if directed != 0 { directed } else { a.id - b.id }
+  })
+  result
+}
+
+///|
 /// Sort tasks by priority (urgent first), then due date (earliest first,
 /// no-deadline last), then by ID for stability.
 pub fn sort_tasks(tasks : Array[Task]) -> Array[Task] {
