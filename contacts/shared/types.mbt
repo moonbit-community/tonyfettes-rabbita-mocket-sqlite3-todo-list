@@ -5,4 +5,4 @@ pub(all) struct Contact {
   email : String
   phone : String
   favorite : Bool
-} derive(ToJson, FromJson)
+} derive(ToJson, FromJson, Debug)
