@@ -289,11 +289,10 @@ fn update(
         Json(({ "username": username, "password": password } : Json)),
         expect=Json(fn(result) { dispatch(AuthResult(result)) }, fn(json) {
           match json {
-            { "error": String(msg), .. } =>
-              Err(@shared.t_server_error(model.lang, msg))
+            { "error": String(msg), .. } => Err(msg)
             _ =>
               Ok(@json.from_json(json)) catch {
-                _ => Err(@shared.t(model.lang, "invalid_credentials"))
+                _ => Err("invalid_credentials")
               }
           }
         }),
@@ -323,11 +322,10 @@ fn update(
         Json(({ "username": username, "password": password } : Json)),
         expect=Json(fn(result) { dispatch(AuthResult(result)) }, fn(json) {
           match json {
-            { "error": String(msg), .. } =>
-              Err(@shared.t_server_error(model.lang, msg))
+            { "error": String(msg), .. } => Err(msg)
             _ =>
               Ok(@json.from_json(json)) catch {
-                _ => Err(@shared.t(model.lang, "registration_failed"))
+                _ => Err("registration_failed")
               }
           }
         }),
@@ -347,8 +345,11 @@ fn update(
           auth_password: "",
         },
       )
-    AuthResult(Err(e)) =>
-      (@rabbita.none, { ..model, auth_loading: false, auth_error: e })
+    AuthResult(Err(e)) => {
+      // Translate at response time so lang switch during request is respected
+      let msg = @shared.t_server_error(model.lang, e)
+      (@rabbita.none, { ..model, auth_loading: false, auth_error: msg })
+    }
     Logout => {
       let cmd = @http.post(
         @shared.api_logout,

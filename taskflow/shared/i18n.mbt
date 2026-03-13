@@ -255,6 +255,6 @@ pub fn t_server_error(lang : Lang, msg : String) -> String {
     (Zh, "Password must be 4-100 characters") => "密码：4-100个字符"
     (Zh, "Username already taken") => "用户名已被使用"
     (Zh, "Invalid username or password") => "用户名或密码错误"
-    (_, _) => msg
+    (_, _) => t(lang, msg)
   }
 }

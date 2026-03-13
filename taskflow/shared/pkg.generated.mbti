@@ -98,6 +98,8 @@ pub fn t_complete(Lang, Int) -> String
 
 pub fn t_priority(Lang, String) -> String
 
+pub fn t_server_error(Lang, String) -> String
+
 pub fn t_status(Lang, String) -> String
 
 pub fn t_tasks_done(Lang, Int, Int) -> String

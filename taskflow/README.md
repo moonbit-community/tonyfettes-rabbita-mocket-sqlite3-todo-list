@@ -8,7 +8,7 @@ A full-stack task management application written entirely in [MoonBit](https://w
 make serve          # Build + run on http://localhost:4006
 make build          # Build both targets without running
 moon test           # Run all 166 unit tests
-moon run cli --target native  # Run CLI integration tests (server must be running)
+moon run cli --target native  # Run CLI integration tests (needs running server + clean DB)
 ```
 
 ## Architecture Overview
@@ -18,7 +18,7 @@ TaskFlow compiles from one MoonBit codebase into two targets:
 - **Frontend** (target: `js`) — compiles to JavaScript, runs in the browser
 - **Backend** (target: `native`) — compiles to native binary, runs as HTTP server
 
-A **shared** package contains types, validation, business logic, and i18n that both targets use at compile time — no runtime serialization or code generation needed.
+A **shared** package contains types, validation, business logic, and i18n that both targets use at compile time — the same struct definitions and derive macros produce matching JSON serialization on both sides automatically.
 
 ```mermaid
 graph TB
@@ -213,7 +213,7 @@ The `Model` struct holds all application state:
 
 ### HTTP Server
 
-Built with [Mocket](https://github.com/aspect-build/mocket) framework. Serves the HTML shell at `/`, the compiled JS at `/frontend.js`, and the REST API under `/api/`.
+Built with [Mocket](https://github.com/oboard/mocket) framework. Serves the HTML shell at `/`, the compiled JS at `/frontend.js`, and the REST API under `/api/`.
 
 ### Authentication Flow
 

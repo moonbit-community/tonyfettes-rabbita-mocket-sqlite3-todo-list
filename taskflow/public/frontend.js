@@ -12908,7 +12908,7 @@ function _M0FP38bobzhang8taskflow6shared16t__server__error(lang, msg) {
       break _L;
     }
   }
-  return msg;
+  return _M0FP38bobzhang8taskflow6shared1t(lang, msg);
 }
 function _M0MP319moonbit_2dcommunity7rabbita2js5Value10cast__fromGsE(value) {
   return value;
@@ -17184,7 +17184,7 @@ function _M0FP38bobzhang8taskflow8frontend6update(dispatch, msg, model) {
                                                                                           break _L$39;
                                                                                         }
                                                                                       }
-                                                                                      return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err(_M0FP38bobzhang8taskflow6shared16t__server__error(model.lang, msg$2));
+                                                                                      return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err(msg$2);
                                                                                     }
                                                                                     let _try_err;
                                                                                     _L$40: {
@@ -17200,7 +17200,7 @@ function _M0FP38bobzhang8taskflow8frontend6update(dispatch, msg, model) {
                                                                                       }
                                                                                       return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE2Ok(_tmp);
                                                                                     }
-                                                                                    return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err(_M0FP38bobzhang8taskflow6shared1t(model.lang, "invalid_credentials"));
+                                                                                    return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err("invalid_credentials");
                                                                                   }));
                                                                                   return { _0: cmd, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.current_user, model.auth_screen, model.auth_username, model.auth_password, "", true, model.tasks, model.members, model.activities, model.dependencies, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.filter_urgency, model.view_mode, model.dark_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.viewing_comments, model.comments, model.new_comment, model.confirm_delete, model.error_msg, model.loading, model.lang) };
                                                                                 }
@@ -17240,7 +17240,7 @@ function _M0FP38bobzhang8taskflow8frontend6update(dispatch, msg, model) {
                                                                                           break _L$39;
                                                                                         }
                                                                                       }
-                                                                                      return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err(_M0FP38bobzhang8taskflow6shared16t__server__error(model.lang, msg$2));
+                                                                                      return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err(msg$2);
                                                                                     }
                                                                                     let _try_err;
                                                                                     _L$40: {
@@ -17256,7 +17256,7 @@ function _M0FP38bobzhang8taskflow8frontend6update(dispatch, msg, model) {
                                                                                       }
                                                                                       return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE2Ok(_tmp);
                                                                                     }
-                                                                                    return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err(_M0FP38bobzhang8taskflow6shared1t(model.lang, "registration_failed"));
+                                                                                    return new _M0DTPC16result6ResultGRP38bobzhang8taskflow6shared12AuthResponsesE3Err("registration_failed");
                                                                                   }));
                                                                                   return { _0: cmd$2, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.current_user, model.auth_screen, model.auth_username, model.auth_password, "", true, model.tasks, model.members, model.activities, model.dependencies, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.filter_urgency, model.view_mode, model.dark_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.viewing_comments, model.comments, model.new_comment, model.confirm_delete, model.error_msg, model.loading, model.lang) };
                                                                                 }
@@ -17614,7 +17614,8 @@ function _M0FP38bobzhang8taskflow8frontend6update(dispatch, msg, model) {
                                                                   }
                                                                   return { _0: _M0FP38bobzhang8taskflow8frontend12fetch__board(dispatch), _1: new _M0TP38bobzhang8taskflow8frontend5Model(resp.user, "", "", "", "", false, model.tasks, model.members, model.activities, model.dependencies, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.filter_urgency, model.view_mode, model.dark_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.viewing_comments, model.comments, model.new_comment, model.confirm_delete, model.error_msg, model.loading, model.lang) };
                                                                 }
-                                                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.current_user, model.auth_screen, model.auth_username, model.auth_password, e$4, false, model.tasks, model.members, model.activities, model.dependencies, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.filter_urgency, model.view_mode, model.dark_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.viewing_comments, model.comments, model.new_comment, model.confirm_delete, model.error_msg, model.loading, model.lang) };
+                                                                const msg$2 = _M0FP38bobzhang8taskflow6shared16t__server__error(model.lang, e$4);
+                                                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.current_user, model.auth_screen, model.auth_username, model.auth_password, msg$2, false, model.tasks, model.members, model.activities, model.dependencies, model.today, model.filter_status, model.filter_assignee, model.filter_priority, model.search_query, model.filter_urgency, model.view_mode, model.dark_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.viewing_comments, model.comments, model.new_comment, model.confirm_delete, model.error_msg, model.loading, model.lang) };
                                                               }
                                                               return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang8taskflow8frontend5Model(model.current_user, model.auth_screen, model.auth_username, model.auth_password, model.auth_error, model.auth_loading, model.tasks, model.members, model.activities, model.dependencies, model.today, s, model.filter_assignee, model.filter_priority, model.search_query, model.filter_urgency, model.view_mode, model.dark_mode, model.adding_task, model.new_title, model.new_desc, model.new_priority, model.new_assignee, model.new_due_date, model.editing_task, model.edit_title, model.edit_desc, model.edit_priority, model.edit_assignee, model.edit_due_date, model.viewing_comments, model.comments, model.new_comment, model.confirm_delete, model.error_msg, model.loading, model.lang) };
                                                             }
