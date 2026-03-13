@@ -130,6 +130,50 @@ test "AuthResponse JSON round-trip" {
 }
 
 ///|
+test "User JSON structure" {
+  let user : @shared.User = { id: 1, username: "alice", color: "blue" }
+  json_inspect(user.to_json(), content={
+    "id": 1,
+    "username": "alice",
+    "color": "blue",
+  })
+}
+
+///|
+test "AuthResponse JSON structure" {
+  let resp : @shared.AuthResponse = {
+    user: { id: 1, username: "alice", color: "blue" },
+    message: "Login successful",
+  }
+  json_inspect(resp.to_json(), content={
+    "user": { "id": 1, "username": "alice", "color": "blue" },
+    "message": "Login successful",
+  })
+}
+
+///|
+test "Activity JSON structure with user_name" {
+  let act : @shared.Activity = {
+    id: 1,
+    task_id: 2,
+    task_title: "Deploy",
+    from_status: "review",
+    to_status: "done",
+    timestamp: "2026-03-12",
+    user_name: "bob",
+  }
+  json_inspect(act.to_json(), content={
+    "id": 1,
+    "task_id": 2,
+    "task_title": "Deploy",
+    "from_status": "review",
+    "to_status": "done",
+    "timestamp": "2026-03-12",
+    "user_name": "bob",
+  })
+}
+
+///|
 test "Comment JSON round-trip" {
   let c : @shared.Comment = {
     id: 1,

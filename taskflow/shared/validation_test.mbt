@@ -155,3 +155,45 @@ test "validate_password max length" {
   let over_limit = "a".repeat(101)
   inspect(@shared.validate_password(over_limit), content="false")
 }
+
+///|
+test "validate_username exact boundary" {
+  // Exactly 3 chars (minimum)
+  inspect(@shared.validate_username("abc"), content="true")
+  inspect(@shared.validate_username("a_1"), content="true")
+  // Exactly 2 chars (under minimum)
+  inspect(@shared.validate_username("ab"), content="false")
+}
+
+///|
+test "validate_username numeric and underscore" {
+  // All digits
+  inspect(@shared.validate_username("123"), content="true")
+  // All underscores
+  inspect(@shared.validate_username("___"), content="true")
+  // Mixed case with underscore and digits
+  inspect(@shared.validate_username("User_Name_42"), content="true")
+}
+
+///|
+test "validate_username unicode rejected" {
+  // Unicode characters are not alphanumeric ASCII
+  inspect(@shared.validate_username("alice中文"), content="false")
+  inspect(@shared.validate_username("böb"), content="false")
+}
+
+///|
+test "validate_password exact boundary" {
+  // Exactly 4 chars (minimum)
+  inspect(@shared.validate_password("abcd"), content="true")
+  // Exactly 3 chars (under minimum)
+  inspect(@shared.validate_password("abc"), content="false")
+}
+
+///|
+test "validate_password special characters" {
+  // Passwords allow any characters
+  inspect(@shared.validate_password("p@$$"), content="true")
+  inspect(@shared.validate_password("中文密码"), content="true")
+  inspect(@shared.validate_password("    "), content="true")
+}

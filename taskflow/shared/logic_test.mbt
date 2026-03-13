@@ -659,7 +659,7 @@ test "format_activity with user" {
 }
 
 ///|
-test "format_activity created" {
+test "format_activity created without user" {
   let act : @shared.Activity = {
     id: 1,
     task_id: 1,
@@ -670,6 +670,20 @@ test "format_activity created" {
     user_name: "",
   }
   inspect(@shared.format_activity(act), content="New task:  → To Do")
+}
+
+///|
+test "format_activity created with user" {
+  let act : @shared.Activity = {
+    id: 1,
+    task_id: 1,
+    task_title: "New task",
+    from_status: "",
+    to_status: "todo",
+    timestamp: "2026-03-12",
+    user_name: "charlie",
+  }
+  inspect(@shared.format_activity(act), content="charlie: New task:  → To Do")
 }
 
 ///|

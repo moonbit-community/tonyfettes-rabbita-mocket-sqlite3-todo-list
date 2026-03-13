@@ -168,6 +168,20 @@ fn get_theme(dark : Bool) -> Theme {
 }
 
 ///|
+/// Find a member's ID by their name. Returns 0 if not found.
+fn find_member_id_by_name(
+  members : Array[@shared.Member],
+  name : String,
+) -> Int {
+  for m in members {
+    if m.name == name {
+      return m.id
+    }
+  }
+  0
+}
+
+///|
 /// Issue GET /api/auth/me to check for existing session.
 fn fetch_me(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
   @http.get(
@@ -581,7 +595,7 @@ fn update(
       let url = @shared.api_task_comments(task_id)
       let cmd = @http.post(
         url,
-        Json(({ "text": text, "author": "Me" } : Json)),
+        Json(({ "text": text } : Json)),
         expect=Json(fn(result) { dispatch(CommentAdded(result)) }, fn(json) {
           Ok((@json.from_json(json) : @shared.Comment)) catch {
             _ => Err("Failed to decode comment")
@@ -923,6 +937,38 @@ fn view_header(
             )
           },
         ]),
+        // My Tasks toggle
+        match model.current_user {
+          Some(user) => {
+            let my_member_id = find_member_id_by_name(
+              model.members,
+              user.username,
+            )
+            let is_active = model.filter_assignee == my_member_id &&
+              my_member_id != 0
+            let bg = if is_active {
+              "rgba(255,255,255,0.35)"
+            } else {
+              "rgba(255,255,255,0.1)"
+            }
+            let target = if is_active { 0 } else { my_member_id }
+            @html.button(
+              on_click=dispatch(SetFilterAssignee(target)),
+              style=[
+                "padding: 6px 10px",
+                "border: none",
+                "cursor: pointer",
+                "font-size: 12px",
+                "color: white",
+                "border-radius: 4px",
+                "background: \{bg}",
+                "font-weight: 500",
+              ],
+              "My Tasks",
+            )
+          }
+          None => @html.text("")
+        },
         // Dark mode toggle
         {
           let icon = if model.dark_mode { "Light" } else { "Dark" }

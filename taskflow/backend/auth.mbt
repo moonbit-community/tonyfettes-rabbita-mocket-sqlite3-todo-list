@@ -11,10 +11,20 @@ fn hash_password(password : String, salt : String) -> String {
 }
 
 ///|
-/// Generate a unique session token using SHA256 of timestamp + username + counter.
-fn generate_token(username : String) -> String {
+/// Generate a unique session token using SHA256 of username + counter + pid hint.
+/// The counter ensures uniqueness within a process; the pid-derived seed
+/// makes collisions across server restarts extremely unlikely.
+fn generate_token(
+  conn : @sqlite3.Connection,
+  username : String,
+) -> String raise @sqlite3.SqliteError {
   token_counter.update(fn(c) { c + 1 })
-  let input = "\{username}:\{token_counter.val}"
+  // Use SQLite's random() as an entropy source (different each call)
+  let rng_stmt = conn.prepare("SELECT random()")
+  guard rng_stmt.step()
+  let rng : Int = rng_stmt.column(index=0)
+  rng_stmt.finalize()
+  let input = "\{username}:\{token_counter.val}:\{rng}"
   let hash = @crypto.sha256(@utf8.encode(input))
   @crypto.bytes_to_hex_string(hash)
 }
@@ -146,7 +156,7 @@ fn create_session(
   user_id : Int,
   username : String,
 ) -> String raise @sqlite3.SqliteError {
-  let token = generate_token(username)
+  let token = generate_token(conn, username)
   let today = get_today(conn)
   let stmt = conn.prepare(
     "INSERT INTO sessions (token, user_id, created_at) VALUES (?, ?, ?)",

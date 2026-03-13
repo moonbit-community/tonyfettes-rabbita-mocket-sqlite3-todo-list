@@ -83,27 +83,23 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
     s.step_once()
     s.finalize()
   }
-  // Seed default members if table is empty
-  let check = conn.prepare("SELECT COUNT(*) FROM members")
-  guard check.step()
-  let count : Int = check.column(index=0)
-  check.finalize()
-  if count == 0 {
-    let defaults = [
-      ("Alice", "blue"),
-      ("Bob", "green"),
-      ("Charlie", "orange"),
-      ("Diana", "purple"),
-      ("Eve", "red"),
-    ]
-    for d in defaults {
-      let s = conn.prepare("INSERT INTO members (name, color) VALUES (?, ?)")
-      s.bind_string_as_blob(index=1, val=d.0)
-      s.bind_string_as_blob(index=2, val=d.1)
-      s.step_once()
-      s.finalize()
+  // Migrate: add user_name column to activities if missing (for existing DBs)
+  let pragma = conn.prepare("PRAGMA table_info(activities)")
+  let mut has_user_name = false
+  while pragma.step() {
+    let col_name : String = pragma.column_blob_as_string(index=1)
+    if col_name == "user_name" {
+      has_user_name = true
     }
-    println("Seeded team members: Alice, Bob, Charlie, Diana, Eve")
+  }
+  pragma.finalize()
+  if not(has_user_name) {
+    let alter = conn.prepare(
+      "ALTER TABLE activities ADD COLUMN user_name BLOB NOT NULL DEFAULT ''",
+    )
+    alter.step_once()
+    alter.finalize()
+    println("Migrated activities table: added user_name column")
   }
 }
 
