@@ -289,7 +289,8 @@ fn update(
         Json(({ "username": username, "password": password } : Json)),
         expect=Json(fn(result) { dispatch(AuthResult(result)) }, fn(json) {
           match json {
-            { "error": String(msg), .. } => Err(msg)
+            { "error": String(msg), .. } =>
+              Err(@shared.t_server_error(model.lang, msg))
             _ =>
               Ok(@json.from_json(json)) catch {
                 _ => Err(@shared.t(model.lang, "invalid_credentials"))
@@ -322,7 +323,8 @@ fn update(
         Json(({ "username": username, "password": password } : Json)),
         expect=Json(fn(result) { dispatch(AuthResult(result)) }, fn(json) {
           match json {
-            { "error": String(msg), .. } => Err(msg)
+            { "error": String(msg), .. } =>
+              Err(@shared.t_server_error(model.lang, msg))
             _ =>
               Ok(@json.from_json(json)) catch {
                 _ => Err(@shared.t(model.lang, "registration_failed"))
@@ -672,7 +674,7 @@ fn update(
     // ---- Errors ----
     DismissError => (@rabbita.none, { ..model, error_msg: "" })
     // ---- Language ----
-    SetLang(l) => (@rabbita.none, { ..model, lang: l })
+    SetLang(l) => (@rabbita.none, { ..model, lang: l, auth_error: "" })
   }
 }
 

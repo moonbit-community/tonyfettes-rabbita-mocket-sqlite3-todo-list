@@ -243,3 +243,18 @@ pub fn t_activity(lang : Lang, act : Activity) -> String {
     "\{act.task_title}: \{from} → \{to}"
   }
 }
+
+///|
+/// Translate known backend error messages to the current language.
+pub fn t_server_error(lang : Lang, msg : String) -> String {
+  match (lang, msg) {
+    (Zh, "Missing username") => "缺少用户名"
+    (Zh, "Missing password") => "缺少密码"
+    (Zh, "Username must be 3-30 alphanumeric characters or underscores") =>
+      "用户名：3-30个字母、数字或下划线"
+    (Zh, "Password must be 4-100 characters") => "密码：4-100个字符"
+    (Zh, "Username already taken") => "用户名已被使用"
+    (Zh, "Invalid username or password") => "用户名或密码错误"
+    (_, _) => msg
+  }
+}

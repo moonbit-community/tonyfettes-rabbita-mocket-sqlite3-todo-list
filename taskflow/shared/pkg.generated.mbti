@@ -90,6 +90,22 @@ pub fn status_color(String) -> String
 
 pub fn status_label(String) -> String
 
+pub fn t(Lang, String) -> String
+
+pub fn t_activity(Lang, Activity) -> String
+
+pub fn t_complete(Lang, Int) -> String
+
+pub fn t_priority(Lang, String) -> String
+
+pub fn t_status(Lang, String) -> String
+
+pub fn t_tasks_done(Lang, Int, Int) -> String
+
+pub fn t_transition(Lang, String, String) -> String
+
+pub fn t_urgency(Lang, String, String) -> String
+
 pub fn tasks_for_member(Array[Task], Int) -> Array[Task]
 
 pub fn transition_label(String, String) -> String
@@ -174,6 +190,15 @@ pub impl Eq for Dependency
 pub impl Show for Dependency
 pub impl ToJson for Dependency
 pub impl @json.FromJson for Dependency
+
+pub(all) enum Lang {
+  En
+  Zh
+}
+pub impl Eq for Lang
+pub impl Show for Lang
+pub impl ToJson for Lang
+pub impl @json.FromJson for Lang
 
 pub(all) struct Member {
   id : Int
