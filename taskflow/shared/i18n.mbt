@@ -162,6 +162,15 @@ pub fn t(lang : Lang, key : String) -> String {
     (_, "label_name") => "Label name"
     (Zh, "label_filter") => "标签："
     (_, "label_filter") => "Label:"
+    // Subtasks / Checklist
+    (Zh, "subtasks") => "子任务"
+    (_, "subtasks") => "Subtasks"
+    (Zh, "no_subtasks") => "暂无子任务"
+    (_, "no_subtasks") => "No subtasks"
+    (Zh, "add_subtask") => "添加子任务"
+    (_, "add_subtask") => "Add subtask"
+    (Zh, "subtask_placeholder") => "子任务标题..."
+    (_, "subtask_placeholder") => "Subtask title..."
     // Export
     (Zh, "export") => "导出"
     (_, "export") => "Export"

@@ -80,6 +80,15 @@ pub(all) struct TaskLabel {
 } derive(ToJson, FromJson, Show, Eq)
 
 ///|
+/// A checklist item belonging to a task.
+pub(all) struct Subtask {
+  id : Int
+  task_id : Int
+  title : String
+  done : Bool
+} derive(ToJson, FromJson, Show, Eq)
+
+///|
 /// Full board state returned by `GET /api/board`.
 pub(all) struct Board {
   tasks : Array[Task]
@@ -88,5 +97,6 @@ pub(all) struct Board {
   dependencies : Array[Dependency]
   labels : Array[Label]
   task_labels : Array[TaskLabel]
+  subtasks : Array[Subtask]
   today : String
 } derive(ToJson, FromJson, Show, Eq)

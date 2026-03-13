@@ -75,3 +75,21 @@ pub fn api_task_labels(id : Int) -> String {
 pub fn api_task_labels_remove(id : Int) -> String {
   "/api/tasks/\{id}/labels/remove"
 }
+
+///|
+/// `GET` — list subtasks for a task. `POST` — add a subtask.
+pub fn api_task_subtasks(id : Int) -> String {
+  "/api/tasks/\{id}/subtasks"
+}
+
+///|
+/// `POST` — toggle a subtask's done state.
+pub fn api_subtask_toggle(id : Int) -> String {
+  "/api/subtasks/\{id}/toggle"
+}
+
+///|
+/// `DELETE` — remove a subtask.
+pub fn api_subtask(id : Int) -> String {
+  "/api/subtasks/\{id}"
+}

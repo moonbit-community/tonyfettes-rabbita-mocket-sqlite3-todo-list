@@ -15,6 +15,7 @@ struct Model {
   dependencies : Array[@shared.Dependency]
   labels : Array[@shared.Label]
   task_labels : Array[@shared.TaskLabel]
+  subtasks : Array[@shared.Subtask]
   today : String
   // Filters
   filter_status : String
@@ -45,6 +46,8 @@ struct Model {
   viewing_comments : Int
   comments : Array[@shared.Comment]
   new_comment : String
+  // Subtask input
+  new_subtask : String
   // Delete confirmation
   confirm_delete : Int
   // Error notification
@@ -136,6 +139,13 @@ enum Msg {
   AddTaskLabel(Int, Int) // task_id, label_id
   RemoveTaskLabel(Int, Int)
   LabelChanged
+  // Subtasks
+  NewSubtaskChanged(String)
+  AddSubtask(Int) // task_id
+  SubtaskAdded
+  ToggleSubtask(Int) // subtask_id
+  DeleteSubtask(Int) // subtask_id
+  SubtaskChanged
   // Drag-and-drop
   DragStartTask(Int)
   DragOverColumn(String)
@@ -268,6 +278,7 @@ fn update(
           dependencies: board.dependencies,
           labels: board.labels,
           task_labels: board.task_labels,
+          subtasks: board.subtasks,
           today: board.today,
           loading: false,
         },
@@ -646,6 +657,50 @@ fn update(
       (cmd, { ..model, task_labels: tls })
     }
     LabelChanged => (fetch_board(dispatch), model)
+    // ---- Subtasks ----
+    NewSubtaskChanged(v) => (@rabbita.none, { ..model, new_subtask: v })
+    AddSubtask(task_id) => {
+      if model.new_subtask == "" {
+        return (@rabbita.none, model)
+      }
+      let url = @shared.api_task_subtasks(task_id)
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(SubtaskAdded)
+      })
+      let cmd = @http.post(
+        url,
+        Json(({ "title": model.new_subtask } : Json)),
+        expect~,
+      )
+      (cmd, { ..model, new_subtask: "" })
+    }
+    SubtaskAdded => (fetch_board(dispatch), model)
+    ToggleSubtask(sub_id) => {
+      let url = @shared.api_subtask_toggle(sub_id)
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(SubtaskChanged)
+      })
+      let cmd = @http.post(url, Empty, expect~)
+      // Optimistic toggle
+      let subs = model.subtasks.map(fn(s) {
+        if s.id == sub_id {
+          { ..s, done: not(s.done) }
+        } else {
+          s
+        }
+      })
+      (cmd, { ..model, subtasks: subs })
+    }
+    DeleteSubtask(sub_id) => {
+      let url = @shared.api_subtask(sub_id)
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(SubtaskChanged)
+      })
+      let cmd = @http.delete(url, expect~)
+      let subs = model.subtasks.filter(fn(s) { s.id != sub_id })
+      (cmd, { ..model, subtasks: subs })
+    }
+    SubtaskChanged => (fetch_board(dispatch), model)
     // ---- Comments ----
     ShowComments(task_id) => {
       let url = @shared.api_task_comments(task_id)
@@ -659,7 +714,7 @@ fn update(
       )
       (
         cmd,
-        { ..model, viewing_comments: task_id, comments: [], new_comment: "" },
+        { ..model, viewing_comments: task_id, comments: [], new_comment: "", new_subtask: "" },
       )
     }
     HideComments =>
@@ -2187,6 +2242,48 @@ fn view_task_item(
                 @html.text("")
               }
             },
+            {
+              let (sub_done, sub_total) = @shared.subtask_progress(
+                model.subtasks, task.id,
+              )
+              if sub_total > 0 {
+                let pct = if sub_total > 0 { sub_done * 100 / sub_total } else { 0 }
+                @html.div(
+                  style=[
+                    "font-size: 10px",
+                    "color: \{theme.text_muted}",
+                    "margin-top: 3px",
+                  ],
+                  [
+                    @html.text("☑ \{sub_done}/\{sub_total}"),
+                    @html.div(
+                      style=[
+                        "display: inline-block",
+                        "width: 40px",
+                        "height: 3px",
+                        "background: \{theme.input_border}",
+                        "border-radius: 2px",
+                        "margin-left: 6px",
+                        "vertical-align: middle",
+                      ],
+                      [
+                        @html.div(
+                          style=[
+                            "width: \{pct}%",
+                            "height: 100%",
+                            "background: #22c55e",
+                            "border-radius: 2px",
+                          ],
+                          [@html.text("")],
+                        ),
+                      ],
+                    ),
+                  ],
+                )
+              } else {
+                @html.text("")
+              }
+            },
           ]),
           @html.div(
             style=[
@@ -2401,6 +2498,24 @@ fn view_kanban_card(
                 l.name,
               )
             }),
+          )
+        } else {
+          @html.text("")
+        }
+      },
+      // Subtask progress
+      {
+        let (sub_done, sub_total) = @shared.subtask_progress(
+          model.subtasks, task.id,
+        )
+        if sub_total > 0 {
+          @html.div(
+            style=[
+              "font-size: 9px",
+              "color: \{theme.text_muted}",
+              "margin-top: 3px",
+            ],
+            [@html.text("☑ \{sub_done}/\{sub_total}")],
           )
         } else {
           @html.text("")
@@ -3157,6 +3272,164 @@ fn view_comments_panel(
               },
             ),
           )
+          // Subtasks / checklist section
+          let task_subs = @shared.subtasks_for_task(model.subtasks, task_id)
+          items.push(
+            @html.div(
+              style=[
+                "margin-top: 16px",
+                "padding-top: 12px",
+                "border-top: 1px solid \{theme.card_border}",
+              ],
+              {
+                let sub_items : Array[@rabbita.Html] = [
+                  @html.div(
+                    style=[
+                      "font-size: 13px",
+                      "font-weight: 600",
+                      "color: \{theme.text}",
+                      "margin-bottom: 8px",
+                    ],
+                    {
+                      let header_parts : Array[@rabbita.Html] = [
+                        @html.text(@shared.t(model.lang, "subtasks")),
+                      ]
+                      if task_subs.length() > 0 {
+                        let (sub_done, sub_total) = @shared.subtask_progress(
+                          model.subtasks, task_id,
+                        )
+                        header_parts.push(
+                          @html.span(
+                            style=[
+                              "font-weight: 400",
+                              "color: \{theme.text_muted}",
+                              "margin-left: 6px",
+                            ],
+                            "(\{sub_done}/\{sub_total})",
+                          ),
+                        )
+                      }
+                      header_parts
+                    },
+                  ),
+                ]
+                if task_subs.length() == 0 {
+                  sub_items.push(
+                    @html.div(
+                      style=[
+                        "font-size: 12px",
+                        "color: \{theme.text_muted}",
+                        "padding: 4px 0",
+                      ],
+                      [@html.text(@shared.t(model.lang, "no_subtasks"))],
+                    ),
+                  )
+                }
+                for sub in task_subs {
+                  let sid = sub.id
+                  let check = if sub.done { "☑" } else { "☐" }
+                  let text_style = if sub.done {
+                    "text-decoration: line-through"
+                  } else {
+                    "text-decoration: none"
+                  }
+                  let text_color = if sub.done {
+                    theme.text_muted
+                  } else {
+                    theme.text
+                  }
+                  sub_items.push(
+                    @html.div(
+                      style=[
+                        "display: flex",
+                        "align-items: center",
+                        "gap: 6px",
+                        "padding: 3px 0",
+                      ],
+                      [
+                        @html.button(
+                          on_click=dispatch(ToggleSubtask(sid)),
+                          style=[
+                            "background: none",
+                            "border: none",
+                            "cursor: pointer",
+                            "font-size: 14px",
+                            "padding: 0",
+                            "color: \{theme.text}",
+                          ],
+                          check,
+                        ),
+                        @html.span(
+                          style=[
+                            "font-size: 12px",
+                            "color: \{text_color}",
+                            text_style,
+                            "flex: 1",
+                          ],
+                          sub.title,
+                        ),
+                        @html.button(
+                          on_click=dispatch(DeleteSubtask(sid)),
+                          style=[
+                            "background: none",
+                            "border: none",
+                            "color: \{theme.text_muted}",
+                            "cursor: pointer",
+                            "font-size: 11px",
+                            "padding: 0 2px",
+                          ],
+                          "×",
+                        ),
+                      ],
+                    ),
+                  )
+                }
+                // Add subtask input
+                sub_items.push(
+                  @html.div(
+                    style=[
+                      "display: flex",
+                      "gap: 6px",
+                      "margin-top: 6px",
+                    ],
+                    [
+                      @html.input(
+                        input_type=Text,
+                        placeholder=@shared.t(model.lang, "subtask_placeholder"),
+                        value=model.new_subtask,
+                        on_input=fn(v) { dispatch(NewSubtaskChanged(v)) },
+                        style=[
+                          "flex: 1",
+                          "padding: 4px 8px",
+                          "border: 1px solid \{theme.input_border}",
+                          "border-radius: 6px",
+                          "font-size: 12px",
+                          "background: \{theme.input_bg}",
+                          "color: \{theme.text}",
+                          "outline: none",
+                        ],
+                        "",
+                      ),
+                      @html.button(
+                        on_click=dispatch(AddSubtask(task_id)),
+                        style=[
+                          "padding: 4px 10px",
+                          "background: #4f46e5",
+                          "color: white",
+                          "border: none",
+                          "border-radius: 6px",
+                          "cursor: pointer",
+                          "font-size: 12px",
+                        ],
+                        @shared.t(model.lang, "add"),
+                      ),
+                    ],
+                  ),
+                )
+                sub_items
+              },
+            ),
+          )
           // Task activity history section
           let task_acts = @shared.activities_for_task(
             model.activities, task_id,
@@ -3422,6 +3695,7 @@ fn main {
       dependencies: [],
       labels: [],
       task_labels: [],
+      subtasks: [],
       today: "",
       filter_status: "",
       filter_assignee: 0,
@@ -3448,6 +3722,7 @@ fn main {
       viewing_comments: 0,
       comments: [],
       new_comment: "",
+      new_subtask: "",
       confirm_delete: 0,
       error_msg: "",
       loading: false,

@@ -1376,3 +1376,31 @@ test "activities_for_task filters by task_id" {
   let empty : Array[@shared.Activity] = []
   inspect(@shared.activities_for_task(empty, 10).length(), content="0")
 }
+
+///|
+test "subtasks_for_task filters by task_id" {
+  let subs : Array[@shared.Subtask] = [
+    { id: 1, task_id: 10, title: "Write tests", done: false },
+    { id: 2, task_id: 20, title: "Deploy", done: true },
+    { id: 3, task_id: 10, title: "Code review", done: true },
+  ]
+  let result = @shared.subtasks_for_task(subs, 10)
+  inspect(result.length(), content="2")
+  inspect(result[0].title, content="Write tests")
+  inspect(result[1].title, content="Code review")
+  // Non-existent task returns empty
+  inspect(@shared.subtasks_for_task(subs, 99).length(), content="0")
+}
+
+///|
+test "subtask_progress counts done vs total" {
+  let subs : Array[@shared.Subtask] = [
+    { id: 1, task_id: 10, title: "A", done: false },
+    { id: 2, task_id: 10, title: "B", done: true },
+    { id: 3, task_id: 10, title: "C", done: true },
+    { id: 4, task_id: 20, title: "D", done: false },
+  ]
+  inspect(@shared.subtask_progress(subs, 10), content="(2, 3)")
+  inspect(@shared.subtask_progress(subs, 20), content="(0, 1)")
+  inspect(@shared.subtask_progress(subs, 99), content="(0, 0)")
+}

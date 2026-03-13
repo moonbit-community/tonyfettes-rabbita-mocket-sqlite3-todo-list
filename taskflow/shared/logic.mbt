@@ -609,3 +609,42 @@ pub fn tasks_to_csv(
   }
   lines.join("\n")
 }
+
+///|
+/// Filter subtasks belonging to a specific task.
+///
+/// # Example
+///
+/// ```
+/// let subs : Array[@shared.Subtask] = [
+///   { id: 1, task_id: 10, title: "A", done: false },
+///   { id: 2, task_id: 20, title: "B", done: true },
+///   { id: 3, task_id: 10, title: "C", done: true },
+/// ]
+/// assert_eq(@shared.subtasks_for_task(subs, 10).length(), 2)
+/// ```
+pub fn subtasks_for_task(
+  subtasks : Array[Subtask],
+  task_id : Int,
+) -> Array[Subtask] {
+  subtasks.filter(fn(s) { s.task_id == task_id })
+}
+
+///|
+/// Return (done_count, total_count) for a task's subtasks.
+///
+/// # Example
+///
+/// ```
+/// let subs : Array[@shared.Subtask] = [
+///   { id: 1, task_id: 10, title: "A", done: false },
+///   { id: 2, task_id: 10, title: "B", done: true },
+///   { id: 3, task_id: 10, title: "C", done: true },
+/// ]
+/// assert_eq(@shared.subtask_progress(subs, 10), (2, 3))
+/// ```
+pub fn subtask_progress(subtasks : Array[Subtask], task_id : Int) -> (Int, Int) {
+  let task_subs = subtasks_for_task(subtasks, task_id)
+  let done = task_subs.filter(fn(s) { s.done }).length()
+  (done, task_subs.length())
+}

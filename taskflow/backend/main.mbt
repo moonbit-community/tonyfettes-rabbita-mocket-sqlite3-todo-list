@@ -99,6 +99,20 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   )
   s7.step_once()
   s7.finalize()
+  // Subtasks / checklist items table
+  let s8 = conn.prepare(
+    (
+      #|CREATE TABLE IF NOT EXISTS subtasks (
+      #|  id INTEGER PRIMARY KEY AUTOINCREMENT,
+      #|  task_id INTEGER NOT NULL,
+      #|  title BLOB NOT NULL,
+      #|  done INTEGER NOT NULL DEFAULT 0,
+      #|  FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
+      #|)
+    ),
+  )
+  s8.step_once()
+  s8.finalize()
   // Indexes for common query patterns
   let idx_stmts = [
     "CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status)", "CREATE INDEX IF NOT EXISTS idx_tasks_assignee ON tasks(assignee_id)",
@@ -505,6 +519,73 @@ fn remove_task_label(
 }
 
 ///|
+/// Fetch all subtasks.
+fn get_all_subtasks(
+  conn : @sqlite3.Connection,
+) -> Array[@shared.Subtask] raise @sqlite3.SqliteError {
+  let stmt = conn.prepare(
+    "SELECT id, task_id, title, done FROM subtasks ORDER BY id ASC",
+  )
+  let subs : Array[@shared.Subtask] = []
+  while stmt.step() {
+    let id : Int = stmt.column(index=0)
+    let task_id : Int = stmt.column(index=1)
+    let title : String = stmt.column_blob_as_string(index=2)
+    let done_int : Int = stmt.column(index=3)
+    subs.push({ id, task_id, title, done: done_int != 0 })
+  }
+  stmt.finalize()
+  subs
+}
+
+///|
+/// Create a subtask for a task.
+fn create_subtask(
+  conn : @sqlite3.Connection,
+  task_id : Int,
+  title : String,
+) -> @shared.Subtask raise @sqlite3.SqliteError {
+  let stmt = conn.prepare(
+    "INSERT INTO subtasks (task_id, title, done) VALUES (?, ?, 0)",
+  )
+  stmt.bind(index=1, val=task_id)
+  stmt.bind_string_as_blob(index=2, val=title)
+  stmt.step_once()
+  stmt.finalize()
+  let id_stmt = conn.prepare("SELECT last_insert_rowid()")
+  guard id_stmt.step()
+  let id : Int = id_stmt.column(index=0)
+  id_stmt.finalize()
+  { id, task_id, title, done: false }
+}
+
+///|
+/// Toggle a subtask's done state.
+fn toggle_subtask(
+  conn : @sqlite3.Connection,
+  id : Int,
+) -> Unit raise @sqlite3.SqliteError {
+  let stmt = conn.prepare(
+    "UPDATE subtasks SET done = CASE WHEN done = 0 THEN 1 ELSE 0 END WHERE id = ?",
+  )
+  stmt.bind(index=1, val=id)
+  stmt.step_once()
+  stmt.finalize()
+}
+
+///|
+/// Delete a subtask.
+fn delete_subtask(
+  conn : @sqlite3.Connection,
+  id : Int,
+) -> Unit raise @sqlite3.SqliteError {
+  let stmt = conn.prepare("DELETE FROM subtasks WHERE id = ?")
+  stmt.bind(index=1, val=id)
+  stmt.step_once()
+  stmt.finalize()
+}
+
+///|
 /// Fetch the full board: tasks + members + activities + today's date.
 fn get_board(
   conn : @sqlite3.Connection,
@@ -515,8 +596,9 @@ fn get_board(
   let dependencies = get_all_deps(conn)
   let labels = get_all_labels(conn)
   let task_labels = get_all_task_labels(conn)
+  let subtasks = get_all_subtasks(conn)
   let today = get_today(conn)
-  { tasks, members, activities, dependencies, labels, task_labels, today }
+  { tasks, members, activities, dependencies, labels, task_labels, subtasks, today }
 }
 
 ///|
@@ -1292,6 +1374,71 @@ fn main raise {
       remove_task_label(conn, id, label_id)
       println("  -> 200 label \{label_id} removed from task \{id}")
       @mocket.HttpResponse::new(OK).json(({ "ok": true } : Json))
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  // Subtask endpoints
+  ..get("/api/tasks/:id/subtasks", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("GET /api/tasks/\{id_str}/subtasks")
+    try {
+      let id = @strconv.parse_int(id_str)
+      let subs = get_all_subtasks(conn).filter(fn(s) { s.task_id == id })
+      @mocket.HttpResponse::new(OK).json(subs.to_json())
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..post("/api/tasks/:id/subtasks", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("POST /api/tasks/\{id_str}/subtasks")
+    try {
+      let id = @strconv.parse_int(id_str)
+      let json : Json = event.req.body()
+      let title = match json {
+        { "title": String(s), .. } => s
+        _ => return @mocket.HttpResponse::new(BadRequest).body("Missing title")
+      }
+      let sub = create_subtask(conn, id, title)
+      println("  -> 201 subtask \{sub.id} for task \{id}")
+      @mocket.HttpResponse::new(Created).json(sub.to_json())
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..post("/api/subtasks/:id/toggle", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("POST /api/subtasks/\{id_str}/toggle")
+    try {
+      let id = @strconv.parse_int(id_str)
+      toggle_subtask(conn, id)
+      println("  -> 200 toggled subtask \{id}")
+      @mocket.HttpResponse::new(OK).json(({ "ok": true } : Json))
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..delete("/api/subtasks/:id", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("DELETE /api/subtasks/\{id_str}")
+    try {
+      let id = @strconv.parse_int(id_str)
+      delete_subtask(conn, id)
+      println("  -> 204 deleted subtask \{id}")
+      @mocket.HttpResponse::new(NoContent)
     } catch {
       e => {
         println("  -> 500 \{e}")

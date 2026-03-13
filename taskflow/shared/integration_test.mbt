@@ -375,6 +375,7 @@ test "workflow: board JSON round-trip preserves full state" {
     dependencies: [{ task_id: 2, depends_on_id: 1 }],
     labels: [],
     task_labels: [],
+    subtasks: [],
     today: "2026-03-13",
   }
   // Round-trip through JSON
