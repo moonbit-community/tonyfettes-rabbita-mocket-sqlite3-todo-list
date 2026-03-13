@@ -171,6 +171,17 @@ pub fn t(lang : Lang, key : String) -> String {
     (_, "add_subtask") => "Add subtask"
     (Zh, "subtask_placeholder") => "子任务标题..."
     (_, "subtask_placeholder") => "Subtask title..."
+    // Bulk actions
+    (Zh, "select_all") => "全选"
+    (_, "select_all") => "Select All"
+    (Zh, "clear_selection") => "取消选择"
+    (_, "clear_selection") => "Clear"
+    (Zh, "selected_count") => "已选"
+    (_, "selected_count") => "selected"
+    (Zh, "bulk_done") => "全部完成"
+    (_, "bulk_done") => "Mark Done"
+    (Zh, "bulk_delete") => "批量删除"
+    (_, "bulk_delete") => "Delete All"
     // Export
     (Zh, "export") => "导出"
     (_, "export") => "Export"

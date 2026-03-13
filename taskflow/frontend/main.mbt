@@ -56,6 +56,8 @@ struct Model {
   loading : Bool
   // Language
   lang : @shared.Lang
+  // Bulk selection
+  selected_tasks : Array[Int]
   // Drag-and-drop
   dragging_task_id : Int
   drag_over_status : String
@@ -146,6 +148,13 @@ enum Msg {
   ToggleSubtask(Int) // subtask_id
   DeleteSubtask(Int) // subtask_id
   SubtaskChanged
+  // Bulk selection
+  ToggleSelectTask(Int)
+  SelectAllVisible(Array[Int])
+  ClearSelection
+  BulkChangeStatus(String) // target status
+  BulkDelete
+  BulkDone
   // Drag-and-drop
   DragStartTask(Int)
   DragOverColumn(String)
@@ -797,6 +806,57 @@ fn update(
     DismissError => (@rabbita.none, { ..model, error_msg: "" })
     // ---- Language ----
     SetLang(l) => (@rabbita.none, { ..model, lang: l, auth_error: "" })
+    // ---- Bulk selection ----
+    ToggleSelectTask(id) => {
+      let sel = model.selected_tasks.copy()
+      if sel.contains(id) {
+        (
+          @rabbita.none,
+          { ..model, selected_tasks: sel.filter(fn(x) { x != id }) },
+        )
+      } else {
+        sel.push(id)
+        (@rabbita.none, { ..model, selected_tasks: sel })
+      }
+    }
+    SelectAllVisible(ids) =>
+      (@rabbita.none, { ..model, selected_tasks: ids })
+    ClearSelection =>
+      (@rabbita.none, { ..model, selected_tasks: [] })
+    BulkChangeStatus(target) => {
+      // Issue a status change for each selected task that supports the transition
+      let mut cmd = @rabbita.none
+      let tasks = model.tasks.map(fn(t) {
+        if model.selected_tasks.contains(t.id) &&
+          @shared.is_valid_transition(t.status, target) {
+          let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+            dispatch(BulkDone)
+          })
+          cmd = @http.post(
+            @shared.api_task_status(t.id),
+            Json(({ "status": target } : Json)),
+            expect~,
+          )
+          { ..t, status: target }
+        } else {
+          t
+        }
+      })
+      (cmd, { ..model, tasks, selected_tasks: [] })
+    }
+    BulkDelete => {
+      let mut cmd = @rabbita.none
+      for id in model.selected_tasks {
+        let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+          dispatch(BulkDone)
+        })
+        cmd = @http.delete(@shared.api_task(id), expect~)
+      }
+      let sel = model.selected_tasks
+      let tasks = model.tasks.filter(fn(t) { not(sel.contains(t.id)) })
+      (cmd, { ..model, tasks, selected_tasks: [] })
+    }
+    BulkDone => (fetch_board(dispatch), { ..model, selected_tasks: [] })
     // ---- Drag-and-drop ----
     DragStartTask(id) =>
       (@rabbita.none, { ..model, dragging_task_id: id })
@@ -2173,25 +2233,46 @@ fn view_task_item(
   } else {
     @html.text("")
   }
+  let is_selected = model.selected_tasks.contains(task.id)
+  let sel_border = if is_selected { "border: 1px solid #4f46e5" } else { "border: 1px solid \{theme.card_border}" }
   @html.div(
     style=[
       "background: \{theme.card_bg}",
       "border-radius: 8px",
       "padding: 12px 16px",
       "margin-bottom: 8px",
-      "border: 1px solid \{theme.card_border}",
+      sel_border,
       "border-left: 4px solid \{border_color}",
       "transition: all 0.15s",
     ],
     [
-      // Top row: title + info
+      // Top row: checkbox + title + info
       @html.div(
         style=[
           "display: flex", "justify-content: space-between", "align-items: flex-start",
           "margin-bottom: 6px",
         ],
         [
-          @html.div(style=["flex: 1"], [
+          @html.div(style=["display: flex", "align-items: flex-start", "gap: 8px", "flex: 1"], [
+            {
+              let tid = task.id
+              let check_bg = if is_selected { "#4f46e5" } else { "transparent" }
+              let check_border = if is_selected { "border: 1px solid #4f46e5" } else { "border: 1px solid \{theme.input_border}" }
+              let check_color = if is_selected { "white" } else { "transparent" }
+              @html.button(
+                on_click=dispatch(ToggleSelectTask(tid)),
+                style=[
+                  "width: 16px", "height: 16px", "min-width: 16px",
+                  "border-radius: 3px", check_border,
+                  "background: \{check_bg}", "cursor: pointer",
+                  "display: flex", "align-items: center", "justify-content: center",
+                  "font-size: 10px", "color: \{check_color}", "padding: 0",
+                  "margin-top: 2px",
+                ],
+                "✓",
+              )
+            },
+            @html.div(style=["flex: 1"], [
             @html.div(
               style=[
                 "font-size: 14px",
@@ -2284,6 +2365,7 @@ fn view_task_item(
                 @html.text("")
               }
             },
+          ]),
           ]),
           @html.div(
             style=[
@@ -3614,6 +3696,75 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
       } else {
         @html.div(style=[], [
           view_filters(dispatch, model),
+          // Bulk action bar
+          if model.selected_tasks.length() > 0 {
+            let count = model.selected_tasks.length()
+            let btn_style = [
+              "padding: 4px 12px", "border-radius: 6px", "border: none",
+              "cursor: pointer", "font-size: 12px", "color: white",
+            ]
+            @html.div(
+              style=[
+                "display: flex", "gap: 8px", "align-items: center", "flex-wrap: wrap",
+                "padding: 8px 12px", "margin-bottom: 8px",
+                "background: \{theme.filter_bg}", "border-radius: 8px",
+                "border: 1px solid #4f46e5",
+              ],
+              [
+                @html.span(
+                  style=["font-size: 12px", "color: \{theme.text}", "font-weight: 500"],
+                  {
+                    let label = @shared.t(model.lang, "selected_count")
+                    "\{count} \{label}"
+                  },
+                ),
+                @html.button(
+                  on_click=dispatch(
+                    SelectAllVisible(sorted.map(fn(t) { t.id })),
+                  ),
+                  style=[
+                    "padding: 4px 10px", "border-radius: 6px",
+                    "border: 1px solid \{theme.input_border}",
+                    "cursor: pointer", "font-size: 11px",
+                    "background: \{theme.filter_inactive}",
+                    "color: \{theme.text_secondary}",
+                  ],
+                  @shared.t(model.lang, "select_all"),
+                ),
+                @html.button(
+                  on_click=dispatch(BulkChangeStatus("done")),
+                  style={
+                    let s = btn_style.copy()
+                    s.push("background: #22c55e")
+                    s
+                  },
+                  @shared.t(model.lang, "bulk_done"),
+                ),
+                @html.button(
+                  on_click=dispatch(BulkDelete),
+                  style={
+                    let s = btn_style.copy()
+                    s.push("background: #ef4444")
+                    s
+                  },
+                  @shared.t(model.lang, "bulk_delete"),
+                ),
+                @html.button(
+                  on_click=dispatch(ClearSelection),
+                  style=[
+                    "padding: 4px 10px", "border-radius: 6px",
+                    "border: 1px solid \{theme.input_border}",
+                    "cursor: pointer", "font-size: 11px",
+                    "background: \{theme.filter_inactive}",
+                    "color: \{theme.text_secondary}",
+                  ],
+                  @shared.t(model.lang, "clear_selection"),
+                ),
+              ],
+            )
+          } else {
+            @html.text("")
+          },
           if model.adding_task {
             view_add_task_form(dispatch, model)
           } else {
@@ -3727,6 +3878,7 @@ fn main {
       error_msg: "",
       loading: false,
       lang: @shared.Lang::En,
+      selected_tasks: [],
       dragging_task_id: 0,
       drag_over_status: "",
     },
