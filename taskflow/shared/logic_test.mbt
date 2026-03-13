@@ -1393,6 +1393,25 @@ test "subtasks_for_task filters by task_id" {
 }
 
 ///|
+test "extract_mentions finds @usernames" {
+  let m1 = @shared.extract_mentions("Hey @alice check this")
+  inspect(m1.length(), content="1")
+  inspect(m1[0], content="alice")
+  // Multiple mentions, deduplication
+  let m2 = @shared.extract_mentions("@bob @alice @bob")
+  inspect(m2.length(), content="2")
+  inspect(m2[0], content="bob")
+  inspect(m2[1], content="alice")
+  // No mentions
+  inspect(@shared.extract_mentions("no mentions here").length(), content="0")
+  // @ at start of text
+  let m3 = @shared.extract_mentions("@admin please review")
+  inspect(m3[0], content="admin")
+  // Email-like patterns are not mentions (no space before @)
+  inspect(@shared.extract_mentions("user@example.com").length(), content="0")
+}
+
+///|
 test "get_recurrence returns interval or empty" {
   let rules : Array[@shared.RecurrenceRule] = [
     { task_id: 10, interval: "weekly" },

@@ -3081,6 +3081,55 @@ fn view_delete_confirm(
 }
 
 ///|
+/// Render text with @mentions highlighted in blue/bold.
+fn render_mention_text(text : String) -> Array[@rabbita.Html] {
+  let nodes : Array[@rabbita.Html] = []
+  let chars = text.to_array()
+  let len = chars.length()
+  let mut i = 0
+  let mut seg_start = 0
+  while i < len {
+    if chars[i] == '@' && (i == 0 || chars[i - 1] == ' ' || chars[i - 1] == '\n') {
+      // Flush text before the @
+      if i > seg_start {
+        nodes.push(@html.text(text[seg_start:i].to_string()))
+      }
+      let name_start = i + 1
+      let mut end = name_start
+      while end < len && ((chars[end].to_int() >= 'a'.to_int() && chars[end].to_int() <= 'z'.to_int()) ||
+        (chars[end].to_int() >= 'A'.to_int() && chars[end].to_int() <= 'Z'.to_int()) ||
+        (chars[end].to_int() >= '0'.to_int() && chars[end].to_int() <= '9'.to_int()) ||
+        chars[end] == '_') {
+        end += 1
+      }
+      if end > name_start {
+        let mention = text[i:end].to_string()
+        nodes.push(
+          @html.span(
+            style=[
+              "color: #6366f1",
+              "font-weight: 600",
+            ],
+            mention,
+          ),
+        )
+        i = end
+        seg_start = end
+      } else {
+        i += 1
+      }
+    } else {
+      i += 1
+    }
+  }
+  // Flush remaining text
+  if seg_start < len {
+    nodes.push(@html.text(text[seg_start:len].to_string()))
+  }
+  nodes
+}
+
+///|
 /// Render the comments/notes panel as a modal overlay.
 fn view_comments_panel(
   dispatch : @rabbita.Dispatch[Msg],
@@ -3240,7 +3289,7 @@ fn view_comments_panel(
                       "color: \{theme.text}",
                       "line-height: 1.5",
                     ],
-                    [@html.text(c.text)],
+                    render_mention_text(c.text),
                   ),
                 ],
               ),

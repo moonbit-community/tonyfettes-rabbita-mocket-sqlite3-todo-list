@@ -694,6 +694,45 @@ pub fn format_duration(minutes : Int) -> String {
 }
 
 ///|
+/// Extract @mentions from text. Returns unique usernames without the @ prefix.
+///
+/// # Example
+///
+/// ```
+/// assert_eq(@shared.extract_mentions("Hey @alice check this"), ["alice"])
+/// assert_eq(@shared.extract_mentions("@bob @alice @bob"), ["bob", "alice"])
+/// assert_eq(@shared.extract_mentions("no mentions here"), [])
+/// ```
+pub fn extract_mentions(text : String) -> Array[String] {
+  let mentions : Array[String] = []
+  let chars = text.to_array()
+  let len = chars.length()
+  let mut i = 0
+  while i < len {
+    if chars[i] == '@' && (i == 0 || chars[i - 1] == ' ' || chars[i - 1] == '\n') {
+      let start = i + 1
+      let mut end = start
+      while end < len && ((chars[end].to_int() >= 'a'.to_int() && chars[end].to_int() <= 'z'.to_int()) ||
+        (chars[end].to_int() >= 'A'.to_int() && chars[end].to_int() <= 'Z'.to_int()) ||
+        (chars[end].to_int() >= '0'.to_int() && chars[end].to_int() <= '9'.to_int()) ||
+        chars[end] == '_') {
+        end += 1
+      }
+      if end > start {
+        let name = text[start:end].to_string()
+        if not(mentions.contains(name)) {
+          mentions.push(name)
+        }
+      }
+      i = end
+    } else {
+      i += 1
+    }
+  }
+  mentions
+}
+
+///|
 /// All valid recurrence intervals.
 pub let recurrence_intervals : Array[String] = ["daily", "weekly", "monthly"]
 
