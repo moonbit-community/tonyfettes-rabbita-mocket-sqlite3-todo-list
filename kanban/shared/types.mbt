@@ -7,7 +7,7 @@ pub(all) struct Card {
   description : String
   color : String
   position : Int
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// A column (lane) on the board. Contains cards; ordered by position.
@@ -15,14 +15,14 @@ pub(all) struct Column {
   id : Int
   title : String
   position : Int
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// Full board state: all columns and all cards, as returned by `GET /api/board`.
 pub(all) struct Board {
   columns : Array[Column]
   cards : Array[Card]
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// Request body for `POST /api/cards/:id/move`.
@@ -30,4 +30,4 @@ pub(all) struct MoveCardRequest {
   card_id : Int
   target_column_id : Int
   new_position : Int
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
