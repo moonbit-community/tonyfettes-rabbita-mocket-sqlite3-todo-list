@@ -29,12 +29,12 @@ fn fetch_todos(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
 ///|
 /// Central state machine — processes each `Msg` and returns the next model
 /// plus an optional side-effect command (HTTP request or `@rabbita.none`).
-pub fn update(
+pub fn Msg::update(
+  self : Msg,
   dispatch : @rabbita.Dispatch[Msg],
-  msg : Msg,
   model : Model,
 ) -> (@rabbita.Cmd, Model) {
-  match msg {
+  match self {
     Init => (fetch_todos(dispatch), { ..model, loading: true })
     GotTodos(Ok(todos)) => (@rabbita.none, { ..model, todos, loading: false })
     GotTodos(Err(_)) => (@rabbita.none, { ..model, loading: false })

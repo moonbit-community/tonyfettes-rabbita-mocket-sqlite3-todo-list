@@ -40,11 +40,11 @@ let muted_style : Array[String] = ["text-align: center", "color: #999"]
 
 ///|
 /// Render the entire UI as a virtual DOM tree from the current model.
-pub fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
+pub fn Model::view(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Html {
   @html.div(style=card_style, [
     @html.h1(style=heading_style, "Todo List"),
-    view_form(dispatch, model),
-    view_todos(dispatch, model),
+    view_form(dispatch, self),
+    view_todos(dispatch, self),
   ])
 }
 

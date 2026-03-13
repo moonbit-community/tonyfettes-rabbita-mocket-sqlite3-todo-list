@@ -8,9 +8,6 @@ import {
 }
 
 // Values
-pub fn update((Msg) -> @runtime.Cmd, Msg, Model) -> (@runtime.Cmd, Model)
-
-pub fn view((Msg) -> @runtime.Cmd, Model) -> @html.Html
 
 // Errors
 
@@ -20,6 +17,7 @@ pub(all) struct Model {
   input : String
   loading : Bool
 }
+pub fn Model::view(Self, (Msg) -> @runtime.Cmd) -> @html.Html
 
 pub(all) enum Msg {
   Init
@@ -32,6 +30,7 @@ pub(all) enum Msg {
   DeleteTodo(Int)
   TodoDeleted(Result[Int, String])
 }
+pub fn Msg::update(Self, (Self) -> @runtime.Cmd, Model) -> (@runtime.Cmd, Model)
 
 // Type aliases
 
