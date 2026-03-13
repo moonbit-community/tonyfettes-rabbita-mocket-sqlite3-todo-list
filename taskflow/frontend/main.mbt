@@ -2166,10 +2166,15 @@ fn view_kanban_card(
     None => @html.text("")
   }
   let dragging = model.dragging_task_id == task.id
+  let task_id = task.id
   @html.div(
     attrs=@html.Attrs::build()
       .draggable("true")
-      .on_dragstart(fn(_e) { dispatch(DragStartTask(task.id)) })
+      .on_dragstart(fn(e) {
+        // Set dataTransfer data so Firefox can start the drag session
+        e.get_data_transfer().items().add("\{task_id}", "text/plain")
+        dispatch(DragStartTask(task_id))
+      })
       .on_dragend(fn(_e) { dispatch(DragEnd) }),
     style=[
       "background: \{theme.card_bg}",
@@ -2329,9 +2334,9 @@ fn view_kanban(
       }
       @html.div(
         attrs=@html.Attrs::build()
+          .data_set("drop-zone", "true")
           .on_dragover(fn(_e) { dispatch(DragOverColumn(status)) })
-          .on_drop(fn(_e) { dispatch(DropOnColumn(status)) })
-          .on_dragleave(fn(_e) { dispatch(DragOverColumn("")) }),
+          .on_drop(fn(_e) { dispatch(DropOnColumn(status)) }),
         style=[
           "min-width: 200px",
           "flex: 1",
@@ -2375,7 +2380,7 @@ fn view_kanban(
               ],
             ),
           ]
-          for t in @shared.sort_tasks(col_tasks) {
+          for t in @shared.sort_tasks_by(col_tasks, model.sort_by, model.sort_asc) {
             items.push(view_kanban_card(dispatch, model, t))
           }
           if count == 0 {
@@ -2980,10 +2985,10 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
 }
 
 ///|
-/// Enable HTML5 drag-and-drop by preventing default on dragover/drop globally.
-/// Without this, browsers reject drops. Drop handlers on specific elements
-/// still control which drops actually take effect.
-extern "js" fn enable_drag_drop() = "() => { document.addEventListener('dragover', e => e.preventDefault()); document.addEventListener('drop', e => e.preventDefault()); }"
+/// Enable HTML5 drag-and-drop by preventing default on dragover/drop only
+/// within elements marked with data-drop-zone. This avoids breaking native
+/// text drops in input/textarea fields elsewhere on the page.
+extern "js" fn enable_drag_drop() = "() => { const check = e => { let el = e.target; while (el) { if (el.dataset && el.dataset.dropZone) { e.preventDefault(); return; } el = el.parentElement; } }; document.addEventListener('dragover', check); document.addEventListener('drop', check); }"
 
 ///|
 fn main {

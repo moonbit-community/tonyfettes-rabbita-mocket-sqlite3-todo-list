@@ -946,6 +946,9 @@ const _M0FP319moonbit_2dcommunity7rabbita3dom27ffi__element__set__property = (se
 const _M0FP319moonbit_2dcommunity7rabbita3dom27ffi__element__get__property = (self,prop) => self[prop];
 const _M0FP319moonbit_2dcommunity7rabbita3dom30ffi__element__remove__property = (self,prop) => delete self[prop];
 const _M0FP319moonbit_2dcommunity7rabbita3dom30ffi__element__set__inner__html = (self,html) => self.innerHTML = html;
+const _M0MP319moonbit_2dcommunity7rabbita3dom9DragEvent19get__data__transfer = (e) => e.dataTransfer;
+const _M0MP319moonbit_2dcommunity7rabbita3dom12DataTransfer5items = (t) => t.items;
+const _M0MP319moonbit_2dcommunity7rabbita3dom20DataTransferItemList3add = (l, d, t) => l.add(d, t);
 const _M0MP319moonbit_2dcommunity7rabbita3dom19CSSStyleDeclaration13set__property = (self, property, value) => self.setProperty(property, value);
 const _M0MP319moonbit_2dcommunity7rabbita3dom19CSSStyleDeclaration16remove__property = (self, property) => self.removeProperty(property);
 const _M0FP319moonbit_2dcommunity7rabbita3dom8document = () => document;
@@ -1600,7 +1603,7 @@ _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rab
 function _M0TPC13ref3RefGbE(param0) {
   this.val = param0;
 }
-const _M0FP38bobzhang8taskflow8frontend18enable__drag__drop = () => { document.addEventListener('dragover', e => e.preventDefault()); document.addEventListener('drop', e => e.preventDefault()); };
+const _M0FP38bobzhang8taskflow8frontend18enable__drag__drop = () => { const check = e => { let el = e.target; while (el) { if (el.dataset && el.dataset.dropZone) { e.preventDefault(); return; } el = el.parentElement; } }; document.addEventListener('dragover', check); document.addEventListener('drop', check); };
 const _M0FP0197moonbit_2dcommunity_2frabbita_2fTypedCell_5bbobzhang_2ftaskflow_2ffrontend_2fModel_2c_20bobzhang_2ftaskflow_2ffrontend_2fMsg_5d_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eIsCell = { method_0: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4stepGRP38bobzhang8taskflow8frontend5ModelRP38bobzhang8taskflow8frontend3MsgE, method_1: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4viewGRP38bobzhang8taskflow8frontend5ModelRP38bobzhang8taskflow8frontend3MsgE, method_2: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell5flagsGRP38bobzhang8taskflow8frontend5ModelRP38bobzhang8taskflow8frontend3MsgE };
 const _M0FP092moonbitlang_2fcore_2fbuiltin_2fStringBuilder_24as_24_40moonbitlang_2fcore_2fbuiltin_2eLogger = { method_0: _M0IPB13StringBuilderPB6Logger13write__string, method_1: _M0IP016_24default__implPB6Logger16write__substringGRPB13StringBuilderE, method_2: _M0IPB13StringBuilderPB6Logger11write__view, method_3: _M0IPB13StringBuilderPB6Logger11write__char };
 const _M0FP0133moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2fSandbox_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eScheduler = { method_0: _M0IP419moonbit_2dcommunity7rabbita8internal7runtime7SandboxP419moonbit_2dcommunity7rabbita8internal7runtime9Scheduler3add, method_1: _M0IP419moonbit_2dcommunity7rabbita8internal7runtime7SandboxP419moonbit_2dcommunity7rabbita8internal7runtime9Scheduler17add__url__changed, method_2: _M0IP419moonbit_2dcommunity7rabbita8internal7runtime7SandboxP419moonbit_2dcommunity7rabbita8internal7runtime9Scheduler17add__url__request };
@@ -12275,33 +12278,6 @@ function _M0FP38bobzhang8taskflow6shared15sort__tasks__by(tasks, sort_by, ascend
   });
   return result;
 }
-function _M0FP38bobzhang8taskflow6shared11sort__tasks(tasks) {
-  const result = _M0MPC15array5Array4copyGRP38bobzhang8taskflow6shared10DependencyE(tasks);
-  _M0MPC15array5Array8sort__byGRP38bobzhang8taskflow6shared4TaskE(result, (a, b) => {
-    const pa = _M0FP38bobzhang8taskflow6shared16priority__weight(a.priority);
-    const pb = _M0FP38bobzhang8taskflow6shared16priority__weight(b.priority);
-    if (pa !== pb) {
-      return pa - pb | 0;
-    }
-    const da = a.due_date;
-    const db = b.due_date;
-    if (da === "" && db === "") {
-      return a.id - b.id | 0;
-    }
-    if (da === "") {
-      return 1;
-    }
-    if (db === "") {
-      return -1;
-    }
-    const dc = _M0IPC16string6StringPB7Compare7compare(da, db);
-    if (dc !== 0) {
-      return dc;
-    }
-    return a.id - b.id | 0;
-  });
-  return result;
-}
 function _M0FP38bobzhang8taskflow6shared18recent__activities(activities, limit) {
   const result = [];
   const _bind = activities.length;
@@ -16707,14 +16683,14 @@ function _M0MP319moonbit_2dcommunity7rabbita4html5Attrs13on__dragstart(self, msg
 function _M0MP319moonbit_2dcommunity7rabbita4html5Attrs12on__dragover(self, msg) {
   return _M0MP319moonbit_2dcommunity7rabbita4html5Attrs15on__drag__event(self, "dragover", msg);
 }
-function _M0MP319moonbit_2dcommunity7rabbita4html5Attrs13on__dragleave(self, msg) {
-  return _M0MP319moonbit_2dcommunity7rabbita4html5Attrs15on__drag__event(self, "dragleave", msg);
-}
 function _M0MP319moonbit_2dcommunity7rabbita4html5Attrs11on__dragend(self, msg) {
   return _M0MP319moonbit_2dcommunity7rabbita4html5Attrs15on__drag__event(self, "dragend", msg);
 }
 function _M0MP319moonbit_2dcommunity7rabbita4html5Attrs8on__drop(self, msg) {
   return _M0MP319moonbit_2dcommunity7rabbita4html5Attrs15on__drag__event(self, "drop", msg);
+}
+function _M0MP319moonbit_2dcommunity7rabbita4html5Attrs9data__set(self, name, value) {
+  return _M0MP319moonbit_2dcommunity7rabbita4html5Attrs9attribute(self, `data-${name}`, value);
 }
 function _M0MP319moonbit_2dcommunity7rabbita4html5Attrs9draggable(self, value) {
   return _M0MP319moonbit_2dcommunity7rabbita4html5Attrs9attribute(self, "draggable", value);
@@ -18344,8 +18320,12 @@ function _M0FP38bobzhang8taskflow8frontend18view__kanban__card(dispatch, model, 
     assignee_html = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["width: 20px", "height: 20px", "border-radius: 50%", "display: flex", "align-items: center", "justify-content: center", "font-size: 9px", "color: white", "font-weight: 600", `background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(initial)]);
   }
   const dragging = model.dragging_task_id === task.id;
+  const task_id = task.id;
   const _tmp = [`background: ${_M0IPC16string6StringPB4Show10to__string(theme.card_bg)}`, "border-radius: 6px", "padding: 10px", "margin-bottom: 6px", `border-left: 3px solid ${_M0IPC16string6StringPB4Show10to__string(border_color)}`, "box-shadow: 0 1px 2px rgba(0,0,0,0.05)", "cursor: grab", dragging ? "opacity: 0.4" : "opacity: 1", "transition: opacity 0.15s ease"];
-  const _tmp$2 = _M0MP319moonbit_2dcommunity7rabbita4html5Attrs11on__dragend(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs13on__dragstart(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs9draggable(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs5build(), "true"), (_e) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg13DragStartTask(task.id))), (_e) => dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg7DragEnd__));
+  const _tmp$2 = _M0MP319moonbit_2dcommunity7rabbita4html5Attrs11on__dragend(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs13on__dragstart(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs9draggable(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs5build(), "true"), (e) => {
+    _M0MP319moonbit_2dcommunity7rabbita3dom20DataTransferItemList3add(_M0MP319moonbit_2dcommunity7rabbita3dom12DataTransfer5items(_M0MP319moonbit_2dcommunity7rabbita3dom9DragEvent19get__data__transfer(e)), _M0IP016_24default__implPB4Show10to__stringGiE(task_id), "text/plain");
+    return dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg13DragStartTask(task_id));
+  }), (_e) => dispatch(_M0DTP38bobzhang8taskflow8frontend3Msg7DragEnd__));
   const _tmp$3 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "justify-content: space-between", "align-items: flex-start", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 12px", "font-weight: 500", `color: ${_M0IPC16string6StringPB4Show10to__string(title_color)}`, `text-decoration: ${_M0IPC16string6StringPB4Show10to__string(title_decoration)}`, "flex: 1", "line-height: 1.4"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(task.title)]), assignee_html]);
   let _tmp$4;
   if (_M0IP016_24default__implPB2Eq10not__equalGsE(task.due_date, "")) {
@@ -18414,9 +18394,9 @@ function _M0FP38bobzhang8taskflow8frontend12view__kanban(dispatch, model, tasks)
     }
     const outline = is_hover && drop_valid ? `outline: 2px dashed ${_M0IPC16string6StringPB4Show10to__string(col_color)}` : is_hover && model.dragging_task_id > 0 ? "outline: 2px dashed #ef4444" : "outline: 2px dashed transparent";
     const _tmp = ["min-width: 200px", "flex: 1", `background: ${_M0IPC16string6StringPB4Show10to__string(theme.column_bg)}`, "border-radius: 8px", "padding: 10px", `border: 1px solid ${_M0IPC16string6StringPB4Show10to__string(theme.input_border)}`, outline, "transition: outline 0.15s ease"];
-    const _tmp$2 = _M0MP319moonbit_2dcommunity7rabbita4html5Attrs13on__dragleave(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs8on__drop(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs12on__dragover(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs5build(), (_e) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg14DragOverColumn(status))), (_e) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg12DropOnColumn(status))), (_e) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg14DragOverColumn("")));
+    const _tmp$2 = _M0MP319moonbit_2dcommunity7rabbita4html5Attrs8on__drop(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs12on__dragover(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs9data__set(_M0MP319moonbit_2dcommunity7rabbita4html5Attrs5build(), "drop-zone", "true"), (_e) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg14DragOverColumn(status))), (_e) => dispatch(new _M0DTP38bobzhang8taskflow8frontend3Msg12DropOnColumn(status)));
     const items = [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "align-items: center", "gap: 6px", "margin-bottom: 10px", "padding-bottom: 8px", `border-bottom: 2px solid ${_M0IPC16string6StringPB4Show10to__string(col_color)}`], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["font-size: 12px", "font-weight: 600", `color: ${_M0IPC16string6StringPB4Show10to__string(theme.text)}`], undefined, undefined, undefined, -1, undefined, _M0FP38bobzhang8taskflow6shared9t__status(model.lang, status)), _M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["font-size: 10px", `color: ${_M0IPC16string6StringPB4Show10to__string(theme.text_muted)}`, `background: ${_M0IPC16string6StringPB4Show10to__string(theme.filter_inactive)}`, "padding: 1px 6px", "border-radius: 8px"], undefined, undefined, undefined, -1, undefined, _M0IP016_24default__implPB4Show10to__stringGiE(count))])];
-    const _bind = _M0FP38bobzhang8taskflow6shared11sort__tasks(col_tasks);
+    const _bind = _M0FP38bobzhang8taskflow6shared15sort__tasks__by(col_tasks, model.sort_by, model.sort_asc);
     const _bind$2 = _bind.length;
     let _tmp$3 = 0;
     while (true) {
