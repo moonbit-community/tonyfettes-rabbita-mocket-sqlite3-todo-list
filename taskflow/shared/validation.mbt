@@ -101,6 +101,14 @@ pub fn validate_task_description(desc : String) -> Bool {
 
 ///|
 /// Check whether a status string is in the valid set.
+///
+/// # Example
+///
+/// ```
+/// assert_true(@shared.validate_status("todo"))
+/// assert_true(@shared.validate_status("done"))
+/// assert_false(@shared.validate_status("invalid"))
+/// ```
 pub fn validate_status(status : String) -> Bool {
   for s in valid_statuses {
     if s == status {
@@ -112,6 +120,13 @@ pub fn validate_status(status : String) -> Bool {
 
 ///|
 /// Check whether a priority string is in the valid set.
+///
+/// # Example
+///
+/// ```
+/// assert_true(@shared.validate_priority("high"))
+/// assert_false(@shared.validate_priority("critical"))
+/// ```
 pub fn validate_priority(priority : String) -> Bool {
   for p in valid_priorities {
     if p == priority {
@@ -123,6 +138,13 @@ pub fn validate_priority(priority : String) -> Bool {
 
 ///|
 /// Validate comment text: non-empty and within max length.
+///
+/// # Example
+///
+/// ```
+/// assert_true(@shared.validate_comment_text("Looking good"))
+/// assert_false(@shared.validate_comment_text(""))
+/// ```
 pub fn validate_comment_text(text : String) -> Bool {
   text != "" && text.char_length() <= max_comment_text
 }
@@ -130,6 +152,14 @@ pub fn validate_comment_text(text : String) -> Bool {
 ///|
 /// Validate a due date: empty (no deadline) or valid YYYY-MM-DD format
 /// with numeric year, month (01-12), and day (01-31).
+///
+/// # Example
+///
+/// ```
+/// assert_true(@shared.validate_due_date(""))
+/// assert_true(@shared.validate_due_date("2026-03-12"))
+/// assert_false(@shared.validate_due_date("March 12"))
+/// ```
 pub fn validate_due_date(date : String) -> Bool {
   if date == "" {
     return true

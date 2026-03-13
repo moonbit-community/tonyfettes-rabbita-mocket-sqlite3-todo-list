@@ -1605,3 +1605,137 @@ test "tasks_in_project filters by project" {
   // Nonexistent project returns empty
   inspect(@shared.tasks_in_project(tasks, tps, 99).length(), content="0")
 }
+
+///|
+test "label_colors is non-empty" {
+  assert_true(@shared.label_colors.length() > 0)
+  // All entries should be hex colors
+  for c in @shared.label_colors {
+    assert_true(c.has_prefix("#"))
+  }
+}
+
+///|
+test "recurrence_intervals contains expected values" {
+  assert_true(@shared.recurrence_intervals.contains("daily"))
+  assert_true(@shared.recurrence_intervals.contains("weekly"))
+  assert_true(@shared.recurrence_intervals.contains("monthly"))
+  inspect(@shared.recurrence_intervals.length(), content="3")
+}
+
+///|
+test "sort_options contains expected values" {
+  assert_true(@shared.sort_options.contains("priority"))
+  assert_true(@shared.sort_options.contains("due_date"))
+  assert_true(@shared.sort_options.contains("title"))
+  assert_true(@shared.sort_options.contains("created_at"))
+  inspect(@shared.sort_options.length(), content="4")
+}
+
+///|
+test "t_complete formats completion string" {
+  inspect(@shared.t_complete(@shared.Lang::En, 75), content="75% complete")
+  inspect(@shared.t_complete(@shared.Lang::Zh, 50), content="50% 已完成")
+}
+
+///|
+test "t_tasks_done formats done count" {
+  inspect(
+    @shared.t_tasks_done(@shared.Lang::En, 3, 10),
+    content="3/10 tasks done",
+  )
+  inspect(
+    @shared.t_tasks_done(@shared.Lang::Zh, 3, 10),
+    content="3/10 已完成",
+  )
+}
+
+///|
+test "t_status translates status labels" {
+  inspect(@shared.t_status(@shared.Lang::En, "todo"), content="To Do")
+  inspect(@shared.t_status(@shared.Lang::En, "in_progress"), content="In Progress")
+  inspect(@shared.t_status(@shared.Lang::Zh, "todo"), content="待办")
+  inspect(@shared.t_status(@shared.Lang::Zh, "done"), content="完成")
+}
+
+///|
+test "t_priority translates priority labels" {
+  inspect(@shared.t_priority(@shared.Lang::En, "high"), content="High")
+  inspect(@shared.t_priority(@shared.Lang::En, "low"), content="Low")
+  inspect(@shared.t_priority(@shared.Lang::Zh, "urgent"), content="紧急")
+  inspect(@shared.t_priority(@shared.Lang::Zh, "medium"), content="中")
+}
+
+///|
+test "t_transition translates transition buttons" {
+  inspect(
+    @shared.t_transition(@shared.Lang::En, "todo", "in_progress"),
+    content="Start",
+  )
+  inspect(
+    @shared.t_transition(@shared.Lang::Zh, "todo", "in_progress"),
+    content="开始",
+  )
+  inspect(
+    @shared.t_transition(@shared.Lang::En, "review", "done"),
+    content="Approve",
+  )
+  inspect(
+    @shared.t_transition(@shared.Lang::Zh, "review", "done"),
+    content="通过",
+  )
+}
+
+///|
+test "t_urgency translates urgency labels" {
+  inspect(
+    @shared.t_urgency(@shared.Lang::En, "2026-03-01", "2026-03-12"),
+    content="Overdue",
+  )
+  inspect(
+    @shared.t_urgency(@shared.Lang::En, "2026-03-12", "2026-03-12"),
+    content="Due today",
+  )
+  inspect(
+    @shared.t_urgency(@shared.Lang::Zh, "2026-03-01", "2026-03-12"),
+    content="已逾期",
+  )
+  inspect(
+    @shared.t_urgency(@shared.Lang::Zh, "", "2026-03-12"),
+    content="无截止日期",
+  )
+}
+
+///|
+test "t_activity formats activity with translation" {
+  let act : @shared.Activity = {
+    id: 1, task_id: 1, task_title: "Fix bug",
+    from_status: "todo", to_status: "done",
+    timestamp: "2026-03-12", user_name: "Alice",
+  }
+  inspect(
+    @shared.t_activity(@shared.Lang::En, act),
+    content="Alice: Fix bug: To Do → Done",
+  )
+  inspect(
+    @shared.t_activity(@shared.Lang::Zh, act),
+    content="Alice: Fix bug: 待办 → 完成",
+  )
+}
+
+///|
+test "t_server_error translates known errors" {
+  inspect(
+    @shared.t_server_error(@shared.Lang::Zh, "Missing username"),
+    content="缺少用户名",
+  )
+  inspect(
+    @shared.t_server_error(@shared.Lang::Zh, "Username already taken"),
+    content="用户名已被使用",
+  )
+  // Unknown error passes through
+  inspect(
+    @shared.t_server_error(@shared.Lang::En, "Some random error"),
+    content="Some random error",
+  )
+}

@@ -80,6 +80,13 @@ pub fn status_label(status : String) -> String {
 
 ///|
 /// CSS hex color for a status badge.
+///
+/// # Example
+///
+/// ```
+/// assert_eq(@shared.status_color("done"), "#22c55e")
+/// assert_eq(@shared.status_color("blocked"), "#ef4444")
+/// ```
 pub fn status_color(status : String) -> String {
   match status {
     "todo" => "#94a3b8"

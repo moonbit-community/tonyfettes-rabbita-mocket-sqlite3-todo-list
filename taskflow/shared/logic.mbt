@@ -64,6 +64,13 @@ pub fn priority_label(priority : String) -> String {
 
 ///|
 /// CSS hex color for a priority badge.
+///
+/// # Example
+///
+/// ```
+/// assert_eq(@shared.priority_color("urgent"), "#ef4444")
+/// assert_eq(@shared.priority_color("low"), "#94a3b8")
+/// ```
 pub fn priority_color(priority : String) -> String {
   match priority {
     "low" => "#94a3b8"
@@ -76,6 +83,13 @@ pub fn priority_color(priority : String) -> String {
 
 ///|
 /// CSS hex color for a member avatar.
+///
+/// # Example
+///
+/// ```
+/// assert_eq(@shared.member_color("blue"), "#3b82f6")
+/// assert_eq(@shared.member_color("red"), "#ef4444")
+/// ```
 pub fn member_color(color : String) -> String {
   match color {
     "red" => "#ef4444"
@@ -90,6 +104,13 @@ pub fn member_color(color : String) -> String {
 
 ///|
 /// First character of a member name, for avatar display.
+///
+/// # Example
+///
+/// ```
+/// assert_eq(@shared.member_initial("Alice"), "A")
+/// assert_eq(@shared.member_initial(""), "?")
+/// ```
 pub fn member_initial(name : String) -> String {
   match name.get_char(0) {
     Some(ch) => "\{ch}"
@@ -230,6 +251,18 @@ pub fn completion_percent(tasks : Array[Task]) -> Int {
 
 ///|
 /// Count tasks matching a given status.
+///
+/// # Example
+///
+/// ```
+/// let tasks : Array[@shared.Task] = [
+///   { id: 1, title: "A", description: "", status: "todo", priority: "low", assignee_id: 0, due_date: "", created_at: "" },
+///   { id: 2, title: "B", description: "", status: "done", priority: "low", assignee_id: 0, due_date: "", created_at: "" },
+/// ]
+/// assert_eq(@shared.count_by_status(tasks, "todo"), 1)
+/// assert_eq(@shared.count_by_status(tasks, "done"), 1)
+/// assert_eq(@shared.count_by_status(tasks, "review"), 0)
+/// ```
 pub fn count_by_status(tasks : Array[Task], status : String) -> Int {
   let mut count = 0
   for t in tasks {
@@ -242,12 +275,32 @@ pub fn count_by_status(tasks : Array[Task], status : String) -> Int {
 
 ///|
 /// Filter tasks assigned to a specific member.
+///
+/// # Example
+///
+/// ```
+/// let tasks : Array[@shared.Task] = [
+///   { id: 1, title: "A", description: "", status: "todo", priority: "low", assignee_id: 1, due_date: "", created_at: "" },
+///   { id: 2, title: "B", description: "", status: "todo", priority: "low", assignee_id: 2, due_date: "", created_at: "" },
+/// ]
+/// assert_eq(@shared.tasks_for_member(tasks, 1).length(), 1)
+/// ```
 pub fn tasks_for_member(tasks : Array[Task], member_id : Int) -> Array[Task] {
   tasks.filter(fn(t) { t.assignee_id == member_id })
 }
 
 ///|
 /// Find a member by ID. Returns None if not found.
+///
+/// # Example
+///
+/// ```
+/// let members : Array[@shared.Member] = [
+///   { id: 1, name: "Alice", color: "blue" },
+/// ]
+/// assert_true(@shared.find_member(members, 1) is Some(_))
+/// assert_true(@shared.find_member(members, 99) is None)
+/// ```
 pub fn find_member(members : Array[Member], id : Int) -> Member? {
   for m in members {
     if m.id == id {
