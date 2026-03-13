@@ -113,6 +113,21 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   )
   s8.step_once()
   s8.finalize()
+  // Time entries table
+  let s9 = conn.prepare(
+    (
+      #|CREATE TABLE IF NOT EXISTS time_entries (
+      #|  id INTEGER PRIMARY KEY AUTOINCREMENT,
+      #|  task_id INTEGER NOT NULL,
+      #|  minutes INTEGER NOT NULL,
+      #|  note BLOB NOT NULL DEFAULT '',
+      #|  created_at BLOB NOT NULL,
+      #|  FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE
+      #|)
+    ),
+  )
+  s9.step_once()
+  s9.finalize()
   // Indexes for common query patterns
   let idx_stmts = [
     "CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status)", "CREATE INDEX IF NOT EXISTS idx_tasks_assignee ON tasks(assignee_id)",
@@ -586,6 +601,64 @@ fn delete_subtask(
 }
 
 ///|
+/// Fetch all time entries.
+fn get_all_time_entries(
+  conn : @sqlite3.Connection,
+) -> Array[@shared.TimeEntry] raise @sqlite3.SqliteError {
+  let stmt = conn.prepare(
+    "SELECT id, task_id, minutes, note, created_at FROM time_entries ORDER BY id DESC",
+  )
+  let entries : Array[@shared.TimeEntry] = []
+  while stmt.step() {
+    let id : Int = stmt.column(index=0)
+    let task_id : Int = stmt.column(index=1)
+    let minutes : Int = stmt.column(index=2)
+    let note : String = stmt.column_blob_as_string(index=3)
+    let created_at : String = stmt.column_blob_as_string(index=4)
+    entries.push({ id, task_id, minutes, note, created_at })
+  }
+  stmt.finalize()
+  entries
+}
+
+///|
+/// Log time for a task.
+fn log_time(
+  conn : @sqlite3.Connection,
+  task_id : Int,
+  minutes : Int,
+  note : String,
+) -> @shared.TimeEntry raise @sqlite3.SqliteError {
+  let today = get_today(conn)
+  let stmt = conn.prepare(
+    "INSERT INTO time_entries (task_id, minutes, note, created_at) VALUES (?, ?, ?, ?)",
+  )
+  stmt.bind(index=1, val=task_id)
+  stmt.bind(index=2, val=minutes)
+  stmt.bind_string_as_blob(index=3, val=note)
+  stmt.bind_string_as_blob(index=4, val=today)
+  stmt.step_once()
+  stmt.finalize()
+  let id_stmt = conn.prepare("SELECT last_insert_rowid()")
+  guard id_stmt.step()
+  let id : Int = id_stmt.column(index=0)
+  id_stmt.finalize()
+  { id, task_id, minutes, note, created_at: today }
+}
+
+///|
+/// Delete a time entry.
+fn delete_time_entry(
+  conn : @sqlite3.Connection,
+  id : Int,
+) -> Unit raise @sqlite3.SqliteError {
+  let stmt = conn.prepare("DELETE FROM time_entries WHERE id = ?")
+  stmt.bind(index=1, val=id)
+  stmt.step_once()
+  stmt.finalize()
+}
+
+///|
 /// Fetch the full board: tasks + members + activities + today's date.
 fn get_board(
   conn : @sqlite3.Connection,
@@ -597,8 +670,9 @@ fn get_board(
   let labels = get_all_labels(conn)
   let task_labels = get_all_task_labels(conn)
   let subtasks = get_all_subtasks(conn)
+  let time_entries = get_all_time_entries(conn)
   let today = get_today(conn)
-  { tasks, members, activities, dependencies, labels, task_labels, subtasks, today }
+  { tasks, members, activities, dependencies, labels, task_labels, subtasks, time_entries, today }
 }
 
 ///|
@@ -1438,6 +1512,49 @@ fn main raise {
       let id = @strconv.parse_int(id_str)
       delete_subtask(conn, id)
       println("  -> 204 deleted subtask \{id}")
+      @mocket.HttpResponse::new(NoContent)
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  // Time tracking endpoints
+  ..post("/api/tasks/:id/time", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("POST /api/tasks/\{id_str}/time")
+    try {
+      let id = @strconv.parse_int(id_str)
+      let json : Json = event.req.body()
+      let minutes = match json {
+        { "minutes": Number(n, ..), .. } => n.to_int()
+        _ => return @mocket.HttpResponse::new(BadRequest).body("Missing minutes")
+      }
+      if minutes <= 0 {
+        return @mocket.HttpResponse::new(BadRequest).body("Minutes must be positive")
+      }
+      let note = match json {
+        { "note": String(s), .. } => s
+        _ => ""
+      }
+      let entry = log_time(conn, id, minutes, note)
+      println("  -> 201 logged \{minutes}m for task \{id}")
+      @mocket.HttpResponse::new(Created).json(entry.to_json())
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..delete("/api/time/:id", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("DELETE /api/time/\{id_str}")
+    try {
+      let id = @strconv.parse_int(id_str)
+      delete_time_entry(conn, id)
+      println("  -> 204 deleted time entry \{id}")
       @mocket.HttpResponse::new(NoContent)
     } catch {
       e => {

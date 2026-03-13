@@ -1393,6 +1393,26 @@ test "subtasks_for_task filters by task_id" {
 }
 
 ///|
+test "total_time sums minutes for task" {
+  let entries : Array[@shared.TimeEntry] = [
+    { id: 1, task_id: 10, minutes: 30, note: "coding", created_at: "" },
+    { id: 2, task_id: 20, minutes: 15, note: "", created_at: "" },
+    { id: 3, task_id: 10, minutes: 45, note: "review", created_at: "" },
+  ]
+  inspect(@shared.total_time(entries, 10), content="75")
+  inspect(@shared.total_time(entries, 20), content="15")
+  inspect(@shared.total_time(entries, 99), content="0")
+}
+
+///|
+test "format_duration converts minutes to human string" {
+  inspect(@shared.format_duration(0), content="0m")
+  inspect(@shared.format_duration(45), content="45m")
+  inspect(@shared.format_duration(90), content="1h 30m")
+  inspect(@shared.format_duration(120), content="2h 0m")
+}
+
+///|
 test "subtask_progress counts done vs total" {
   let subs : Array[@shared.Subtask] = [
     { id: 1, task_id: 10, title: "A", done: false },

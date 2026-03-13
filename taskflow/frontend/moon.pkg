@@ -4,6 +4,7 @@ import {
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/http",
   "moonbitlang/core/json",
+  "moonbitlang/core/strconv",
 }
 
 options(

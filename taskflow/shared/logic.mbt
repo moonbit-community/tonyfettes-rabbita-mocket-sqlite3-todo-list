@@ -648,3 +648,47 @@ pub fn subtask_progress(subtasks : Array[Subtask], task_id : Int) -> (Int, Int) 
   let done = task_subs.filter(fn(s) { s.done }).length()
   (done, task_subs.length())
 }
+
+///|
+/// Total minutes logged for a task across all time entries.
+///
+/// # Example
+///
+/// ```
+/// let entries : Array[@shared.TimeEntry] = [
+///   { id: 1, task_id: 10, minutes: 30, note: "coding", created_at: "" },
+///   { id: 2, task_id: 20, minutes: 15, note: "", created_at: "" },
+///   { id: 3, task_id: 10, minutes: 45, note: "review", created_at: "" },
+/// ]
+/// assert_eq(@shared.total_time(entries, 10), 75)
+/// ```
+pub fn total_time(entries : Array[TimeEntry], task_id : Int) -> Int {
+  let mut total = 0
+  for e in entries {
+    if e.task_id == task_id {
+      total += e.minutes
+    }
+  }
+  total
+}
+
+///|
+/// Format minutes as "Xh Ym" or just "Ym" if under an hour.
+///
+/// # Example
+///
+/// ```
+/// assert_eq(@shared.format_duration(0), "0m")
+/// assert_eq(@shared.format_duration(45), "45m")
+/// assert_eq(@shared.format_duration(90), "1h 30m")
+/// assert_eq(@shared.format_duration(120), "2h 0m")
+/// ```
+pub fn format_duration(minutes : Int) -> String {
+  if minutes < 60 {
+    "\{minutes}m"
+  } else {
+    let h = minutes / 60
+    let m = minutes % 60
+    "\{h}h \{m}m"
+  }
+}

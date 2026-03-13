@@ -376,6 +376,7 @@ test "workflow: board JSON round-trip preserves full state" {
     labels: [],
     task_labels: [],
     subtasks: [],
+    time_entries: [],
     today: "2026-03-13",
   }
   // Round-trip through JSON

@@ -16,6 +16,7 @@ struct Model {
   labels : Array[@shared.Label]
   task_labels : Array[@shared.TaskLabel]
   subtasks : Array[@shared.Subtask]
+  time_entries : Array[@shared.TimeEntry]
   today : String
   // Filters
   filter_status : String
@@ -48,6 +49,9 @@ struct Model {
   new_comment : String
   // Subtask input
   new_subtask : String
+  // Time tracking input
+  new_time_minutes : String
+  new_time_note : String
   // Delete confirmation
   confirm_delete : Int
   // Error notification
@@ -148,6 +152,13 @@ enum Msg {
   ToggleSubtask(Int) // subtask_id
   DeleteSubtask(Int) // subtask_id
   SubtaskChanged
+  // Time tracking
+  NewTimeMinutesChanged(String)
+  NewTimeNoteChanged(String)
+  LogTime(Int) // task_id
+  TimeLogged
+  DeleteTimeEntry(Int) // entry_id
+  TimeEntryDeleted
   // Bulk selection
   ToggleSelectTask(Int)
   SelectAllVisible(Array[Int])
@@ -288,6 +299,7 @@ fn update(
           labels: board.labels,
           task_labels: board.task_labels,
           subtasks: board.subtasks,
+          time_entries: board.time_entries,
           today: board.today,
           loading: false,
         },
@@ -710,6 +722,39 @@ fn update(
       (cmd, { ..model, subtasks: subs })
     }
     SubtaskChanged => (fetch_board(dispatch), model)
+    // ---- Time tracking ----
+    NewTimeMinutesChanged(v) =>
+      (@rabbita.none, { ..model, new_time_minutes: v })
+    NewTimeNoteChanged(v) =>
+      (@rabbita.none, { ..model, new_time_note: v })
+    LogTime(task_id) => {
+      let minutes = try {
+        @strconv.parse_int(model.new_time_minutes)
+      } catch {
+        _ => 0
+      }
+      if minutes <= 0 {
+        return (@rabbita.none, model)
+      }
+      let url = @shared.api_task_time(task_id)
+      let body : Json = { "minutes": minutes.to_double(), "note": model.new_time_note }
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(TimeLogged)
+      })
+      let cmd = @http.post(url, Json(body), expect~)
+      (cmd, { ..model, new_time_minutes: "", new_time_note: "" })
+    }
+    TimeLogged => (fetch_board(dispatch), model)
+    DeleteTimeEntry(entry_id) => {
+      let url = @shared.api_time_entry(entry_id)
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(TimeEntryDeleted)
+      })
+      let cmd = @http.delete(url, expect~)
+      let entries = model.time_entries.filter(fn(e) { e.id != entry_id })
+      (cmd, { ..model, time_entries: entries })
+    }
+    TimeEntryDeleted => (fetch_board(dispatch), model)
     // ---- Comments ----
     ShowComments(task_id) => {
       let url = @shared.api_task_comments(task_id)
@@ -723,7 +768,7 @@ fn update(
       )
       (
         cmd,
-        { ..model, viewing_comments: task_id, comments: [], new_comment: "", new_subtask: "" },
+        { ..model, viewing_comments: task_id, comments: [], new_comment: "", new_subtask: "", new_time_minutes: "", new_time_note: "" },
       )
     }
     HideComments =>
@@ -2365,6 +2410,21 @@ fn view_task_item(
                 @html.text("")
               }
             },
+            {
+              let total_mins = @shared.total_time(model.time_entries, task.id)
+              if total_mins > 0 {
+                @html.div(
+                  style=[
+                    "font-size: 10px",
+                    "color: \{theme.text_muted}",
+                    "margin-top: 3px",
+                  ],
+                  [@html.text("⏱ \{@shared.format_duration(total_mins)}")],
+                )
+              } else {
+                @html.text("")
+              }
+            },
           ]),
           ]),
           @html.div(
@@ -2598,6 +2658,22 @@ fn view_kanban_card(
               "margin-top: 3px",
             ],
             [@html.text("☑ \{sub_done}/\{sub_total}")],
+          )
+        } else {
+          @html.text("")
+        }
+      },
+      // Time indicator
+      {
+        let total_mins = @shared.total_time(model.time_entries, task.id)
+        if total_mins > 0 {
+          @html.div(
+            style=[
+              "font-size: 9px",
+              "color: \{theme.text_muted}",
+              "margin-top: 2px",
+            ],
+            [@html.text("⏱ \{@shared.format_duration(total_mins)}")],
           )
         } else {
           @html.text("")
@@ -3512,6 +3588,175 @@ fn view_comments_panel(
               },
             ),
           )
+          // Time tracking section
+          let task_entries = model.time_entries.filter(fn(e) {
+            e.task_id == task_id
+          })
+          let total_mins = @shared.total_time(model.time_entries, task_id)
+          items.push(
+            @html.div(
+              style=[
+                "margin-top: 16px",
+                "padding-top: 12px",
+                "border-top: 1px solid \{theme.card_border}",
+              ],
+              {
+                let time_items : Array[@rabbita.Html] = [
+                  @html.div(
+                    style=[
+                      "font-size: 13px",
+                      "font-weight: 600",
+                      "color: \{theme.text}",
+                      "margin-bottom: 8px",
+                    ],
+                    {
+                      let parts : Array[@rabbita.Html] = [
+                        @html.text(@shared.t(model.lang, "time_tracking")),
+                      ]
+                      if total_mins > 0 {
+                        parts.push(
+                          @html.span(
+                            style=[
+                              "font-weight: 400",
+                              "color: \{theme.text_muted}",
+                              "margin-left: 6px",
+                            ],
+                            @shared.format_duration(total_mins),
+                          ),
+                        )
+                      }
+                      parts
+                    },
+                  ),
+                ]
+                if task_entries.length() == 0 {
+                  time_items.push(
+                    @html.div(
+                      style=[
+                        "font-size: 12px",
+                        "color: \{theme.text_muted}",
+                        "padding: 4px 0",
+                      ],
+                      [@html.text(@shared.t(model.lang, "no_time"))],
+                    ),
+                  )
+                }
+                for entry in task_entries {
+                  let eid = entry.id
+                  let dur = @shared.format_duration(entry.minutes)
+                  let note_text = if entry.note != "" {
+                    " — \{entry.note}"
+                  } else {
+                    ""
+                  }
+                  time_items.push(
+                    @html.div(
+                      style=[
+                        "display: flex",
+                        "align-items: center",
+                        "gap: 6px",
+                        "padding: 2px 0",
+                      ],
+                      [
+                        @html.span(
+                          style=[
+                            "font-size: 12px",
+                            "color: \{theme.text}",
+                            "font-weight: 500",
+                          ],
+                          dur,
+                        ),
+                        @html.span(
+                          style=[
+                            "font-size: 11px",
+                            "color: \{theme.text_muted}",
+                            "flex: 1",
+                          ],
+                          {
+                            let date_note = "\{entry.created_at}\{note_text}"
+                            date_note
+                          },
+                        ),
+                        @html.button(
+                          on_click=dispatch(DeleteTimeEntry(eid)),
+                          style=[
+                            "background: none",
+                            "border: none",
+                            "color: \{theme.text_muted}",
+                            "cursor: pointer",
+                            "font-size: 11px",
+                            "padding: 0 2px",
+                          ],
+                          "×",
+                        ),
+                      ],
+                    ),
+                  )
+                }
+                // Log time input
+                time_items.push(
+                  @html.div(
+                    style=[
+                      "display: flex",
+                      "gap: 6px",
+                      "margin-top: 6px",
+                      "align-items: center",
+                    ],
+                    [
+                      @html.input(
+                        input_type=Number,
+                        placeholder=@shared.t(model.lang, "minutes"),
+                        value=model.new_time_minutes,
+                        on_input=fn(v) { dispatch(NewTimeMinutesChanged(v)) },
+                        style=[
+                          "width: 60px",
+                          "padding: 4px 6px",
+                          "border: 1px solid \{theme.input_border}",
+                          "border-radius: 6px",
+                          "font-size: 12px",
+                          "background: \{theme.input_bg}",
+                          "color: \{theme.text}",
+                          "outline: none",
+                        ],
+                        "",
+                      ),
+                      @html.input(
+                        input_type=Text,
+                        placeholder=@shared.t(model.lang, "time_note_placeholder"),
+                        value=model.new_time_note,
+                        on_input=fn(v) { dispatch(NewTimeNoteChanged(v)) },
+                        style=[
+                          "flex: 1",
+                          "padding: 4px 8px",
+                          "border: 1px solid \{theme.input_border}",
+                          "border-radius: 6px",
+                          "font-size: 12px",
+                          "background: \{theme.input_bg}",
+                          "color: \{theme.text}",
+                          "outline: none",
+                        ],
+                        "",
+                      ),
+                      @html.button(
+                        on_click=dispatch(LogTime(task_id)),
+                        style=[
+                          "padding: 4px 10px",
+                          "background: #4f46e5",
+                          "color: white",
+                          "border: none",
+                          "border-radius: 6px",
+                          "cursor: pointer",
+                          "font-size: 12px",
+                        ],
+                        @shared.t(model.lang, "add"),
+                      ),
+                    ],
+                  ),
+                )
+                time_items
+              },
+            ),
+          )
           // Task activity history section
           let task_acts = @shared.activities_for_task(
             model.activities, task_id,
@@ -3847,6 +4092,7 @@ fn main {
       labels: [],
       task_labels: [],
       subtasks: [],
+      time_entries: [],
       today: "",
       filter_status: "",
       filter_assignee: 0,
@@ -3874,6 +4120,8 @@ fn main {
       comments: [],
       new_comment: "",
       new_subtask: "",
+      new_time_minutes: "",
+      new_time_note: "",
       confirm_delete: 0,
       error_msg: "",
       loading: false,

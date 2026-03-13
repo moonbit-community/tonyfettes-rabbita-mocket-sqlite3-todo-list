@@ -93,3 +93,15 @@ pub fn api_subtask_toggle(id : Int) -> String {
 pub fn api_subtask(id : Int) -> String {
   "/api/subtasks/\{id}"
 }
+
+///|
+/// `GET` — list time entries for a task. `POST` — log time.
+pub fn api_task_time(id : Int) -> String {
+  "/api/tasks/\{id}/time"
+}
+
+///|
+/// `DELETE` — remove a time entry.
+pub fn api_time_entry(id : Int) -> String {
+  "/api/time/\{id}"
+}

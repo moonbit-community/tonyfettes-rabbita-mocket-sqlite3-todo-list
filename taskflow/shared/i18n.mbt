@@ -171,6 +171,17 @@ pub fn t(lang : Lang, key : String) -> String {
     (_, "add_subtask") => "Add subtask"
     (Zh, "subtask_placeholder") => "子任务标题..."
     (_, "subtask_placeholder") => "Subtask title..."
+    // Time tracking
+    (Zh, "time_tracking") => "时间追踪"
+    (_, "time_tracking") => "Time"
+    (Zh, "no_time") => "暂无记录"
+    (_, "no_time") => "No time logged"
+    (Zh, "log_time") => "记录时间"
+    (_, "log_time") => "Log time"
+    (Zh, "minutes") => "分钟"
+    (_, "minutes") => "min"
+    (Zh, "time_note_placeholder") => "备注（可选）"
+    (_, "time_note_placeholder") => "Note (optional)"
     // Bulk actions
     (Zh, "select_all") => "全选"
     (_, "select_all") => "Select All"

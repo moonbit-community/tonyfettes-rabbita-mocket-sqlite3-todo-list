@@ -89,6 +89,16 @@ pub(all) struct Subtask {
 } derive(ToJson, FromJson, Show, Eq)
 
 ///|
+/// A time tracking entry for a task.
+pub(all) struct TimeEntry {
+  id : Int
+  task_id : Int
+  minutes : Int
+  note : String
+  created_at : String
+} derive(ToJson, FromJson, Show, Eq)
+
+///|
 /// Full board state returned by `GET /api/board`.
 pub(all) struct Board {
   tasks : Array[Task]
@@ -98,5 +108,6 @@ pub(all) struct Board {
   labels : Array[Label]
   task_labels : Array[TaskLabel]
   subtasks : Array[Subtask]
+  time_entries : Array[TimeEntry]
   today : String
 } derive(ToJson, FromJson, Show, Eq)
