@@ -46,6 +46,8 @@ struct Model {
   error_msg : String
   // Loading
   loading : Bool
+  // Language
+  lang : @shared.Lang
 }
 
 ///|
@@ -115,6 +117,8 @@ enum Msg {
   KeyPressed(String)
   // Errors
   DismissError
+  // Language
+  SetLang(@shared.Lang)
 }
 
 ///|
@@ -667,6 +671,8 @@ fn update(
     }
     // ---- Errors ----
     DismissError => (@rabbita.none, { ..model, error_msg: "" })
+    // ---- Language ----
+    SetLang(l) => (@rabbita.none, { ..model, lang: l })
   }
 }
 
@@ -679,13 +685,22 @@ fn view_auth(
   model : Model,
   theme : Theme,
 ) -> @rabbita.Html {
+  let lang = model.lang
   let is_login = model.auth_screen == "login"
-  let title = if is_login { "Sign In" } else { "Create Account" }
-  let submit_label = if is_login { "Sign In" } else { "Register" }
-  let switch_label = if is_login {
-    "Need an account? Register"
+  let title = if is_login {
+    @shared.t(lang, "sign_in")
   } else {
-    "Already have an account? Sign In"
+    @shared.t(lang, "create_account")
+  }
+  let submit_label = if is_login {
+    @shared.t(lang, "sign_in")
+  } else {
+    @shared.t(lang, "register")
+  }
+  let switch_label = if is_login {
+    @shared.t(lang, "need_account")
+  } else {
+    @shared.t(lang, "have_account")
   }
   let on_submit = if is_login {
     dispatch(SubmitLogin)
@@ -720,7 +735,7 @@ fn view_auth(
               "text-align: center",
               "margin-bottom: 8px",
             ],
-            "TaskFlow",
+            @shared.t(lang, "app_title"),
           ),
           @html.p(
             style=[
@@ -753,12 +768,12 @@ fn view_auth(
                 "color: \{theme.text_secondary}",
                 "margin-bottom: 4px",
               ],
-              [@html.text("Username")],
+              [@html.text(@shared.t(lang, "username"))],
             ),
             @html.input(
               input_type=Text,
               value=model.auth_username,
-              placeholder="Enter username",
+              placeholder=@shared.t(lang, "enter_username"),
               on_input=fn(v) { dispatch(AuthUsernameChanged(v)) },
               style=[
                 "width: 100%",
@@ -784,12 +799,12 @@ fn view_auth(
                 "color: \{theme.text_secondary}",
                 "margin-bottom: 4px",
               ],
-              [@html.text("Password")],
+              [@html.text(@shared.t(lang, "password"))],
             ),
             @html.input(
               input_type=Password,
               value=model.auth_password,
-              placeholder="Enter password",
+              placeholder=@shared.t(lang, "enter_password"),
               on_input=fn(v) { dispatch(AuthPasswordChanged(v)) },
               style=[
                 "width: 100%",
@@ -870,13 +885,13 @@ fn view_header(
             "color: white", "font-size: 22px", "font-weight: 700", "letter-spacing: -0.3px",
             "margin-bottom: 4px",
           ],
-          "TaskFlow",
+          @shared.t(model.lang, "app_title"),
         ),
         @html.div(style=["color: rgba(255,255,255,0.8)", "font-size: 13px"], [
-          @html.text("\{pct}% complete"),
+          @html.text(@shared.t_complete(model.lang, pct)),
           @html.span(
             style=["margin-left: 12px", "color: rgba(255,255,255,0.6)"],
-            "\{done}/\{total} tasks done",
+            @shared.t_tasks_done(model.lang, done, total),
           ),
         ]),
       ]),
@@ -920,7 +935,7 @@ fn view_header(
                 "border-radius: 4px 0 0 4px",
                 "background: \{bg}",
               ],
-              "List",
+              @shared.t(model.lang, "list"),
             )
           },
           {
@@ -941,7 +956,7 @@ fn view_header(
                 "border-radius: 0 4px 4px 0",
                 "background: \{bg}",
               ],
-              "Board",
+              @shared.t(model.lang, "board"),
             )
           },
         ]),
@@ -972,14 +987,18 @@ fn view_header(
                 "background: \{bg}",
                 "font-weight: 500",
               ],
-              "My Tasks",
+              @shared.t(model.lang, "my_tasks"),
             )
           }
           None => @html.text("")
         },
         // Dark mode toggle
         {
-          let icon = if model.dark_mode { "Light" } else { "Dark" }
+          let icon = if model.dark_mode {
+            @shared.t(model.lang, "light")
+          } else {
+            @shared.t(model.lang, "dark")
+          }
           @html.button(
             on_click=dispatch(ToggleDarkMode),
             style=[
@@ -987,6 +1006,21 @@ fn view_header(
               "color: white", "border-radius: 4px", "background: rgba(255,255,255,0.15)",
             ],
             icon,
+          )
+        },
+        // Language toggle
+        {
+          let (label, target_lang) : (String, @shared.Lang) = match model.lang {
+            En => ("中文", @shared.Lang::Zh)
+            Zh => ("EN", @shared.Lang::En)
+          }
+          @html.button(
+            on_click=dispatch(SetLang(target_lang)),
+            style=[
+              "padding: 6px 10px", "border: none", "cursor: pointer", "font-size: 12px",
+              "color: white", "border-radius: 4px", "background: rgba(255,255,255,0.15)",
+            ],
+            label,
           )
         },
         if model.adding_task {
@@ -999,7 +1033,7 @@ fn view_header(
               "border: 1px solid rgba(255,255,255,0.3)", "border-radius: 6px", "cursor: pointer",
               "font-size: 13px",
             ],
-            "+ New Task",
+            @shared.t(model.lang, "new_task"),
           )
         },
         // User info + logout
@@ -1039,7 +1073,7 @@ fn view_header(
                     "padding: 4px 10px", "border: none", "cursor: pointer", "font-size: 11px",
                     "color: rgba(255,255,255,0.8)", "border-radius: 4px", "background: rgba(255,255,255,0.1)",
                   ],
-                  "Logout",
+                  @shared.t(model.lang, "logout"),
                 ),
               ],
             )
@@ -1075,11 +1109,11 @@ fn view_filters(
       @html.div(style=["display: flex", "align-items: center", "gap: 6px"], [
         @html.span(
           style=["font-size: 12px", "color: \{theme.text_muted}"],
-          "Search:",
+          @shared.t(model.lang, "search"),
         ),
         @html.input(
           input_type=Text,
-          placeholder="Filter tasks...",
+          placeholder=@shared.t(model.lang, "search_placeholder"),
           value=model.search_query,
           on_input=fn(v) { dispatch(SearchChanged(v)) },
           style=[
@@ -1106,7 +1140,7 @@ fn view_filters(
                 "color: \{theme.text_muted}",
                 "margin-right: 4px",
               ],
-              "Status:",
+              @shared.t(model.lang, "status"),
             ),
             {
               let is_sel = model.filter_status == ""
@@ -1123,7 +1157,7 @@ fn view_filters(
                   "background: \{bg}",
                   "color: \{fg}",
                 ],
-                "All",
+                @shared.t(model.lang, "all"),
               )
             },
           ]
@@ -1147,7 +1181,7 @@ fn view_filters(
                   "background: \{bg}",
                   "color: \{fg}",
                 ],
-                @shared.status_label(s),
+                @shared.t_status(model.lang, s),
               ),
             )
           }
@@ -1165,7 +1199,7 @@ fn view_filters(
                 "color: \{theme.text_muted}",
                 "margin-right: 4px",
               ],
-              "Priority:",
+              @shared.t(model.lang, "priority_filter"),
             ),
             {
               let is_sel = model.filter_priority == ""
@@ -1182,7 +1216,7 @@ fn view_filters(
                   "background: \{bg}",
                   "color: \{fg}",
                 ],
-                "All",
+                @shared.t(model.lang, "all"),
               )
             },
           ]
@@ -1206,7 +1240,7 @@ fn view_filters(
                   "background: \{bg}",
                   "color: \{fg}",
                 ],
-                @shared.priority_label(p),
+                @shared.t_priority(model.lang, p),
               ),
             )
           }
@@ -1224,7 +1258,7 @@ fn view_filters(
                 "color: \{theme.text_muted}",
                 "margin-right: 4px",
               ],
-              "Assignee:",
+              @shared.t(model.lang, "assignee_filter"),
             ),
             {
               let is_sel = model.filter_assignee == 0
@@ -1248,7 +1282,7 @@ fn view_filters(
                   "color: #94a3b8",
                   "border: \{border}",
                 ],
-                [@html.text("All")],
+                [@html.text(@shared.t(model.lang, "all"))],
               )
             },
           ]
@@ -1290,11 +1324,11 @@ fn view_filters(
         style=["display: flex", "gap: 4px", "align-items: center"],
         {
           let urgency_options = [
-            ("", "All"),
-            ("overdue", "Overdue"),
-            ("due_today", "Today"),
-            ("has_deadline", "Has Due"),
-            ("no_deadline", "No Due"),
+            ("", @shared.t(model.lang, "all")),
+            ("overdue", @shared.t(model.lang, "overdue")),
+            ("due_today", @shared.t(model.lang, "today")),
+            ("has_deadline", @shared.t(model.lang, "has_due")),
+            ("no_deadline", @shared.t(model.lang, "no_due")),
           ]
           let items : Array[@rabbita.Html] = [
             @html.span(
@@ -1303,7 +1337,7 @@ fn view_filters(
                 "color: \{theme.text_muted}",
                 "margin-right: 4px",
               ],
-              "Due:",
+              @shared.t(model.lang, "due_filter"),
             ),
           ]
           for opt in urgency_options {
@@ -1414,6 +1448,7 @@ fn view_priority_picker(
   dispatch : @rabbita.Dispatch[Msg],
   current : String,
   on_change : (String) -> Msg,
+  lang~ : @shared.Lang = @shared.Lang::En,
 ) -> @rabbita.Html {
   @html.div(
     style=["display: flex", "gap: 4px", "margin-bottom: 8px"],
@@ -1432,7 +1467,7 @@ fn view_priority_picker(
           "background: \{bg}",
           "color: \{fg}",
         ],
-        @shared.priority_label(p),
+        @shared.t_priority(lang, p),
       )
     }),
   )
@@ -1461,11 +1496,11 @@ fn view_add_task_form(
           "color: \{theme.text}",
           "margin-bottom: 12px",
         ],
-        [@html.text("New Task")],
+        [@html.text(@shared.t(model.lang, "new_task_title"))],
       ),
       @html.input(
         input_type=Text,
-        placeholder="Task title",
+        placeholder=@shared.t(model.lang, "task_title_placeholder"),
         value=model.new_title,
         on_input=fn(v) { dispatch(NewTitleChanged(v)) },
         style=[
@@ -1482,7 +1517,7 @@ fn view_add_task_form(
         "",
       ),
       @html.textarea(
-        placeholder="Description (optional)",
+        placeholder=@shared.t(model.lang, "desc_placeholder"),
         value=model.new_desc,
         on_input=fn(v) { dispatch(NewDescChanged(v)) },
         rows=2,
@@ -1513,11 +1548,11 @@ fn view_add_task_form(
                 "color: \{theme.text_muted}",
                 "margin-bottom: 4px",
               ],
-              [@html.text("Priority")],
+              [@html.text(@shared.t(model.lang, "priority"))],
             ),
             view_priority_picker(dispatch, model.new_priority, fn(p) {
               NewPriorityChanged(p)
-            }),
+            }, lang=model.lang),
           ]),
           @html.div(style=[], [
             @html.div(
@@ -1526,7 +1561,7 @@ fn view_add_task_form(
                 "color: \{theme.text_muted}",
                 "margin-bottom: 4px",
               ],
-              [@html.text("Assignee")],
+              [@html.text(@shared.t(model.lang, "assignee"))],
             ),
             view_assignee_picker(dispatch, model.members, model.new_assignee, fn(
               id,
@@ -1541,7 +1576,7 @@ fn view_add_task_form(
                 "color: \{theme.text_muted}",
                 "margin-bottom: 4px",
               ],
-              [@html.text("Due Date")],
+              [@html.text(@shared.t(model.lang, "due_date"))],
             ),
             @html.input(
               input_type=Text,
@@ -1570,7 +1605,7 @@ fn view_add_task_form(
             "padding: 6px 14px", "background: #4f46e5", "color: white", "border: none",
             "border-radius: 6px", "cursor: pointer", "font-size: 13px",
           ],
-          "Create Task",
+          @shared.t(model.lang, "create_task"),
         ),
         @html.button(
           on_click=dispatch(HideAddTask),
@@ -1583,7 +1618,7 @@ fn view_add_task_form(
             "cursor: pointer",
             "font-size: 13px",
           ],
-          "Cancel",
+          @shared.t(model.lang, "cancel"),
         ),
       ]),
     ],
@@ -1608,7 +1643,7 @@ fn view_edit_task_form(
     [
       @html.input(
         input_type=Text,
-        placeholder="Task title",
+        placeholder=@shared.t(model.lang, "task_title_placeholder"),
         value=model.edit_title,
         on_input=fn(v) { dispatch(EditTitleChanged(v)) },
         style=[
@@ -1625,7 +1660,7 @@ fn view_edit_task_form(
         "",
       ),
       @html.textarea(
-        placeholder="Description (optional)",
+        placeholder=@shared.t(model.lang, "desc_placeholder"),
         value=model.edit_desc,
         on_input=fn(v) { dispatch(EditDescChanged(v)) },
         rows=2,
@@ -1656,11 +1691,11 @@ fn view_edit_task_form(
                 "color: \{theme.text_muted}",
                 "margin-bottom: 2px",
               ],
-              [@html.text("Priority")],
+              [@html.text(@shared.t(model.lang, "priority"))],
             ),
             view_priority_picker(dispatch, model.edit_priority, fn(p) {
               EditPriorityChanged(p)
-            }),
+            }, lang=model.lang),
           ]),
           @html.div(style=[], [
             @html.div(
@@ -1669,7 +1704,7 @@ fn view_edit_task_form(
                 "color: \{theme.text_muted}",
                 "margin-bottom: 2px",
               ],
-              [@html.text("Assignee")],
+              [@html.text(@shared.t(model.lang, "assignee"))],
             ),
             view_assignee_picker(dispatch, model.members, model.edit_assignee, fn(
               id,
@@ -1684,7 +1719,7 @@ fn view_edit_task_form(
                 "color: \{theme.text_muted}",
                 "margin-bottom: 2px",
               ],
-              [@html.text("Due Date")],
+              [@html.text(@shared.t(model.lang, "due_date"))],
             ),
             @html.input(
               input_type=Text,
@@ -1713,7 +1748,7 @@ fn view_edit_task_form(
             "padding: 5px 12px", "background: #4f46e5", "color: white", "border: none",
             "border-radius: 4px", "cursor: pointer", "font-size: 12px",
           ],
-          "Save",
+          @shared.t(model.lang, "save"),
         ),
         @html.button(
           on_click=dispatch(CancelEditTask),
@@ -1726,7 +1761,7 @@ fn view_edit_task_form(
             "cursor: pointer",
             "font-size: 12px",
           ],
-          "Cancel",
+          @shared.t(model.lang, "cancel"),
         ),
       ]),
     ],
@@ -1814,7 +1849,11 @@ fn view_task_item(
       }
     }
     let color = if has_blocked { "#ef4444" } else { "#22c55e" }
-    let label = if has_blocked { "Blocked by" } else { "Depends on (done)" }
+    let label = if has_blocked {
+      @shared.t(model.lang, "blocked_by")
+    } else {
+      @shared.t(model.lang, "depends_done")
+    }
     let names = dep_names.join(", ")
     @html.div(style=["font-size: 10px", "color: \{color}", "margin-top: 2px"], [
       @html.text("\{label}: \{names}"),
@@ -1880,7 +1919,7 @@ fn view_task_item(
                   "color: white",
                   "background: \{status_bg}",
                 ],
-                @shared.status_label(task.status),
+                @shared.t_status(model.lang, task.status),
               ),
               due_html,
             ],
@@ -1897,7 +1936,7 @@ fn view_task_item(
           @html.div(
             style=["display: flex", "gap: 3px"],
             transitions.map(fn(target) {
-              let label = @shared.transition_label(task.status, target)
+              let label = @shared.t_transition(model.lang, task.status, target)
               let bg = @shared.status_color(target)
               @html.button(
                 on_click=dispatch(ChangeStatus(task.id, target)),
@@ -1927,7 +1966,7 @@ fn view_task_item(
                 "background: \{theme.filter_inactive}",
                 "color: \{theme.text_secondary}",
               ],
-              "Notes",
+              @shared.t(model.lang, "notes"),
             ),
             @html.button(
               on_click=dispatch(StartEditTask(task)),
@@ -1940,7 +1979,7 @@ fn view_task_item(
                 "background: \{theme.filter_inactive}",
                 "color: \{theme.text_secondary}",
               ],
-              "Edit",
+              @shared.t(model.lang, "edit"),
             ),
             @html.button(
               on_click=dispatch(RequestDelete(task.id)),
@@ -1948,7 +1987,7 @@ fn view_task_item(
                 "padding: 2px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px",
                 "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626",
               ],
-              "Del",
+              @shared.t(model.lang, "del"),
             ),
           ]),
         ],
@@ -2050,7 +2089,7 @@ fn view_kanban_card(
         ],
         {
           let buttons : Array[@rabbita.Html] = transitions.map(fn(target) {
-            let label = @shared.transition_label(task.status, target)
+            let label = @shared.t_transition(model.lang, task.status, target)
             let bg = @shared.status_color(target)
             @html.button(
               on_click=dispatch(ChangeStatus(task.id, target)),
@@ -2078,7 +2117,7 @@ fn view_kanban_card(
                 "background: \{theme.filter_inactive}",
                 "color: \{theme.text_muted}",
               ],
-              "Notes",
+              @shared.t(model.lang, "notes"),
             ),
           )
           buttons.push(
@@ -2093,7 +2132,7 @@ fn view_kanban_card(
                 "background: \{theme.filter_inactive}",
                 "color: \{theme.text_muted}",
               ],
-              "Edit",
+              @shared.t(model.lang, "edit"),
             ),
           )
           buttons.push(
@@ -2103,7 +2142,7 @@ fn view_kanban_card(
                 "padding: 1px 6px", "font-size: 9px", "cursor: pointer", "border-radius: 3px",
                 "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626",
               ],
-              "Del",
+              @shared.t(model.lang, "del"),
             ),
           )
           buttons
@@ -2157,7 +2196,7 @@ fn view_kanban(
                     "font-weight: 600",
                     "color: \{theme.text}",
                   ],
-                  @shared.status_label(status),
+                  @shared.t_status(model.lang, status),
                 ),
                 @html.span(
                   style=[
@@ -2181,7 +2220,7 @@ fn view_kanban(
                 style=[
                   "text-align: center", "padding: 20px 0", "color: #cbd5e1", "font-size: 11px",
                 ],
-                [@html.text("No tasks")],
+                [@html.text(@shared.t(model.lang, "no_tasks"))],
               ),
             )
           }
@@ -2217,16 +2256,16 @@ fn view_activity_feed(model : Model) -> @rabbita.Html {
             "color: \{theme.text}",
             "margin-bottom: 10px",
           ],
-          [@html.text("Recent Activity")],
+          [@html.text(@shared.t(model.lang, "recent_activity"))],
         ),
       ]
       for act in activities {
-        let desc = @shared.format_activity(act)
+        let desc = @shared.t_activity(model.lang, act)
         let to_color = @shared.status_color(act.to_status)
         let label = if act.from_status == "" {
-          "Created"
+          @shared.t(model.lang, "created")
         } else {
-          @shared.transition_label(act.from_status, act.to_status)
+          @shared.t_transition(model.lang, act.from_status, act.to_status)
         }
         items.push(
           @html.div(
@@ -2314,7 +2353,7 @@ fn view_delete_confirm(
               "color: \{theme.text}",
               "margin-bottom: 8px",
             ],
-            [@html.text("Delete Task?")],
+            [@html.text(@shared.t(model.lang, "delete_task"))],
           ),
           @html.div(
             style=[
@@ -2339,7 +2378,7 @@ fn view_delete_confirm(
                   "cursor: pointer",
                   "font-size: 13px",
                 ],
-                "Cancel",
+                @shared.t(model.lang, "cancel"),
               ),
               @html.button(
                 on_click=dispatch(ConfirmDelete),
@@ -2347,7 +2386,7 @@ fn view_delete_confirm(
                   "padding: 8px 16px", "background: #dc2626", "color: white", "border: none",
                   "border-radius: 6px", "cursor: pointer", "font-size: 13px",
                 ],
-                "Delete",
+                @shared.t(model.lang, "delete"),
               ),
             ],
           ),
@@ -2407,7 +2446,7 @@ fn view_comments_panel(
                       "font-weight: 600",
                       "color: \{theme.text}",
                     ],
-                    [@html.text("Notes")],
+                    [@html.text(@shared.t(model.lang, "notes"))],
                   ),
                   @html.div(
                     style=[
@@ -2438,7 +2477,7 @@ fn view_comments_panel(
               [
                 @html.input(
                   input_type=Text,
-                  placeholder="Add a note...",
+                  placeholder=@shared.t(model.lang, "add_note_placeholder"),
                   value=model.new_comment,
                   on_input=fn(v) { dispatch(NewCommentChanged(v)) },
                   style=[
@@ -2459,7 +2498,7 @@ fn view_comments_panel(
                     "padding: 8px 14px", "background: #4f46e5", "color: white", "border: none",
                     "border-radius: 6px", "cursor: pointer", "font-size: 13px",
                   ],
-                  "Add",
+                  @shared.t(model.lang, "add"),
                 ),
               ],
             ),
@@ -2474,7 +2513,7 @@ fn view_comments_panel(
                   "color: \{theme.text_muted}",
                   "font-size: 13px",
                 ],
-                [@html.text("No notes yet")],
+                [@html.text(@shared.t(model.lang, "no_notes"))],
               ),
             )
           }
@@ -2536,7 +2575,7 @@ fn view_comments_panel(
                       "color: \{theme.text}",
                       "margin-bottom: 8px",
                     ],
-                    [@html.text("Dependencies")],
+                    [@html.text(@shared.t(model.lang, "dependencies"))],
                   ),
                 ]
                 // Show current deps with remove button
@@ -2600,7 +2639,7 @@ fn view_comments_panel(
                         "color: \{theme.text_muted}",
                         "padding: 4px 0",
                       ],
-                      [@html.text("No dependencies")],
+                      [@html.text(@shared.t(model.lang, "no_dependencies"))],
                     ),
                   )
                 }
@@ -2617,7 +2656,7 @@ fn view_comments_panel(
                         "margin-top: 8px",
                         "margin-bottom: 4px",
                       ],
-                      [@html.text("Add dependency:")],
+                      [@html.text(@shared.t(model.lang, "add_dependency"))],
                     ),
                   )
                   dep_items.push(
@@ -2726,7 +2765,7 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
             "color: \{theme.text_muted}",
             "font-size: 15px",
           ],
-          [@html.text("Loading...")],
+          [@html.text(@shared.t(model.lang, "loading"))],
         )
       } else {
         @html.div(style=[], [
@@ -2746,7 +2785,7 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
                 "color: \{theme.text_muted}",
                 "font-size: 14px",
               ],
-              [@html.text("No tasks match your filters")],
+              [@html.text(@shared.t(model.lang, "no_matches"))],
             )
           } else {
             @html.div(
@@ -2766,7 +2805,7 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
             ],
             [
               @html.text(
-                "n: new task | l: list | b: board | d: dark mode | Esc: close",
+                @shared.t(model.lang, "keyboard_hints"),
               ),
             ],
           ),
@@ -2816,6 +2855,7 @@ fn main {
       confirm_delete: 0,
       error_msg: "",
       loading: false,
+      lang: @shared.Lang::En,
     },
     update~,
     view~,
