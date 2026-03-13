@@ -5,6 +5,7 @@ import {
   "bobzhang/todo-list/shared",
   "moonbit-community/rabbita/html",
   "moonbit-community/rabbita/internal/runtime",
+  "moonbitlang/core/debug",
 }
 
 // Values
@@ -17,7 +18,9 @@ pub(all) struct Model {
   input : String
   loading : Bool
 }
+pub fn Model::update(Self, (Msg) -> @runtime.Cmd, Msg) -> (@runtime.Cmd, Self)
 pub fn Model::view(Self, (Msg) -> @runtime.Cmd) -> @html.Html
+pub impl @debug.Debug for Model
 
 pub(all) enum Msg {
   Init
@@ -30,7 +33,7 @@ pub(all) enum Msg {
   DeleteTodo(Int)
   TodoDeleted(Result[Int, String])
 }
-pub fn Msg::update(Self, (Self) -> @runtime.Cmd, Model) -> (@runtime.Cmd, Model)
+pub impl @debug.Debug for Msg
 
 // Type aliases
 
