@@ -238,9 +238,9 @@ pub fn t(lang : Lang, key : String) -> String {
     (Zh, "dismiss") => "关闭"
     (_, "dismiss") => "Dismiss"
     // Keyboard hints
-    (Zh, "keyboard_hints") => "n: 新建 | l: 列表 | b: 看板 | d: 主题 | Esc: 关闭"
+    (Zh, "keyboard_hints") => "n: 新建 | l: 列表 | b: 看板 | d: 主题 | ⌘Z: 撤销 | Esc: 关闭"
     (_, "keyboard_hints") =>
-      "n: new task | l: list | b: board | d: dark mode | Esc: close"
+      "n: new task | l: list | b: board | d: dark mode | Ctrl+Z: undo | Esc: close"
     // Fallback
     (_, k) => k
   }

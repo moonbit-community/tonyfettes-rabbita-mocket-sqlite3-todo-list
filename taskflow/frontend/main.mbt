@@ -139,7 +139,7 @@ enum Msg {
   AddComment
   CommentAdded(Result[@shared.Comment, String])
   // Keyboard
-  KeyPressed(String)
+  KeyPressed(String, Bool) // key, ctrl_or_meta
   // Errors
   DismissError
   // Language
@@ -453,8 +453,11 @@ fn update(
     SetViewMode(m) => (@rabbita.none, { ..model, view_mode: m })
     SetSortBy(s) => (@rabbita.none, { ..model, sort_by: s })
     ToggleSortOrder => (@rabbita.none, { ..model, sort_asc: not(model.sort_asc) })
-    ToggleDarkMode =>
-      (@rabbita.none, { ..model, dark_mode: not(model.dark_mode) })
+    ToggleDarkMode => {
+      let new_dark = not(model.dark_mode)
+      save_pref("taskflow_dark", if new_dark { "1" } else { "0" })
+      (@rabbita.none, { ..model, dark_mode: new_dark })
+    }
     // ---- Task creation ----
     ShowAddTask =>
       (
@@ -862,7 +865,11 @@ fn update(
     }
     CommentAdded(Err(e)) => (@rabbita.none, { ..model, error_msg: e })
     // ---- Keyboard shortcuts ----
-    KeyPressed(key) => {
+    KeyPressed(key, ctrl) => {
+      // Ctrl+Z / Cmd+Z for undo (works even in forms)
+      if ctrl && key == "z" && model.undo_msg != "" {
+        return update(dispatch, Undo, model)
+      }
       // Skip shortcuts when typing in forms
       if model.adding_task ||
         model.editing_task != 0 ||
@@ -904,7 +911,11 @@ fn update(
           )
         "l" => (@rabbita.none, { ..model, view_mode: "list" })
         "b" => (@rabbita.none, { ..model, view_mode: "kanban" })
-        "d" => (@rabbita.none, { ..model, dark_mode: not(model.dark_mode) })
+        "d" => {
+          let new_dark = not(model.dark_mode)
+          save_pref("taskflow_dark", if new_dark { "1" } else { "0" })
+          (@rabbita.none, { ..model, dark_mode: new_dark })
+        }
         "/" => (@rabbita.none, model) // Search focus handled by browser
         _ => (@rabbita.none, model)
       }
@@ -4351,7 +4362,7 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
       "background: \{theme.bg}",
       "color: \{theme.text}",
     ],
-    on_keydown=fn(kb) { dispatch(KeyPressed(kb.key())) },
+    on_keydown=fn(kb) { dispatch(KeyPressed(kb.key(), kb.ctrl_key() || kb.meta_key())) },
     attrs=@html.Attrs::build().tabindex(0),
     [
       view_error_toast(dispatch, model),
@@ -4506,8 +4517,17 @@ extern "js" fn is_mobile_viewport() -> Bool = "() => window.innerWidth <= 768"
 extern "js" fn download_file(content : String, filename : String, mime : String) = "(content, filename, mime) => { const blob = new Blob([content], { type: mime }); const url = URL.createObjectURL(blob); const a = document.createElement('a'); a.href = url; a.download = filename; document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url); }"
 
 ///|
+/// Save a preference to localStorage.
+extern "js" fn save_pref(key : String, value : String) = "(k, v) => { try { localStorage.setItem(k, v); } catch(e) {} }"
+
+///|
+/// Load a preference from localStorage. Returns empty string if not found.
+extern "js" fn load_pref(key : String) -> String = "(k) => { try { return localStorage.getItem(k) || ''; } catch(e) { return ''; } }"
+
+///|
 fn main {
   enable_drag_drop()
+  let saved_dark = load_pref("taskflow_dark") == "1"
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model={
       current_user: None,
@@ -4547,7 +4567,7 @@ fn main {
       edit_priority: "",
       edit_assignee: 0,
       edit_due_date: "",
-      dark_mode: false,
+      dark_mode: saved_dark,
       viewing_comments: 0,
       comments: [],
       new_comment: "",
