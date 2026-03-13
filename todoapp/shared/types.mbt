@@ -3,4 +3,4 @@ pub(all) struct Todo {
   id : Int
   text : String
   done : Bool
-} derive(ToJson, FromJson)
+} derive(ToJson, FromJson, Debug)
