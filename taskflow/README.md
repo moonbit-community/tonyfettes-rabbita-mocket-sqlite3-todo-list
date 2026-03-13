@@ -97,7 +97,7 @@ sequenceDiagram
 Status transitions are defined in `shared/status.mbt` and enforced on both sides: the frontend only renders valid transition buttons, and the backend rejects invalid transitions with 400.
 
 ```mermaid
-stateDiagram-v2
+stateDiagram
     [*] --> todo: Create
     todo --> in_progress: Start
     todo --> blocked: Block
