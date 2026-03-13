@@ -1,9 +1,6 @@
 import {
-  "bobzhang/noteapp/shared",
+  "bobzhang/noteapp/frontend/app",
   "moonbit-community/rabbita",
-  "moonbit-community/rabbita/html",
-  "moonbit-community/rabbita/http",
-  "moonbitlang/core/json",
 }
 
 options(

@@ -4,11 +4,11 @@ pub(all) struct Note {
   title : String
   content : String
   pinned : Bool
-} derive(ToJson, FromJson)
+} derive(ToJson, FromJson, Debug)
 
 /// Statistics about a note's content.
 pub(all) struct NoteStats {
   word_count : Int
   char_count : Int
   reading_time_secs : Int
-} derive(ToJson, FromJson)
+} derive(ToJson, FromJson, Debug)
