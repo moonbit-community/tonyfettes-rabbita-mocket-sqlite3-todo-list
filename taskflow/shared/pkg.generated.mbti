@@ -10,7 +10,15 @@ pub fn allowed_transitions(String) -> Array[String]
 
 pub let api_board : String
 
+pub let api_login : String
+
+pub let api_logout : String
+
+pub let api_me : String
+
 pub let api_members : String
+
+pub let api_register : String
 
 pub fn api_task(Int) -> String
 
@@ -48,15 +56,23 @@ pub fn matches_urgency(Task, String, String) -> Bool
 
 pub let max_comment_text : Int
 
+pub let max_password : Int
+
 pub let max_task_description : Int
 
 pub let max_task_title : Int
 
 pub let max_tasks : Int
 
+pub let max_username : Int
+
 pub fn member_color(String) -> String
 
 pub fn member_initial(String) -> String
+
+pub let min_password : Int
+
+pub let min_username : Int
 
 pub fn priority_color(String) -> String
 
@@ -88,6 +104,8 @@ pub fn validate_comment_text(String) -> Bool
 
 pub fn validate_due_date(String) -> Bool
 
+pub fn validate_password(String) -> Bool
+
 pub fn validate_priority(String) -> Bool
 
 pub fn validate_status(String) -> Bool
@@ -95,6 +113,8 @@ pub fn validate_status(String) -> Bool
 pub fn validate_task_description(String) -> Bool
 
 pub fn validate_task_title(String) -> Bool
+
+pub fn validate_username(String) -> Bool
 
 // Errors
 
@@ -106,11 +126,21 @@ pub(all) struct Activity {
   from_status : String
   to_status : String
   timestamp : String
+  user_name : String
 }
 pub impl Eq for Activity
 pub impl Show for Activity
 pub impl ToJson for Activity
 pub impl @json.FromJson for Activity
+
+pub(all) struct AuthResponse {
+  user : User
+  message : String
+}
+pub impl Eq for AuthResponse
+pub impl Show for AuthResponse
+pub impl ToJson for AuthResponse
+pub impl @json.FromJson for AuthResponse
 
 pub(all) struct Board {
   tasks : Array[Task]
@@ -169,6 +199,16 @@ pub impl Eq for Task
 pub impl Show for Task
 pub impl ToJson for Task
 pub impl @json.FromJson for Task
+
+pub(all) struct User {
+  id : Int
+  username : String
+  color : String
+}
+pub impl Eq for User
+pub impl Show for User
+pub impl ToJson for User
+pub impl @json.FromJson for User
 
 // Type aliases
 

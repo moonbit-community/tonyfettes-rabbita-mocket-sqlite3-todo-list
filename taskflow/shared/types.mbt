@@ -1,9 +1,25 @@
 ///|
+/// A registered user who can log in, be assigned tasks, and leave comments.
+pub(all) struct User {
+  id : Int
+  username : String
+  color : String
+} derive(ToJson, FromJson, Show, Eq)
+
+///|
 /// A team member who can be assigned tasks.
+/// Now derived from User for backward compatibility.
 pub(all) struct Member {
   id : Int
   name : String
   color : String
+} derive(ToJson, FromJson, Show, Eq)
+
+///|
+/// Server response for login/register.
+pub(all) struct AuthResponse {
+  user : User
+  message : String
 } derive(ToJson, FromJson, Show, Eq)
 
 ///|
@@ -28,6 +44,7 @@ pub(all) struct Activity {
   from_status : String
   to_status : String
   timestamp : String
+  user_name : String
 } derive(ToJson, FromJson, Show, Eq)
 
 ///|

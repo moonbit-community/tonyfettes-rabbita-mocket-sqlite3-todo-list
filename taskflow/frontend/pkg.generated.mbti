@@ -1,0 +1,18 @@
+// Generated using `moon info`, DON'T EDIT IT
+package "bobzhang/taskflow/frontend"
+
+// Values
+
+// Errors
+
+// Types and methods
+type Model
+
+type Msg
+
+type Theme
+
+// Type aliases
+
+// Traits
+

@@ -1,4 +1,68 @@
 ///|
+/// Minimum character length for a username.
+pub let min_username : Int = 3
+
+///|
+/// Maximum character length for a username.
+pub let max_username : Int = 30
+
+///|
+/// Minimum character length for a password.
+pub let min_password : Int = 4
+
+///|
+/// Maximum character length for a password.
+pub let max_password : Int = 100
+
+///|
+/// Validate a username: alphanumeric and underscore only, within length limits.
+///
+/// # Example
+///
+/// ```mbt check
+/// test {
+///   inspect(@shared.validate_username("alice"), content="true")
+///   inspect(@shared.validate_username("ab"), content="false")
+///   inspect(@shared.validate_username(""), content="false")
+///   inspect(@shared.validate_username("valid_user_1"), content="true")
+/// }
+/// ```
+pub fn validate_username(name : String) -> Bool {
+  let len = name.char_length()
+  if len < min_username || len > max_username {
+    return false
+  }
+  for c in name {
+    if not(
+        (c >= 'a' && c <= 'z') ||
+        (c >= 'A' && c <= 'Z') ||
+        (c >= '0' && c <= '9') ||
+        c == '_',
+      ) {
+      return false
+    }
+  }
+  true
+}
+
+///|
+/// Validate a password: within length limits, non-empty.
+///
+/// # Example
+///
+/// ```mbt check
+/// test {
+///   inspect(@shared.validate_password("pass"), content="true")
+///   inspect(@shared.validate_password("ab"), content="false")
+///   inspect(@shared.validate_password(""), content="false")
+/// }
+/// ```
+pub fn validate_password(pass : String) -> Bool {
+  let len = pass.char_length()
+  len >= min_password && len <= max_password
+}
+
+///|
 /// Maximum character length for a task title.
 pub let max_task_title : Int = 100
 

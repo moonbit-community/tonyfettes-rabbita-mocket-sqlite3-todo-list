@@ -45,6 +45,7 @@ test "Board JSON round-trip" {
         from_status: "todo",
         to_status: "in_progress",
         timestamp: "2026-03-12 10:30",
+        user_name: "Alice",
       },
     ],
     dependencies: [{ task_id: 1, depends_on_id: 2 }],
@@ -63,6 +64,7 @@ test "Activity JSON round-trip" {
     from_status: "todo",
     to_status: "in_progress",
     timestamp: "2026-03-12 14:30",
+    user_name: "Bob",
   }
   let decoded : @shared.Activity = @json.from_json(act.to_json())
   assert_eq(decoded, act)
@@ -108,6 +110,23 @@ test "Dependency JSON round-trip" {
   let d : @shared.Dependency = { task_id: 1, depends_on_id: 2 }
   let decoded : @shared.Dependency = @json.from_json(d.to_json())
   assert_eq(decoded, d)
+}
+
+///|
+test "User JSON round-trip" {
+  let user : @shared.User = { id: 1, username: "alice", color: "blue" }
+  let decoded : @shared.User = @json.from_json(user.to_json())
+  assert_eq(decoded, user)
+}
+
+///|
+test "AuthResponse JSON round-trip" {
+  let resp : @shared.AuthResponse = {
+    user: { id: 1, username: "alice", color: "blue" },
+    message: "Login successful",
+  }
+  let decoded : @shared.AuthResponse = @json.from_json(resp.to_json())
+  assert_eq(decoded, resp)
 }
 
 ///|

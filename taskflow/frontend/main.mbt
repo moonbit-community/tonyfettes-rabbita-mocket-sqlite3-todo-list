@@ -1,6 +1,14 @@
 ///|
 /// Application state for the TaskFlow MVU architecture.
 struct Model {
+  // Auth
+  current_user : @shared.User?
+  auth_screen : String // "" = none (logged in), "login", "register"
+  auth_username : String
+  auth_password : String
+  auth_error : String
+  auth_loading : Bool
+  // Board data
   tasks : Array[@shared.Task]
   members : Array[@shared.Member]
   activities : Array[@shared.Activity]
@@ -44,7 +52,18 @@ struct Model {
 /// All possible user actions and server responses.
 enum Msg {
   Init
+  GotMe(Result[@shared.User, String])
   GotBoard(Result[@shared.Board, String])
+  // Auth
+  ShowLogin
+  ShowRegister
+  AuthUsernameChanged(String)
+  AuthPasswordChanged(String)
+  SubmitLogin
+  SubmitRegister
+  AuthResult(Result[@shared.AuthResponse, String])
+  Logout
+  LoggedOut
   // Filters
   SetFilterStatus(String)
   SetFilterAssignee(Int)
@@ -149,6 +168,19 @@ fn get_theme(dark : Bool) -> Theme {
 }
 
 ///|
+/// Issue GET /api/auth/me to check for existing session.
+fn fetch_me(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
+  @http.get(
+    @shared.api_me,
+    expect=Json(fn(result) { dispatch(GotMe(result)) }, fn(json) {
+      Ok(@json.from_json(json)) catch {
+        _ => Err("Not logged in")
+      }
+    }),
+  )
+}
+
+///|
 /// Issue GET /api/board and dispatch GotBoard on response.
 fn fetch_board(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
   @http.get(
@@ -169,7 +201,22 @@ fn update(
   model : Model,
 ) -> (@rabbita.Cmd, Model) {
   match msg {
-    Init => (fetch_board(dispatch), { ..model, loading: true })
+    Init => (fetch_me(dispatch), { ..model, loading: true })
+    GotMe(Ok(user)) =>
+      (
+        fetch_board(dispatch),
+        {
+          ..model,
+          current_user: Some(user),
+          auth_screen: "",
+          auth_loading: false,
+        },
+      )
+    GotMe(Err(_)) =>
+      (
+        @rabbita.none,
+        { ..model, auth_screen: "login", loading: false, auth_loading: false },
+      )
     GotBoard(Ok(board)) =>
       (
         @rabbita.none,
@@ -185,6 +232,116 @@ fn update(
       )
     GotBoard(Err(e)) =>
       (@rabbita.none, { ..model, loading: false, error_msg: e })
+    // ---- Auth ----
+    ShowLogin =>
+      (
+        @rabbita.none,
+        {
+          ..model,
+          auth_screen: "login",
+          auth_username: "",
+          auth_password: "",
+          auth_error: "",
+        },
+      )
+    ShowRegister =>
+      (
+        @rabbita.none,
+        {
+          ..model,
+          auth_screen: "register",
+          auth_username: "",
+          auth_password: "",
+          auth_error: "",
+        },
+      )
+    AuthUsernameChanged(v) => (@rabbita.none, { ..model, auth_username: v })
+    AuthPasswordChanged(v) => (@rabbita.none, { ..model, auth_password: v })
+    SubmitLogin => {
+      if model.auth_username == "" || model.auth_password == "" {
+        return (
+          @rabbita.none,
+          { ..model, auth_error: "Please fill in all fields" },
+        )
+      }
+      let username = model.auth_username
+      let password = model.auth_password
+      let cmd = @http.post(
+        @shared.api_login,
+        Json(({ "username": username, "password": password } : Json)),
+        expect=Json(fn(result) { dispatch(AuthResult(result)) }, fn(json) {
+          Ok(@json.from_json(json)) catch {
+            _ => Err("Invalid username or password")
+          }
+        }),
+      )
+      (cmd, { ..model, auth_loading: true, auth_error: "" })
+    }
+    SubmitRegister => {
+      if not(@shared.validate_username(model.auth_username)) {
+        return (
+          @rabbita.none,
+          {
+            ..model,
+            auth_error: "Username: 3-30 alphanumeric or underscore characters",
+          },
+        )
+      }
+      if not(@shared.validate_password(model.auth_password)) {
+        return (
+          @rabbita.none,
+          { ..model, auth_error: "Password: 4-100 characters" },
+        )
+      }
+      let username = model.auth_username
+      let password = model.auth_password
+      let cmd = @http.post(
+        @shared.api_register,
+        Json(({ "username": username, "password": password } : Json)),
+        expect=Json(fn(result) { dispatch(AuthResult(result)) }, fn(json) {
+          Ok(@json.from_json(json)) catch {
+            _ => Err("Registration failed")
+          }
+        }),
+      )
+      (cmd, { ..model, auth_loading: true, auth_error: "" })
+    }
+    AuthResult(Ok(resp)) =>
+      (
+        fetch_board(dispatch),
+        {
+          ..model,
+          current_user: Some(resp.user),
+          auth_screen: "",
+          auth_loading: false,
+          auth_error: "",
+          auth_username: "",
+          auth_password: "",
+        },
+      )
+    AuthResult(Err(e)) =>
+      (@rabbita.none, { ..model, auth_loading: false, auth_error: e })
+    Logout => {
+      let cmd = @http.post(
+        @shared.api_logout,
+        Json(({} : Json)),
+        expect=Json(fn(_result) { dispatch(LoggedOut) }, fn(_json) { Ok("") }),
+      )
+      (cmd, model)
+    }
+    LoggedOut =>
+      (
+        @rabbita.none,
+        {
+          ..model,
+          current_user: None,
+          auth_screen: "login",
+          tasks: [],
+          members: [],
+          activities: [],
+          dependencies: [],
+        },
+      )
     // ---- Filters ----
     SetFilterStatus(s) => (@rabbita.none, { ..model, filter_status: s })
     SetFilterAssignee(id) => (@rabbita.none, { ..model, filter_assignee: id })
@@ -494,6 +651,182 @@ fn update(
 // ========== View ==========
 
 ///|
+/// Render the login/register screen.
+fn view_auth(
+  dispatch : @rabbita.Dispatch[Msg],
+  model : Model,
+  theme : Theme,
+) -> @rabbita.Html {
+  let is_login = model.auth_screen == "login"
+  let title = if is_login { "Sign In" } else { "Create Account" }
+  let submit_label = if is_login { "Sign In" } else { "Register" }
+  let switch_label = if is_login {
+    "Need an account? Register"
+  } else {
+    "Already have an account? Sign In"
+  }
+  let on_submit = if is_login {
+    dispatch(SubmitLogin)
+  } else {
+    dispatch(SubmitRegister)
+  }
+  let on_switch = if is_login {
+    dispatch(ShowRegister)
+  } else {
+    dispatch(ShowLogin)
+  }
+  @html.div(
+    style=[
+      "min-height: 100vh", "display: flex", "align-items: center", "justify-content: center",
+      "background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+    ],
+    [
+      @html.div(
+        style=[
+          "background: \{theme.card_bg}",
+          "border-radius: 16px",
+          "padding: 40px",
+          "width: 380px",
+          "box-shadow: 0 20px 60px rgba(0,0,0,0.3)",
+        ],
+        [
+          @html.h1(
+            style=[
+              "color: \{theme.text}",
+              "font-size: 24px",
+              "font-weight: 700",
+              "text-align: center",
+              "margin-bottom: 8px",
+            ],
+            "TaskFlow",
+          ),
+          @html.p(
+            style=[
+              "color: \{theme.text_secondary}",
+              "font-size: 14px",
+              "text-align: center",
+              "margin-bottom: 24px",
+            ],
+            [@html.text(title)],
+          ),
+          // Error message
+          if model.auth_error != "" {
+            @html.div(
+              style=[
+                "background: #fef2f2", "color: #dc2626", "padding: 10px 14px", "border-radius: 8px",
+                "font-size: 13px", "margin-bottom: 16px", "border: 1px solid #fecaca",
+              ],
+              [@html.text(model.auth_error)],
+            )
+          } else {
+            @html.text("")
+          },
+          // Username
+          @html.div(style=["margin-bottom: 14px"], [
+            @html.label(
+              style=[
+                "display: block",
+                "font-size: 13px",
+                "font-weight: 500",
+                "color: \{theme.text_secondary}",
+                "margin-bottom: 4px",
+              ],
+              [@html.text("Username")],
+            ),
+            @html.input(
+              input_type=Text,
+              value=model.auth_username,
+              placeholder="Enter username",
+              on_input=fn(v) { dispatch(AuthUsernameChanged(v)) },
+              style=[
+                "width: 100%",
+                "padding: 10px 12px",
+                "border-radius: 8px",
+                "border: 1px solid \{theme.input_border}",
+                "background: \{theme.input_bg}",
+                "color: \{theme.text}",
+                "font-size: 14px",
+                "box-sizing: border-box",
+                "outline: none",
+              ],
+              "",
+            ),
+          ]),
+          // Password
+          @html.div(style=["margin-bottom: 20px"], [
+            @html.label(
+              style=[
+                "display: block",
+                "font-size: 13px",
+                "font-weight: 500",
+                "color: \{theme.text_secondary}",
+                "margin-bottom: 4px",
+              ],
+              [@html.text("Password")],
+            ),
+            @html.input(
+              input_type=Password,
+              value=model.auth_password,
+              placeholder="Enter password",
+              on_input=fn(v) { dispatch(AuthPasswordChanged(v)) },
+              style=[
+                "width: 100%",
+                "padding: 10px 12px",
+                "border-radius: 8px",
+                "border: 1px solid \{theme.input_border}",
+                "background: \{theme.input_bg}",
+                "color: \{theme.text}",
+                "font-size: 14px",
+                "box-sizing: border-box",
+                "outline: none",
+              ],
+              "",
+            ),
+          ]),
+          // Submit button
+          @html.button(
+            on_click=on_submit,
+            style=[
+              "width: 100%",
+              "padding: 12px",
+              "border: none",
+              "border-radius: 8px",
+              "cursor: pointer",
+              "font-size: 14px",
+              "font-weight: 600",
+              "color: white",
+              "background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)",
+              "margin-bottom: 12px",
+              if model.auth_loading {
+                "opacity: 0.7"
+              } else {
+                "opacity: 1"
+              },
+            ],
+            if model.auth_loading {
+              "..."
+            } else {
+              submit_label
+            },
+          ),
+          // Switch link
+          @html.div(style=["text-align: center"], [
+            @html.button(
+              on_click=on_switch,
+              style=[
+                "background: none", "border: none", "color: #6366f1", "cursor: pointer",
+                "font-size: 13px", "padding: 0",
+              ],
+              switch_label,
+            ),
+          ]),
+        ],
+      ),
+    ],
+  )
+}
+
+///|
 /// Render the header with app title and stats.
 fn view_header(
   dispatch : @rabbita.Dispatch[Msg],
@@ -614,6 +947,50 @@ fn view_header(
             ],
             "+ New Task",
           )
+        },
+        // User info + logout
+        match model.current_user {
+          Some(user) => {
+            let color = @shared.member_color(user.color)
+            let initial = @shared.member_initial(user.username)
+            @html.div(
+              style=[
+                "display: flex", "align-items: center", "gap: 8px", "margin-left: 8px",
+              ],
+              [
+                @html.div(
+                  style=[
+                    "width: 28px",
+                    "height: 28px",
+                    "border-radius: 50%",
+                    "display: flex",
+                    "align-items: center",
+                    "justify-content: center",
+                    "font-size: 12px",
+                    "font-weight: 600",
+                    "color: white",
+                    "background: \{color}",
+                  ],
+                  [@html.text(initial)],
+                ),
+                @html.span(
+                  style=[
+                    "color: rgba(255,255,255,0.9)", "font-size: 13px", "font-weight: 500",
+                  ],
+                  user.username,
+                ),
+                @html.button(
+                  on_click=dispatch(Logout),
+                  style=[
+                    "padding: 4px 10px", "border: none", "cursor: pointer", "font-size: 11px",
+                    "color: rgba(255,255,255,0.8)", "border-radius: 4px", "background: rgba(255,255,255,0.1)",
+                  ],
+                  "Logout",
+                ),
+              ],
+            )
+          }
+          None => @html.text("")
         },
       ]),
     ],
@@ -2257,6 +2634,9 @@ fn view_error_toast(
 /// MVU view: render the full task management interface.
 fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
   let theme = get_theme(model.dark_mode)
+  if model.auth_screen != "" {
+    return view_auth(dispatch, model, theme)
+  }
   let filtered = @shared.filter_tasks(
     model.tasks,
     model.filter_status,
@@ -2346,6 +2726,12 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
 fn main {
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model={
+      current_user: None,
+      auth_screen: "login",
+      auth_username: "",
+      auth_password: "",
+      auth_error: "",
+      auth_loading: false,
       tasks: [],
       members: [],
       activities: [],

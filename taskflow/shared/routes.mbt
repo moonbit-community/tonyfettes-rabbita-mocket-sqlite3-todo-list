@@ -1,4 +1,20 @@
 ///|
+/// `POST` — register a new user.
+pub let api_register : String = "/api/auth/register"
+
+///|
+/// `POST` — log in with username and password.
+pub let api_login : String = "/api/auth/login"
+
+///|
+/// `POST` — log out (clear session cookie).
+pub let api_logout : String = "/api/auth/logout"
+
+///|
+/// `GET` — get the current logged-in user from session cookie.
+pub let api_me : String = "/api/auth/me"
+
+///|
 /// `GET` — fetch the full board (tasks + members + today).
 pub let api_board : String = "/api/board"
 

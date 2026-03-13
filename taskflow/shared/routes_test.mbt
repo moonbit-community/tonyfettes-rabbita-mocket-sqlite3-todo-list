@@ -9,3 +9,11 @@ test "routes" {
   inspect(@shared.api_task_deps_remove(5), content="/api/tasks/5/deps/remove")
   inspect(@shared.api_members, content="/api/members")
 }
+
+///|
+test "auth routes" {
+  inspect(@shared.api_register, content="/api/auth/register")
+  inspect(@shared.api_login, content="/api/auth/login")
+  inspect(@shared.api_logout, content="/api/auth/logout")
+  inspect(@shared.api_me, content="/api/auth/me")
+}

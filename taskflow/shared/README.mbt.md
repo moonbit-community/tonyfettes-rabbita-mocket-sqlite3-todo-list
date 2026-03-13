@@ -141,10 +141,11 @@ test {
     from_status: "todo",
     to_status: "in_progress",
     timestamp: "2026-03-12",
+    user_name: "Alice",
   }
   inspect(
     @shared.format_activity(act),
-    content="Fix bug: To Do → In Progress",
+    content="Alice: Fix bug: To Do → In Progress",
   )
   let activities = @shared.recent_activities([act], 5)
   inspect(activities.length(), content="1")
@@ -193,6 +194,20 @@ test {
 }
 ```
 
+## Authentication
+
+Username and password validation shared between client and server:
+
+```mbt check
+///|
+test {
+  inspect(@shared.validate_username("alice"), content="true")
+  inspect(@shared.validate_username("ab"), content="false")
+  inspect(@shared.validate_password("pass"), content="true")
+  inspect(@shared.validate_password("ab"), content="false")
+}
+```
+
 ## Routes
 
 API paths defined once, used by both HTTP client and server:
@@ -205,6 +220,9 @@ test {
   inspect(@shared.api_task(42), content="/api/tasks/42")
   inspect(@shared.api_task_status(7), content="/api/tasks/7/status")
   inspect(@shared.api_members, content="/api/members")
+  inspect(@shared.api_register, content="/api/auth/register")
+  inspect(@shared.api_login, content="/api/auth/login")
+  inspect(@shared.api_me, content="/api/auth/me")
 }
 ```
 

@@ -102,4 +102,56 @@ test "constants" {
   inspect(@shared.max_task_description, content="500")
   inspect(@shared.max_comment_text, content="500")
   inspect(@shared.max_tasks, content="100")
+  inspect(@shared.min_username, content="3")
+  inspect(@shared.max_username, content="30")
+  inspect(@shared.min_password, content="4")
+  inspect(@shared.max_password, content="100")
+}
+
+///|
+test "validate_username" {
+  // Valid usernames
+  inspect(@shared.validate_username("alice"), content="true")
+  inspect(@shared.validate_username("Bob"), content="true")
+  inspect(@shared.validate_username("user_1"), content="true")
+  inspect(@shared.validate_username("ABC"), content="true")
+  inspect(@shared.validate_username("valid_user_1"), content="true")
+  // Too short
+  inspect(@shared.validate_username("ab"), content="false")
+  inspect(@shared.validate_username(""), content="false")
+  inspect(@shared.validate_username("x"), content="false")
+  // Invalid characters
+  inspect(@shared.validate_username("alice!"), content="false")
+  inspect(@shared.validate_username("bob@work"), content="false")
+  inspect(@shared.validate_username("has space"), content="false")
+  inspect(@shared.validate_username("dot.name"), content="false")
+  inspect(@shared.validate_username("dash-name"), content="false")
+}
+
+///|
+test "validate_username max length" {
+  let at_limit = "a".repeat(30)
+  inspect(@shared.validate_username(at_limit), content="true")
+  let over_limit = "a".repeat(31)
+  inspect(@shared.validate_username(over_limit), content="false")
+}
+
+///|
+test "validate_password" {
+  // Valid passwords
+  inspect(@shared.validate_password("pass"), content="true")
+  inspect(@shared.validate_password("longpassword123"), content="true")
+  inspect(@shared.validate_password("p@ss!"), content="true")
+  // Too short
+  inspect(@shared.validate_password("abc"), content="false")
+  inspect(@shared.validate_password(""), content="false")
+  inspect(@shared.validate_password("ab"), content="false")
+}
+
+///|
+test "validate_password max length" {
+  let at_limit = "a".repeat(100)
+  inspect(@shared.validate_password(at_limit), content="true")
+  let over_limit = "a".repeat(101)
+  inspect(@shared.validate_password(over_limit), content="false")
 }

@@ -628,7 +628,7 @@ test "search_matches empty description" {
 }
 
 ///|
-test "format_activity" {
+test "format_activity without user" {
   let act : @shared.Activity = {
     id: 1,
     task_id: 1,
@@ -636,8 +636,26 @@ test "format_activity" {
     from_status: "review",
     to_status: "done",
     timestamp: "2026-03-12",
+    user_name: "",
   }
   inspect(@shared.format_activity(act), content="Deploy v2: Review → Done")
+}
+
+///|
+test "format_activity with user" {
+  let act : @shared.Activity = {
+    id: 1,
+    task_id: 1,
+    task_title: "Deploy v2",
+    from_status: "review",
+    to_status: "done",
+    timestamp: "2026-03-12",
+    user_name: "Alice",
+  }
+  inspect(
+    @shared.format_activity(act),
+    content="Alice: Deploy v2: Review → Done",
+  )
 }
 
 ///|
@@ -649,6 +667,7 @@ test "format_activity created" {
     from_status: "",
     to_status: "todo",
     timestamp: "2026-03-12",
+    user_name: "",
   }
   inspect(@shared.format_activity(act), content="New task:  → To Do")
 }
@@ -664,6 +683,7 @@ test "recent_activities limit" {
       from_status: "todo",
       to_status: "in_progress",
       timestamp: "",
+      user_name: "",
     })
   }
   let recent = @shared.recent_activities(acts, 3)

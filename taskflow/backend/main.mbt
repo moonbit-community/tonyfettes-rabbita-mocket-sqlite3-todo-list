@@ -37,7 +37,8 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
       #|  task_title BLOB NOT NULL,
       #|  from_status BLOB NOT NULL,
       #|  to_status BLOB NOT NULL,
-      #|  timestamp BLOB NOT NULL
+      #|  timestamp BLOB NOT NULL,
+      #|  user_name BLOB NOT NULL DEFAULT ''
       #|)
     ),
   )
@@ -198,7 +199,8 @@ fn read_activity(stmt : @sqlite3.Statement) -> @shared.Activity {
   let from_status : String = stmt.column_blob_as_string(index=3)
   let to_status : String = stmt.column_blob_as_string(index=4)
   let timestamp : String = stmt.column_blob_as_string(index=5)
-  { id, task_id, task_title, from_status, to_status, timestamp }
+  let user_name : String = stmt.column_blob_as_string(index=6)
+  { id, task_id, task_title, from_status, to_status, timestamp, user_name }
 }
 
 ///|
@@ -208,7 +210,7 @@ fn get_recent_activities(
 ) -> Array[@shared.Activity] raise @sqlite3.SqliteError {
   let stmt = conn.prepare(
     (
-      #|SELECT id, task_id, task_title, from_status, to_status, timestamp
+      #|SELECT id, task_id, task_title, from_status, to_status, timestamp, user_name
       #|FROM activities ORDER BY id DESC LIMIT 20
     ),
   )
@@ -228,12 +230,13 @@ fn log_activity(
   task_title : String,
   from_status : String,
   to_status : String,
+  user_name? : String = "",
 ) -> Unit raise @sqlite3.SqliteError {
   let today = get_today(conn)
   let stmt = conn.prepare(
     (
-      #|INSERT INTO activities (task_id, task_title, from_status, to_status, timestamp)
-      #|VALUES (?, ?, ?, ?, ?)
+      #|INSERT INTO activities (task_id, task_title, from_status, to_status, timestamp, user_name)
+      #|VALUES (?, ?, ?, ?, ?, ?)
     ),
   )
   stmt.bind(index=1, val=task_id)
@@ -241,6 +244,7 @@ fn log_activity(
   stmt.bind_string_as_blob(index=3, val=from_status)
   stmt.bind_string_as_blob(index=4, val=to_status)
   stmt.bind_string_as_blob(index=5, val=today)
+  stmt.bind_string_as_blob(index=6, val=user_name)
   stmt.step_once()
   stmt.finalize()
 }
@@ -518,6 +522,7 @@ fn main raise {
   let conn = @sqlite3.Connection::open("taskflow.db")
   println("Database opened: taskflow.db")
   init_db(conn)
+  init_auth_db(conn)
   println("Database initialized")
   let app = @mocket.new()
   app
@@ -564,6 +569,146 @@ fn main raise {
       }
     }
   })
+  // ---- Auth ----
+  ..post(@shared.api_register, event => {
+    println("POST \{@shared.api_register}")
+    try {
+      let json : Json = event.req.body()
+      let username = match json {
+        { "username": String(u), .. } => u
+        _ =>
+          return @mocket.HttpResponse::new(BadRequest).body("Missing username")
+      }
+      let password = match json {
+        { "password": String(p), .. } => p
+        _ =>
+          return @mocket.HttpResponse::new(BadRequest).body("Missing password")
+      }
+      if not(@shared.validate_username(username)) {
+        return @mocket.HttpResponse::new(BadRequest).body(
+          "Username must be 3-30 alphanumeric characters or underscores",
+        )
+      }
+      if not(@shared.validate_password(password)) {
+        return @mocket.HttpResponse::new(BadRequest).body(
+          "Password must be 4-100 characters",
+        )
+      }
+      let user = register_user(conn, username, password)
+      let token = create_session(conn, user.id, user.username)
+      let resp : @shared.AuthResponse = {
+        user,
+        message: "Registration successful",
+      }
+      let http_resp = @mocket.HttpResponse::new(Created).json(resp.to_json())
+      http_resp.set_cookie(
+        "session",
+        token,
+        path="/",
+        http_only=true,
+        same_site=Lax,
+        max_age=86400 * 7,
+      )
+      println("  -> 201 registered user: \{username}")
+      http_resp
+    } catch {
+      e => {
+        let msg = "\{e}"
+        if msg.contains("UNIQUE") {
+          println("  -> 409 username taken")
+          @mocket.HttpResponse::new(Conflict).body("Username already taken")
+        } else {
+          println("  -> 500 \{e}")
+          @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+        }
+      }
+    }
+  })
+  ..post(@shared.api_login, event => {
+    println("POST \{@shared.api_login}")
+    try {
+      let json : Json = event.req.body()
+      let username = match json {
+        { "username": String(u), .. } => u
+        _ =>
+          return @mocket.HttpResponse::new(BadRequest).body("Missing username")
+      }
+      let password = match json {
+        { "password": String(p), .. } => p
+        _ =>
+          return @mocket.HttpResponse::new(BadRequest).body("Missing password")
+      }
+      match login_user(conn, username, password) {
+        Some(user) => {
+          let token = create_session(conn, user.id, user.username)
+          let resp : @shared.AuthResponse = {
+            user,
+            message: "Login successful",
+          }
+          let http_resp = @mocket.HttpResponse::new(OK).json(resp.to_json())
+          http_resp.set_cookie(
+            "session",
+            token,
+            path="/",
+            http_only=true,
+            same_site=Lax,
+            max_age=86400 * 7,
+          )
+          println("  -> 200 logged in: \{username}")
+          http_resp
+        }
+        None => {
+          println("  -> 401 invalid credentials")
+          @mocket.HttpResponse::new(Unauthorized).body(
+            "Invalid username or password",
+          )
+        }
+      }
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..post(@shared.api_logout, event => {
+    println("POST \{@shared.api_logout}")
+    try {
+      match event.req.get_cookie("session") {
+        Some(cookie) => delete_session(conn, cookie.value)
+        None => ()
+      }
+      let resp = @mocket.HttpResponse::new(OK).body("Logged out")
+      resp.delete_cookie("session")
+      println("  -> 200 logged out")
+      resp
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..get(@shared.api_me, event => {
+    println("GET \{@shared.api_me}")
+    try {
+      match get_request_user(conn, event.req) {
+        Some(user) => {
+          println("  -> 200 \{user.username}")
+          @mocket.HttpResponse::new(OK).json(user.to_json())
+        }
+        None => {
+          println("  -> 401 not logged in")
+          @mocket.HttpResponse::new(Unauthorized).body("Not logged in")
+        }
+      }
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
   // ---- Board ----
   ..get(@shared.api_board, _ => {
     println("GET \{@shared.api_board}")
@@ -597,6 +742,10 @@ fn main raise {
   ..post(@shared.api_tasks, event => {
     println("POST \{@shared.api_tasks}")
     try {
+      let user_name = match get_request_user(conn, event.req) {
+        Some(u) => u.username
+        None => ""
+      }
       let json : Json = event.req.body()
       let title = match json {
         { "title": String(t), .. } => t
@@ -638,7 +787,7 @@ fn main raise {
       let task = create_task(
         conn, title, description, priority, assignee_id, due_date,
       )
-      log_activity(conn, task.id, title, "", "todo")
+      log_activity(conn, task.id, title, "", "todo", user_name~)
       println("  -> 201 created task: \{title}")
       @mocket.HttpResponse::new(Created).json(task.to_json())
     } catch {
@@ -706,6 +855,10 @@ fn main raise {
     let id_str = event.params.get("id").unwrap().to_string()
     println("POST /api/tasks/\{id_str}/status")
     try {
+      let user_name = match get_request_user(conn, event.req) {
+        Some(u) => u.username
+        None => ""
+      }
       let id = @strconv.parse_int(id_str)
       let json : Json = event.req.body()
       let new_status = match json {
@@ -731,7 +884,14 @@ fn main raise {
           stmt.bind(index=2, val=id)
           stmt.step_once()
           stmt.finalize()
-          log_activity(conn, id, task.title, task.status, new_status)
+          log_activity(
+            conn,
+            id,
+            task.title,
+            task.status,
+            new_status,
+            user_name~,
+          )
           let updated = { ..task, status: new_status }
           println("  -> 200 status changed to \{new_status}")
           @mocket.HttpResponse::new(OK).json(updated.to_json())
@@ -831,6 +991,14 @@ fn main raise {
     let id_str = event.params.get("id").unwrap().to_string()
     println("POST /api/tasks/\{id_str}/comments")
     try {
+      let author = match get_request_user(conn, event.req) {
+        Some(u) => u.username
+        None =>
+          match (event.req.body() : Json) {
+            { "author": String(a), .. } => a
+            _ => "Anonymous"
+          }
+      }
       let id = @strconv.parse_int(id_str)
       let json : Json = event.req.body()
       let text = match json {
@@ -839,10 +1007,6 @@ fn main raise {
       }
       if not(@shared.validate_comment_text(text)) {
         return @mocket.HttpResponse::new(BadRequest).body("Invalid comment")
-      }
-      let author = match json {
-        { "author": String(a), .. } => a
-        _ => "Anonymous"
       }
       let comment = add_comment(conn, id, author, text)
       println("  -> 201 comment added to task \{id}")

@@ -229,17 +229,22 @@ pub fn sort_tasks(tasks : Array[Task]) -> Array[Task] {
 ///     from_status: "todo",
 ///     to_status: "in_progress",
 ///     timestamp: "2026-03-12 10:30",
+///     user_name: "Alice",
 ///   }
 ///   inspect(
 ///     @shared.format_activity(act),
-///     content="Fix bug: To Do → In Progress",
+///     content="Alice: Fix bug: To Do → In Progress",
 ///   )
 /// }
 /// ```
 pub fn format_activity(act : Activity) -> String {
   let from = status_label(act.from_status)
   let to = status_label(act.to_status)
-  "\{act.task_title}: \{from} → \{to}"
+  if act.user_name != "" {
+    "\{act.user_name}: \{act.task_title}: \{from} → \{to}"
+  } else {
+    "\{act.task_title}: \{from} → \{to}"
+  }
 }
 
 ///|

@@ -8,6 +8,7 @@ import {
   "moonbitlang/core/strconv",
   "moonbitlang/core/encoding/utf8",
   "moonbitlang/x/fs",
+  "moonbitlang/x/crypto",
 }
 
 options(
