@@ -27,12 +27,26 @@ fn fetch_todos(dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Cmd {
 }
 
 ///|
-/// Central state machine — processes each `Msg` and returns the next model
-/// plus an optional side-effect command (HTTP request or `@rabbita.none`).
+/// Central state machine for the todo-list UI (Elm / MVU architecture).
+///
+/// Given the current model and an incoming message, returns the next model
+/// together with a side-effect command (`@rabbita.Cmd`).
+///
+/// Parameters
+///
+/// - `self`     – the current application state.
+/// - `msg`      – the message that triggers a state transition.
+/// - `dispatch` – a callback provided by the Rabbita runtime that turns a
+///   `Msg` into a `Cmd`.  It is the *only* way an asynchronous side-effect
+///   (e.g. an HTTP response handler) can feed a new message back into the
+///   update loop.  Pure branches that don't issue side-effects never touch
+///   `dispatch`; only branches that build HTTP requests pass it into the
+///   request's `expect` callback so the runtime knows which `Msg` to
+///   deliver when the response arrives.
 pub fn Model::update(
   self : Model,
-  dispatch : @rabbita.Dispatch[Msg],
-  msg : Msg,
+  msg~ : Msg,
+  dispatch~ : @rabbita.Dispatch[Msg],
 ) -> (@rabbita.Cmd, Model) {
   match msg {
     Init => (fetch_todos(dispatch), { ..self, loading: true })

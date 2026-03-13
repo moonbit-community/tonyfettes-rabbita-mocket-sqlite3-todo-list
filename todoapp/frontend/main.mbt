@@ -2,7 +2,7 @@
 fn main {
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model=@app.Model::{ todos: [], input: "", loading: false },
-    update=fn(dispatch, msg, model : @app.Model) { model.update(dispatch, msg) },
+    update=fn(dispatch, msg, model : @app.Model) { model.update(msg~, dispatch~) },
     view=fn(dispatch, model) { model.view(dispatch) },
   )
   let app = @rabbita.new(app_cell)
