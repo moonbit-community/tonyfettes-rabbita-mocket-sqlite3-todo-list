@@ -1000,11 +1000,15 @@ fn view_header(
   let pct = @shared.completion_percent(model.tasks)
   let total = model.tasks.length()
   let done = @shared.count_by_status(model.tasks, "done")
+  let mobile = is_mobile_viewport()
+  let header_padding = if mobile { "padding: 12px 16px" } else { "padding: 20px 32px" }
+  let header_direction = if mobile { "flex-direction: column" } else { "flex-direction: row" }
+  let header_gap = if mobile { "gap: 12px" } else { "gap: 0" }
   @html.div(
     style=[
-      "background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)", "padding: 20px 32px",
+      "background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%)", header_padding,
       "margin-bottom: 16px", "border-radius: 12px", "display: flex", "justify-content: space-between",
-      "align-items: center",
+      "align-items: center", header_direction, header_gap,
     ],
     [
       @html.div(style=[], [
@@ -1024,7 +1028,7 @@ fn view_header(
         ]),
       ]),
       // Progress bar + controls
-      @html.div(style=["display: flex", "align-items: center", "gap: 12px"], [
+      @html.div(style=["display: flex", "align-items: center", "gap: 8px", "flex-wrap: wrap", "justify-content: center"], [
         @html.div(
           style=[
             "width: 120px", "height: 6px", "background: rgba(255,255,255,0.2)", "border-radius: 3px",
@@ -1229,14 +1233,17 @@ fn view_filters(
   model : Model,
 ) -> @rabbita.Html {
   let theme = get_theme(model.dark_mode)
+  let mobile = is_mobile_viewport()
+  let gap = if mobile { "gap: 8px" } else { "gap: 16px" }
+  let pad = if mobile { "padding: 8px 10px" } else { "padding: 12px 16px" }
   @html.div(
     style=[
       "display: flex",
-      "gap: 16px",
+      gap,
       "margin-bottom: 16px",
       "flex-wrap: wrap",
       "align-items: center",
-      "padding: 12px 16px",
+      pad,
       "background: \{theme.filter_bg}",
       "border-radius: 10px",
       "border: 1px solid \{theme.input_border}",
@@ -2477,10 +2484,13 @@ fn view_kanban(
   tasks : Array[@shared.Task],
 ) -> @rabbita.Html {
   let theme = get_theme(model.dark_mode)
+  let mobile = is_mobile_viewport()
   let column_statuses = ["todo", "in_progress", "review", "done", "blocked"]
+  let direction = if mobile { "flex-direction: column" } else { "flex-direction: row" }
+  let min_h = if mobile { "min-height: auto" } else { "min-height: 400px" }
   @html.div(
     style=[
-      "display: flex", "gap: 12px", "overflow-x: auto", "padding-bottom: 8px", "min-height: 400px",
+      "display: flex", "gap: 12px", "overflow-x: auto", "padding-bottom: 8px", min_h, direction,
     ],
     column_statuses.map(fn(status) {
       let col_tasks = tasks.filter(fn(t) { t.status == status })
@@ -2507,13 +2517,14 @@ fn view_kanban(
       } else {
         "outline: 2px dashed transparent"
       }
+      let col_min_w = if mobile { "min-width: auto" } else { "min-width: 200px" }
       @html.div(
         attrs=@html.Attrs::build()
           .data_set("drop-zone", "true")
           .on_dragover(fn(_e) { dispatch(DragOverColumn(status)) })
           .on_drop(fn(_e) { dispatch(DropOnColumn(status)) }),
         style=[
-          "min-width: 200px",
+          col_min_w,
           "flex: 1",
           "background: \{theme.column_bg}",
           "border-radius: 8px",
@@ -2757,6 +2768,12 @@ fn view_comments_panel(
       break
     }
   }
+  let mobile = is_mobile_viewport()
+  let panel_radius = if mobile { "border-radius: 0" } else { "border-radius: 12px" }
+  let panel_padding = if mobile { "padding: 16px" } else { "padding: 20px" }
+  let panel_width = if mobile { "width: 100%" } else { "width: 90%" }
+  let panel_max_w = if mobile { "max-width: 100%" } else { "max-width: 500px" }
+  let panel_max_h = if mobile { "max-height: 100vh" } else { "max-height: 80vh" }
   @html.div(
     style=[
       "position: fixed", "top: 0", "left: 0", "right: 0", "bottom: 0", "background: rgba(0,0,0,0.4)",
@@ -2766,11 +2783,11 @@ fn view_comments_panel(
       @html.div(
         style=[
           "background: \{theme.card_bg}",
-          "border-radius: 12px",
-          "padding: 20px",
-          "max-width: 500px",
-          "width: 90%",
-          "max-height: 80vh",
+          panel_radius,
+          panel_padding,
+          panel_max_w,
+          panel_width,
+          panel_max_h,
           "overflow-y: auto",
           "box-shadow: 0 20px 60px rgba(0,0,0,0.2)",
         ],
@@ -3292,9 +3309,11 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
     filtered
   }
   let sorted = @shared.sort_tasks_by(filtered, model.sort_by, model.sort_asc)
+  let mobile = is_mobile_viewport()
+  let padding = if mobile { "padding: 8px 12px" } else { "padding: 16px 24px" }
   @html.div(
     style=[
-      "padding: 16px 24px",
+      padding,
       "min-height: 100vh",
       "max-width: 900px",
       "margin: 0 auto",
@@ -3346,21 +3365,25 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
             )
           },
           view_activity_feed(model),
-          // Keyboard shortcuts hint
-          @html.div(
-            style=[
-              "text-align: center",
-              "padding: 12px 0",
-              "color: \{theme.text_muted}",
-              "font-size: 11px",
-              "margin-top: 8px",
-            ],
-            [
-              @html.text(
-                @shared.t(model.lang, "keyboard_hints"),
+          // Keyboard shortcuts hint (hidden on mobile — no keyboard)
+          if mobile {
+            @html.text("")
+          } else {
+            @html.div(
+              style=[
+                "text-align: center",
+                "padding: 12px 0",
+                "color: \{theme.text_muted}",
+                "font-size: 11px",
+                "margin-top: 8px",
+              ],
+              [
+                @html.text(
+                  @shared.t(model.lang, "keyboard_hints"),
               ),
             ],
-          ),
+          )
+          },
         ])
       },
     ],
@@ -3373,6 +3396,10 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
 /// dropped on the page. Kanban columns use data-drop-zone to accept drops
 /// via Rabbita event handlers; everywhere else the drop is silently ignored.
 extern "js" fn enable_drag_drop() = "() => { const h = e => e.preventDefault(); document.addEventListener('dragover', h); document.addEventListener('drop', h); }"
+
+///|
+/// Check if viewport width is <= 768px (mobile breakpoint).
+extern "js" fn is_mobile_viewport() -> Bool = "() => window.innerWidth <= 768"
 
 ///|
 /// Trigger a file download in the browser with the given content and filename.

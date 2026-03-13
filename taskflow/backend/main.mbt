@@ -664,6 +664,10 @@ fn main raise {
       #|    * { margin: 0; padding: 0; box-sizing: border-box; }
       #|    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif; background: #f8fafc; color: #1e293b; line-height: 1.6; -webkit-font-smoothing: antialiased; }
       #|    ::selection { background: #c7d2fe; }
+      #|    @media (max-width: 768px) {
+      #|      body { font-size: 14px; }
+      #|      input, select, button { font-size: 16px !important; }
+      #|    }
       #|  </style>
       #|</head>
       #|<body>
