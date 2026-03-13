@@ -1,0 +1,11 @@
+import {
+  "bobzhang/blog-app/shared",
+  "moonbit-community/rabbita",
+  "moonbit-community/rabbita/html",
+  "moonbit-community/rabbita/http",
+  "moonbitlang/core/json",
+}
+
+options(
+  "supported-targets": "js",
+)

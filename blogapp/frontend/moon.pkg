@@ -1,9 +1,6 @@
 import {
-  "bobzhang/blog-app/shared",
+  "bobzhang/blog-app/frontend/app",
   "moonbit-community/rabbita",
-  "moonbit-community/rabbita/html",
-  "moonbit-community/rabbita/http",
-  "moonbitlang/core/json",
 }
 
 options(

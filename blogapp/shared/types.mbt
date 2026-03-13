@@ -5,7 +5,7 @@ pub(all) struct Post {
   content : String
   created_at : String
   updated_at : String
-} derive(FromJson, ToJson, Show)
+} derive(FromJson, ToJson, Show, Debug)
 
 ///|
 pub(all) struct Comment {
@@ -14,4 +14,4 @@ pub(all) struct Comment {
   author : String
   content : String
   created_at : String
-} derive(FromJson, ToJson, Show)
+} derive(FromJson, ToJson, Show, Debug)
