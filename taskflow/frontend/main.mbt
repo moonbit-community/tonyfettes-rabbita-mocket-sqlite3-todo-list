@@ -25,7 +25,7 @@ fn main {
   let (dispatch, app_cell) = @rabbita.cell_with_dispatch(
     model=@app.Model::{
       current_user: None,
-      auth_screen: "",
+      auth_screen: "login",
       auth_username: "",
       auth_password: "",
       auth_error: "",
