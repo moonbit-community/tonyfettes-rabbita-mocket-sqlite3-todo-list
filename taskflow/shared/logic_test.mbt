@@ -1290,6 +1290,29 @@ test "tasks_for_member empty list" {
 }
 
 ///|
+test "labels_for_task returns matching labels" {
+  let labels : Array[@shared.Label] = [
+    { id: 1, name: "bug", color: "#ef4444" },
+    { id: 2, name: "feature", color: "#3b82f6" },
+    { id: 3, name: "docs", color: "#22c55e" },
+  ]
+  let task_labels : Array[@shared.TaskLabel] = [
+    { task_id: 10, label_id: 1 },
+    { task_id: 10, label_id: 3 },
+    { task_id: 20, label_id: 2 },
+  ]
+  let result = @shared.labels_for_task(labels, task_labels, 10)
+  inspect(result.length(), content="2")
+  inspect(result[0].name, content="bug")
+  inspect(result[1].name, content="docs")
+  // Task with no labels
+  inspect(@shared.labels_for_task(labels, task_labels, 99).length(), content="0")
+  // Empty inputs
+  let empty_tl : Array[@shared.TaskLabel] = []
+  inspect(@shared.labels_for_task(labels, empty_tl, 10).length(), content="0")
+}
+
+///|
 test "activities_for_task filters by task_id" {
   let acts : Array[@shared.Activity] = [
     {

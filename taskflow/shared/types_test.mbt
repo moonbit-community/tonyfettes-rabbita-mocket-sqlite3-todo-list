@@ -49,6 +49,8 @@ test "Board JSON round-trip" {
       },
     ],
     dependencies: [{ task_id: 1, depends_on_id: 2 }],
+    labels: [],
+    task_labels: [],
     today: "2026-03-12",
   }
   let decoded : @shared.Board = @json.from_json(board.to_json())
@@ -217,6 +219,8 @@ test "Board JSON round-trip with empty arrays" {
     members: [],
     activities: [],
     dependencies: [],
+    labels: [],
+    task_labels: [],
     today: "2026-03-13",
   }
   let decoded : @shared.Board = @json.from_json(board.to_json())
@@ -270,6 +274,8 @@ test "Board with multiple tasks and deps" {
     ],
     activities: [],
     dependencies: [{ task_id: 2, depends_on_id: 1 }],
+    labels: [],
+    task_labels: [],
     today: "2026-03-13",
   }
   let decoded : @shared.Board = @json.from_json(board.to_json())

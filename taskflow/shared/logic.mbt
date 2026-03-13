@@ -507,3 +507,46 @@ pub fn filter_tasks(
     matches_urgency(t, urgency, today)
   })
 }
+
+///|
+/// Get labels attached to a specific task.
+///
+/// # Example
+///
+/// ```mbt check
+/// test {
+///   let tl : Array[@shared.TaskLabel] = [
+///     { task_id: 1, label_id: 10 },
+///     { task_id: 2, label_id: 20 },
+///     { task_id: 1, label_id: 30 },
+///   ]
+///   let labels : Array[@shared.Label] = [
+///     { id: 10, name: "bug", color: "#ef4444" },
+///     { id: 20, name: "feature", color: "#3b82f6" },
+///     { id: 30, name: "docs", color: "#22c55e" },
+///   ]
+///   let result = @shared.labels_for_task(labels, tl, 1)
+///   inspect(result.length(), content="2")
+///   inspect(result[0].name, content="bug")
+///   inspect(result[1].name, content="docs")
+/// }
+/// ```
+pub fn labels_for_task(
+  labels : Array[Label],
+  task_labels : Array[TaskLabel],
+  task_id : Int,
+) -> Array[Label] {
+  let label_ids : Array[Int] = []
+  for tl in task_labels {
+    if tl.task_id == task_id {
+      label_ids.push(tl.label_id)
+    }
+  }
+  labels.filter(fn(l) { label_ids.contains(l.id) })
+}
+
+///|
+/// Predefined label colors for new label creation.
+pub let label_colors : Array[String] = [
+  "#ef4444", "#f97316", "#eab308", "#22c55e", "#3b82f6", "#a855f7", "#ec4899",
+]

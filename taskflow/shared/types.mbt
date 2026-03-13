@@ -65,11 +65,28 @@ pub(all) struct Dependency {
 } derive(ToJson, FromJson, Show, Eq)
 
 ///|
+/// A label that can be attached to tasks.
+pub(all) struct Label {
+  id : Int
+  name : String
+  color : String
+} derive(ToJson, FromJson, Show, Eq)
+
+///|
+/// Association between a task and a label.
+pub(all) struct TaskLabel {
+  task_id : Int
+  label_id : Int
+} derive(ToJson, FromJson, Show, Eq)
+
+///|
 /// Full board state returned by `GET /api/board`.
 pub(all) struct Board {
   tasks : Array[Task]
   members : Array[Member]
   activities : Array[Activity]
   dependencies : Array[Dependency]
+  labels : Array[Label]
+  task_labels : Array[TaskLabel]
   today : String
 } derive(ToJson, FromJson, Show, Eq)

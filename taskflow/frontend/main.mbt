@@ -13,6 +13,8 @@ struct Model {
   members : Array[@shared.Member]
   activities : Array[@shared.Activity]
   dependencies : Array[@shared.Dependency]
+  labels : Array[@shared.Label]
+  task_labels : Array[@shared.TaskLabel]
   today : String
   // Filters
   filter_status : String
@@ -20,6 +22,7 @@ struct Model {
   filter_priority : String
   search_query : String
   filter_urgency : String
+  filter_label : Int // 0 = all, >0 = label ID
   view_mode : String
   sort_by : String
   sort_asc : Bool
@@ -77,6 +80,7 @@ enum Msg {
   SetFilterPriority(String)
   SearchChanged(String)
   SetFilterUrgency(String)
+  SetFilterLabel(Int)
   SetViewMode(String)
   SetSortBy(String)
   ToggleSortOrder
@@ -126,6 +130,10 @@ enum Msg {
   DismissError
   // Language
   SetLang(@shared.Lang)
+  // Labels
+  AddTaskLabel(Int, Int) // task_id, label_id
+  RemoveTaskLabel(Int, Int)
+  LabelChanged
   // Drag-and-drop
   DragStartTask(Int)
   DragOverColumn(String)
@@ -256,6 +264,8 @@ fn update(
           members: board.members,
           activities: board.activities,
           dependencies: board.dependencies,
+          labels: board.labels,
+          task_labels: board.task_labels,
           today: board.today,
           loading: false,
         },
@@ -381,6 +391,8 @@ fn update(
           members: [],
           activities: [],
           dependencies: [],
+          labels: [],
+          task_labels: [],
         },
       )
     // ---- Filters ----
@@ -389,6 +401,7 @@ fn update(
     SetFilterPriority(p) => (@rabbita.none, { ..model, filter_priority: p })
     SearchChanged(q) => (@rabbita.none, { ..model, search_query: q })
     SetFilterUrgency(u) => (@rabbita.none, { ..model, filter_urgency: u })
+    SetFilterLabel(id) => (@rabbita.none, { ..model, filter_label: id })
     SetViewMode(m) => (@rabbita.none, { ..model, view_mode: m })
     SetSortBy(s) => (@rabbita.none, { ..model, sort_by: s })
     ToggleSortOrder => (@rabbita.none, { ..model, sort_asc: not(model.sort_asc) })
@@ -594,6 +607,37 @@ fn update(
       (cmd, { ..model, dependencies: deps })
     }
     DepChanged => (fetch_board(dispatch), model)
+    // ---- Labels ----
+    AddTaskLabel(task_id, label_id) => {
+      let url = @shared.api_task_labels(task_id)
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(LabelChanged)
+      })
+      let cmd = @http.post(
+        url,
+        Json(({ "label_id": label_id.to_double() } : Json)),
+        expect~,
+      )
+      let tls = model.task_labels.copy()
+      tls.push({ task_id, label_id })
+      (cmd, { ..model, task_labels: tls })
+    }
+    RemoveTaskLabel(task_id, label_id) => {
+      let url = @shared.api_task_labels_remove(task_id)
+      let expect : @http.Expecting[_, Unit] = Text(fn(_result) {
+        dispatch(LabelChanged)
+      })
+      let cmd = @http.post(
+        url,
+        Json(({ "label_id": label_id.to_double() } : Json)),
+        expect~,
+      )
+      let tls = model.task_labels.filter(fn(tl) {
+        not(tl.task_id == task_id && tl.label_id == label_id)
+      })
+      (cmd, { ..model, task_labels: tls })
+    }
+    LabelChanged => (fetch_board(dispatch), model)
     // ---- Comments ----
     ShowComments(task_id) => {
       let url = @shared.api_task_comments(task_id)
@@ -1439,6 +1483,66 @@ fn view_filters(
           items
         },
       ),
+      // Label filter
+      if model.labels.length() > 0 {
+        @html.div(
+          style=["display: flex", "gap: 4px", "align-items: center"],
+          {
+            let items : Array[@rabbita.Html] = [
+              @html.span(
+                style=[
+                  "font-size: 12px",
+                  "color: \{theme.text_muted}",
+                  "margin-right: 4px",
+                ],
+                @shared.t(model.lang, "label_filter"),
+              ),
+              {
+                let is_sel = model.filter_label == 0
+                let bg = if is_sel { "#4f46e5" } else { theme.filter_inactive }
+                let fg = if is_sel { "white" } else { theme.text_secondary }
+                @html.button(
+                  on_click=dispatch(SetFilterLabel(0)),
+                  style=[
+                    "padding: 3px 10px",
+                    "border-radius: 12px",
+                    "border: none",
+                    "cursor: pointer",
+                    "font-size: 11px",
+                    "background: \{bg}",
+                    "color: \{fg}",
+                  ],
+                  @shared.t(model.lang, "all"),
+                )
+              },
+            ]
+            for l in model.labels {
+              let is_sel = model.filter_label == l.id
+              let bg = if is_sel { l.color } else { theme.filter_inactive }
+              let fg = if is_sel { "white" } else { theme.text_secondary }
+              let lid = l.id
+              items.push(
+                @html.button(
+                  on_click=dispatch(SetFilterLabel(lid)),
+                  style=[
+                    "padding: 3px 10px",
+                    "border-radius: 12px",
+                    "border: none",
+                    "cursor: pointer",
+                    "font-size: 11px",
+                    "background: \{bg}",
+                    "color: \{fg}",
+                  ],
+                  l.name,
+                ),
+              )
+            }
+            items
+          },
+        )
+      } else {
+        @html.text("")
+      },
       // Sort controls
       @html.div(
         style=["display: flex", "gap: 4px", "align-items: center"],
@@ -2032,6 +2136,33 @@ fn view_task_item(
               @html.text("")
             },
             dep_html,
+            {
+              let task_labels = @shared.labels_for_task(
+                model.labels, model.task_labels, task.id,
+              )
+              if task_labels.length() > 0 {
+                @html.div(
+                  style=[
+                    "display: flex", "gap: 4px", "flex-wrap: wrap", "margin-top: 4px",
+                  ],
+                  task_labels.map(fn(l) {
+                    @html.span(
+                      style=[
+                        "font-size: 10px",
+                        "padding: 1px 6px",
+                        "border-radius: 8px",
+                        "color: white",
+                        "background: \{l.color}",
+                        "white-space: nowrap",
+                      ],
+                      l.name,
+                    )
+                  }),
+                )
+              } else {
+                @html.text("")
+              }
+            },
           ]),
           @html.div(
             style=[
@@ -2223,6 +2354,33 @@ fn view_kanban_card(
         )
       } else {
         @html.text("")
+      },
+      // Labels
+      {
+        let task_labels = @shared.labels_for_task(
+          model.labels, model.task_labels, task.id,
+        )
+        if task_labels.length() > 0 {
+          @html.div(
+            style=[
+              "display: flex", "gap: 3px", "flex-wrap: wrap", "margin-top: 4px",
+            ],
+            task_labels.map(fn(l) {
+              @html.span(
+                style=[
+                  "font-size: 9px",
+                  "padding: 0px 5px",
+                  "border-radius: 6px",
+                  "color: white",
+                  "background: \{l.color}",
+                ],
+                l.name,
+              )
+            }),
+          )
+        } else {
+          @html.text("")
+        }
       },
       // Action buttons
       @html.div(
@@ -2853,6 +3011,118 @@ fn view_comments_panel(
               },
             ),
           )
+          // Labels section
+          let current_labels = @shared.labels_for_task(
+            model.labels, model.task_labels, task_id,
+          )
+          let current_label_ids = current_labels.map(fn(l) { l.id })
+          items.push(
+            @html.div(
+              style=[
+                "margin-top: 16px",
+                "padding-top: 12px",
+                "border-top: 1px solid \{theme.card_border}",
+              ],
+              {
+                let label_items : Array[@rabbita.Html] = [
+                  @html.div(
+                    style=[
+                      "font-size: 13px",
+                      "font-weight: 600",
+                      "color: \{theme.text}",
+                      "margin-bottom: 8px",
+                    ],
+                    [@html.text(@shared.t(model.lang, "labels"))],
+                  ),
+                ]
+                // Show current labels with remove button
+                if current_labels.length() == 0 {
+                  label_items.push(
+                    @html.div(
+                      style=[
+                        "font-size: 12px",
+                        "color: \{theme.text_muted}",
+                        "padding: 4px 0",
+                      ],
+                      [@html.text(@shared.t(model.lang, "no_labels"))],
+                    ),
+                  )
+                }
+                for l in current_labels {
+                  let lid = l.id
+                  label_items.push(
+                    @html.div(
+                      style=[
+                        "display: inline-flex",
+                        "align-items: center",
+                        "gap: 4px",
+                        "margin: 0 4px 4px 0",
+                        "padding: 2px 8px",
+                        "border-radius: 10px",
+                        "font-size: 11px",
+                        "color: white",
+                        "background: \{l.color}",
+                      ],
+                      [
+                        @html.span(style=[], l.name),
+                        @html.button(
+                          on_click=dispatch(RemoveTaskLabel(task_id, lid)),
+                          style=[
+                            "background: none",
+                            "border: none",
+                            "color: rgba(255,255,255,0.7)",
+                            "cursor: pointer",
+                            "font-size: 12px",
+                            "padding: 0 1px",
+                          ],
+                          "×",
+                        ),
+                      ],
+                    ),
+                  )
+                }
+                // Show available labels to add
+                let avail = model.labels.filter(fn(l) {
+                  not(current_label_ids.contains(l.id))
+                })
+                if avail.length() > 0 {
+                  label_items.push(
+                    @html.div(
+                      style=[
+                        "font-size: 11px",
+                        "color: \{theme.text_muted}",
+                        "margin-top: 8px",
+                        "margin-bottom: 4px",
+                      ],
+                      [@html.text(@shared.t(model.lang, "add_label"))],
+                    ),
+                  )
+                  label_items.push(
+                    @html.div(
+                      style=["display: flex", "flex-wrap: wrap", "gap: 4px"],
+                      avail.map(fn(l) {
+                        let lid = l.id
+                        @html.button(
+                          on_click=dispatch(AddTaskLabel(task_id, lid)),
+                          style=[
+                            "padding: 2px 8px",
+                            "font-size: 11px",
+                            "cursor: pointer",
+                            "border-radius: 10px",
+                            "border: 1px solid \{l.color}",
+                            "background: transparent",
+                            "color: \{l.color}",
+                          ],
+                          l.name,
+                        )
+                      }),
+                    ),
+                  )
+                }
+                label_items
+              },
+            ),
+          )
           // Task activity history section
           let task_acts = @shared.activities_for_task(
             model.activities, task_id,
@@ -2995,6 +3265,15 @@ fn view(dispatch : @rabbita.Dispatch[Msg], model : Model) -> @rabbita.Html {
     urgency=model.filter_urgency,
     today=model.today,
   )
+  let filtered = if model.filter_label > 0 {
+    filtered.filter(fn(t) {
+      model.task_labels.iter().any(fn(tl) {
+        tl.task_id == t.id && tl.label_id == model.filter_label
+      })
+    })
+  } else {
+    filtered
+  }
   let sorted = @shared.sort_tasks_by(filtered, model.sort_by, model.sort_asc)
   @html.div(
     style=[
@@ -3093,12 +3372,15 @@ fn main {
       members: [],
       activities: [],
       dependencies: [],
+      labels: [],
+      task_labels: [],
       today: "",
       filter_status: "",
       filter_assignee: 0,
       filter_priority: "",
       search_query: "",
       filter_urgency: "",
+      filter_label: 0,
       view_mode: "list",
       sort_by: "priority",
       sort_asc: true,

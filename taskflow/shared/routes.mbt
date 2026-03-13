@@ -55,3 +55,19 @@ pub fn api_task_deps_remove(id : Int) -> String {
 ///|
 /// `GET` — list all team members.
 pub let api_members : String = "/api/members"
+
+///|
+/// `GET` — list all labels. `POST` — create a label.
+pub let api_labels : String = "/api/labels"
+
+///|
+/// `GET` — list labels for a task. `POST` — add a label to a task.
+pub fn api_task_labels(id : Int) -> String {
+  "/api/tasks/\{id}/labels"
+}
+
+///|
+/// `POST` — remove a label from a task.
+pub fn api_task_labels_remove(id : Int) -> String {
+  "/api/tasks/\{id}/labels/remove"
+}

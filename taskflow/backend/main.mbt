@@ -73,6 +73,32 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
   )
   s5.step_once()
   s5.finalize()
+  // Labels table
+  let s6 = conn.prepare(
+    (
+      #|CREATE TABLE IF NOT EXISTS labels (
+      #|  id INTEGER PRIMARY KEY AUTOINCREMENT,
+      #|  name BLOB NOT NULL,
+      #|  color BLOB NOT NULL
+      #|)
+    ),
+  )
+  s6.step_once()
+  s6.finalize()
+  // Task-label junction table
+  let s7 = conn.prepare(
+    (
+      #|CREATE TABLE IF NOT EXISTS task_labels (
+      #|  task_id INTEGER NOT NULL,
+      #|  label_id INTEGER NOT NULL,
+      #|  PRIMARY KEY (task_id, label_id),
+      #|  FOREIGN KEY (task_id) REFERENCES tasks(id) ON DELETE CASCADE,
+      #|  FOREIGN KEY (label_id) REFERENCES labels(id) ON DELETE CASCADE
+      #|)
+    ),
+  )
+  s7.step_once()
+  s7.finalize()
   // Indexes for common query patterns
   let idx_stmts = [
     "CREATE INDEX IF NOT EXISTS idx_tasks_status ON tasks(status)", "CREATE INDEX IF NOT EXISTS idx_tasks_assignee ON tasks(assignee_id)",
@@ -82,6 +108,25 @@ fn init_db(conn : @sqlite3.Connection) -> Unit raise @sqlite3.SqliteError {
     let s = conn.prepare(sql)
     s.step_once()
     s.finalize()
+  }
+  // Seed default labels if the table is empty
+  let count_stmt = conn.prepare("SELECT COUNT(*) FROM labels")
+  guard count_stmt.step()
+  let label_count : Int = count_stmt.column(index=0)
+  count_stmt.finalize()
+  if label_count == 0 {
+    let defaults = [
+      ("bug", "#ef4444"), ("feature", "#3b82f6"), ("docs", "#22c55e"),
+      ("urgent", "#f97316"), ("design", "#a855f7"), ("test", "#eab308"),
+    ]
+    for pair in defaults {
+      let s = conn.prepare("INSERT INTO labels (name, color) VALUES (?, ?)")
+      s.bind_string_as_blob(index=1, val=pair.0)
+      s.bind_string_as_blob(index=2, val=pair.1)
+      s.step_once()
+      s.finalize()
+    }
+    println("Seeded \{defaults.length()} default labels")
   }
   // Migrate: add user_name column to activities if missing (for existing DBs).
   // Uses try/catch because column_blob_as_string cannot read PRAGMA TEXT columns.
@@ -374,6 +419,92 @@ fn remove_dep(
 }
 
 ///|
+/// Fetch all labels.
+fn get_all_labels(
+  conn : @sqlite3.Connection,
+) -> Array[@shared.Label] raise @sqlite3.SqliteError {
+  let stmt = conn.prepare("SELECT id, name, color FROM labels ORDER BY id ASC")
+  let labels : Array[@shared.Label] = []
+  while stmt.step() {
+    let id : Int = stmt.column(index=0)
+    let name : String = stmt.column_blob_as_string(index=1)
+    let color : String = stmt.column_blob_as_string(index=2)
+    labels.push({ id, name, color })
+  }
+  stmt.finalize()
+  labels
+}
+
+///|
+/// Fetch all task-label associations.
+fn get_all_task_labels(
+  conn : @sqlite3.Connection,
+) -> Array[@shared.TaskLabel] raise @sqlite3.SqliteError {
+  let stmt = conn.prepare("SELECT task_id, label_id FROM task_labels")
+  let tls : Array[@shared.TaskLabel] = []
+  while stmt.step() {
+    let task_id : Int = stmt.column(index=0)
+    let label_id : Int = stmt.column(index=1)
+    tls.push({ task_id, label_id })
+  }
+  stmt.finalize()
+  tls
+}
+
+///|
+/// Create a new label.
+fn create_label(
+  conn : @sqlite3.Connection,
+  name : String,
+  color : String,
+) -> @shared.Label raise @sqlite3.SqliteError {
+  let stmt = conn.prepare(
+    "INSERT INTO labels (name, color) VALUES (?, ?)",
+  )
+  stmt.bind_string_as_blob(index=1, val=name)
+  stmt.bind_string_as_blob(index=2, val=color)
+  stmt.step_once()
+  stmt.finalize()
+  let id_stmt = conn.prepare("SELECT last_insert_rowid()")
+  guard id_stmt.step()
+  let id : Int = id_stmt.column(index=0)
+  id_stmt.finalize()
+  { id, name, color }
+}
+
+///|
+/// Add a label to a task.
+fn add_task_label(
+  conn : @sqlite3.Connection,
+  task_id : Int,
+  label_id : Int,
+) -> Unit raise @sqlite3.SqliteError {
+  let stmt = conn.prepare(
+    "INSERT OR IGNORE INTO task_labels (task_id, label_id) VALUES (?, ?)",
+  )
+  stmt.bind(index=1, val=task_id)
+  stmt.bind(index=2, val=label_id)
+  stmt.step_once()
+  stmt.finalize()
+}
+
+///|
+/// Remove a label from a task.
+fn remove_task_label(
+  conn : @sqlite3.Connection,
+  task_id : Int,
+  label_id : Int,
+) -> Unit raise @sqlite3.SqliteError {
+  let stmt = conn.prepare(
+    "DELETE FROM task_labels WHERE task_id = ? AND label_id = ?",
+  )
+  stmt.bind(index=1, val=task_id)
+  stmt.bind(index=2, val=label_id)
+  stmt.step_once()
+  stmt.finalize()
+}
+
+///|
 /// Fetch the full board: tasks + members + activities + today's date.
 fn get_board(
   conn : @sqlite3.Connection,
@@ -382,8 +513,10 @@ fn get_board(
   let members = get_all_members(conn)
   let activities = get_recent_activities(conn)
   let dependencies = get_all_deps(conn)
+  let labels = get_all_labels(conn)
+  let task_labels = get_all_task_labels(conn)
   let today = get_today(conn)
-  { tasks, members, activities, dependencies, today }
+  { tasks, members, activities, dependencies, labels, task_labels, today }
 }
 
 ///|
@@ -1018,6 +1151,101 @@ fn main raise {
       let comment = add_comment(conn, id, author, text)
       println("  -> 201 comment added to task \{id}")
       @mocket.HttpResponse::new(Created).json(comment.to_json())
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  // ---- Labels ----
+  ..get(@shared.api_labels, _ => {
+    println("GET \{@shared.api_labels}")
+    try {
+      let labels = get_all_labels(conn)
+      println("  -> 200 (\{labels.length()} labels)")
+      @mocket.HttpResponse::new(OK).json(labels.to_json())
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..post(@shared.api_labels, fn(event) noraise {
+    println("POST \{@shared.api_labels}")
+    try {
+      let json : Json = event.req.body()
+      let name = match json {
+        { "name": String(n), .. } => n
+        _ => return @mocket.HttpResponse::new(BadRequest).body("Missing name")
+      }
+      if name == "" {
+        return @mocket.HttpResponse::new(BadRequest).body("Label name is empty")
+      }
+      let color = match json {
+        { "color": String(c), .. } => c
+        _ => "#94a3b8"
+      }
+      let label = create_label(conn, name, color)
+      println("  -> 201 label \{label.id} created")
+      @mocket.HttpResponse::new(Created).json(label.to_json())
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..get("/api/tasks/:id/labels", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("GET /api/tasks/\{id_str}/labels")
+    try {
+      let id = @strconv.parse_int(id_str)
+      let labels = get_all_labels(conn)
+      let tls = get_all_task_labels(conn)
+      let task_labels = @shared.labels_for_task(labels, tls, id)
+      @mocket.HttpResponse::new(OK).json(task_labels.to_json())
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..post("/api/tasks/:id/labels", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("POST /api/tasks/\{id_str}/labels")
+    try {
+      let id = @strconv.parse_int(id_str)
+      let json : Json = event.req.body()
+      let label_id = match json {
+        { "label_id": Number(n, ..), .. } => n.to_int()
+        _ => return @mocket.HttpResponse::new(BadRequest).body("Missing label_id")
+      }
+      add_task_label(conn, id, label_id)
+      println("  -> 201 label \{label_id} added to task \{id}")
+      @mocket.HttpResponse::new(Created).json(({ "ok": true } : Json))
+    } catch {
+      e => {
+        println("  -> 500 \{e}")
+        @mocket.HttpResponse::new(InternalServerError).body("\{e}")
+      }
+    }
+  })
+  ..post("/api/tasks/:id/labels/remove", fn(event) noraise {
+    let id_str = event.params.get("id").unwrap().to_string()
+    println("POST /api/tasks/\{id_str}/labels/remove")
+    try {
+      let id = @strconv.parse_int(id_str)
+      let json : Json = event.req.body()
+      let label_id = match json {
+        { "label_id": Number(n, ..), .. } => n.to_int()
+        _ => return @mocket.HttpResponse::new(BadRequest).body("Missing label_id")
+      }
+      remove_task_label(conn, id, label_id)
+      println("  -> 200 label \{label_id} removed from task \{id}")
+      @mocket.HttpResponse::new(OK).json(({ "ok": true } : Json))
     } catch {
       e => {
         println("  -> 500 \{e}")
