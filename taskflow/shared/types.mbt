@@ -71,14 +71,14 @@ pub(all) struct Label {
   id : Int
   name : String
   color : String
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// Association between a task and a label.
 pub(all) struct TaskLabel {
   task_id : Int
   label_id : Int
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// A checklist item belonging to a task.
@@ -87,7 +87,7 @@ pub(all) struct Subtask {
   task_id : Int
   title : String
   done : Bool
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// A recurrence rule for automatic task re-creation on completion.
@@ -95,7 +95,7 @@ pub(all) struct Subtask {
 pub(all) struct RecurrenceRule {
   task_id : Int
   interval : String
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// A time tracking entry for a task.
@@ -105,7 +105,7 @@ pub(all) struct TimeEntry {
   minutes : Int
   note : String
   created_at : String
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// A URL-based attachment on a task.
@@ -114,7 +114,7 @@ pub(all) struct Attachment {
   task_id : Int
   url : String
   label : String
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// A project that groups related tasks.
@@ -122,14 +122,14 @@ pub(all) struct Project {
   id : Int
   name : String
   color : String
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// Association between a task and a project.
 pub(all) struct TaskProject {
   task_id : Int
   project_id : Int
-} derive(ToJson, FromJson, Show, Eq)
+} derive(ToJson, FromJson, Show, Eq, Debug)
 
 ///|
 /// Full board state returned by `GET /api/board`.
