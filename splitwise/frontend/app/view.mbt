@@ -2,28 +2,16 @@
 /// Render the entire UI: header, total banner, people card, expense form, expense list, and settlements.
 pub fn Model::view(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.Html {
   @html.div(
-    style=[
-      "max-width: 520px", "margin: 0 auto", "padding: 24px 16px",
-      "font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-    ],
+    style=container_style,
     {
       let sections : Array[@rabbita.Html] = []
       // Header
       sections.push(
         @html.div(
-          style=["text-align: center", "margin-bottom: 24px", "padding-top: 12px"],
+          style=header_style,
           [
-            @html.h1(
-              style=[
-                "color: white", "font-size: 26px", "font-weight: 800",
-                "margin-bottom: 4px", "letter-spacing: -0.5px",
-              ],
-              "Splitwise",
-            ),
-            @html.p(
-              style=["color: rgba(255,255,255,0.75)", "font-size: 13px"],
-              "Split expenses with friends",
-            ),
+            @html.h1(style=header_title_style, "Splitwise"),
+            @html.p(style=header_subtitle_style, "Split expenses with friends"),
           ],
         ),
       )
@@ -32,18 +20,11 @@ pub fn Model::view(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.
         let total = compute_total(self.expenses)
         sections.push(
           @html.div(
-            style=[
-              "background: rgba(255,255,255,0.15)", "border-radius: 12px",
-              "padding: 16px 20px", "margin-bottom: 16px", "text-align: center",
-              "backdrop-filter: blur(10px)",
-            ],
+            style=total_banner_style,
             [
+              @html.div(style=total_label_style, "Total Expenses"),
               @html.div(
-                style=["color: rgba(255,255,255,0.7)", "font-size: 12px", "margin-bottom: 4px", "text-transform: uppercase", "letter-spacing: 1px"],
-                "Total Expenses",
-              ),
-              @html.div(
-                style=["color: white", "font-size: 32px", "font-weight: 800"],
+                style=total_amount_style,
                 "$\{@shared.format_amount(total)}",
               ),
             ],
@@ -68,10 +49,7 @@ pub fn Model::view(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> @rabbita.
           view_card(
             "Settlements",
             [
-              @html.p(
-                style=["text-align: center", "color: #43a047", "padding: 20px 0", "font-weight: 600", "font-size: 15px"],
-                "All settled up!",
-              ),
+              @html.p(style=settled_up_style, "All settled up!"),
             ],
           ),
         )
@@ -89,41 +67,31 @@ fn Model::view_people_card(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> @
     [
       @html.form(
         on_submit=dispatch(AddPerson),
-        style=["display: flex", "gap: 8px", "margin-bottom: 12px"],
+        style=people_form_style,
         [
           @html.input(
             input_type=Text,
             placeholder="Enter a name...",
             value=self.person_input,
             on_input=fn(v) { dispatch(PersonInputChanged(v)) },
-            style=[
-              "flex: 1", "padding: 10px 14px", "border: 2px solid #eee", "border-radius: 10px",
-              "font-size: 14px", "outline: none",
-            ],
+            style=text_input_style,
             "",
           ),
           @html.button(
             type_="submit",
-            style=[
-              "padding: 10px 20px", "background: #667eea", "color: white", "border: none",
-              "border-radius: 10px", "cursor: pointer", "font-size: 14px", "font-weight: 600",
-            ],
+            style=add_btn_style,
             "Add",
           ),
         ],
       ),
       if self.people.length() > 0 {
         @html.div(
-          style=["display: flex", "flex-wrap: wrap", "gap: 8px"],
+          style=people_chips_style,
           self.people.map(fn(p) {
             let initial = p.name.iter().collect()[0].to_string().to_upper()
             let color = person_color(p.id)
             @html.div(
-              style=[
-                "display: inline-flex", "align-items: center", "gap: 8px",
-                "padding: 6px 14px 6px 6px", "background: #f8f8ff",
-                "border-radius: 24px", "font-size: 13px", "color: #333",
-              ],
+              style=person_chip_style,
               [
                 @html.div(
                   style=[
@@ -134,14 +102,14 @@ fn Model::view_people_card(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> @
                   ],
                   initial,
                 ),
-                @html.span(style=["font-weight: 500"], p.name),
+                @html.span(style=person_name_style, p.name),
               ],
             )
           }),
         )
       } else {
         @html.p(
-          style=["color: #aaa", "font-size: 13px", "text-align: center", "padding: 12px 0"],
+          style=empty_people_style,
           "Add at least 2 people to get started",
         )
       },
@@ -157,39 +125,30 @@ fn Model::view_expense_form(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> 
     [
       @html.form(
         on_submit=dispatch(AddExpense),
-        style=["display: flex", "flex-direction: column", "gap: 10px"],
+        style=expense_form_style,
         [
           @html.input(
             input_type=Text,
             placeholder="What was it for?",
             value=self.desc_input,
             on_input=fn(v) { dispatch(DescInputChanged(v)) },
-            style=[
-              "padding: 10px 14px", "border: 2px solid #eee", "border-radius: 10px",
-              "font-size: 14px", "outline: none",
-            ],
+            style=input_style,
             "",
           ),
           @html.div(
-            style=["display: flex", "gap: 10px"],
+            style=amount_row_style,
             [
               @html.input(
                 input_type=Text,
                 placeholder="0.00",
                 value=self.amount_input,
                 on_input=fn(v) { dispatch(AmountInputChanged(v)) },
-                style=[
-                  "flex: 1", "padding: 10px 14px", "border: 2px solid #eee", "border-radius: 10px",
-                  "font-size: 14px", "outline: none",
-                ],
+                style=amount_input_style,
                 "",
               ),
               @html.select(
                 on_change=fn(v) { dispatch(PaidByChanged(parse_int(v))) },
-                style=[
-                  "flex: 1", "padding: 10px 14px", "border: 2px solid #eee", "border-radius: 10px",
-                  "font-size: 14px", "outline: none", "background: white", "color: #333",
-                ],
+                style=select_style,
                 self.people.map(fn(p) {
                   @html.option(
                     value=p.id.to_string(),
@@ -201,16 +160,12 @@ fn Model::view_expense_form(self : Model, dispatch : @rabbita.Dispatch[Msg]) -> 
             ],
           ),
           @html.div(
-            style=["font-size: 12px", "color: #999", "padding: 0 2px"],
+            style=split_hint_style,
             "Split equally among all \{self.people.length()} people",
           ),
           @html.button(
             type_="submit",
-            style=[
-              "padding: 12px", "background: linear-gradient(135deg, #667eea, #764ba2)", "color: white",
-              "border: none", "border-radius: 10px", "cursor: pointer", "font-size: 15px",
-              "font-weight: 600", "margin-top: 2px",
-            ],
+            style=submit_btn_style,
             "Add Expense",
           ),
         ],
@@ -231,10 +186,7 @@ fn Model::view_expenses_list(self : Model, dispatch : @rabbita.Dispatch[Msg]) ->
         name.iter().collect()[0].to_string().to_upper()
       }
       @html.div(
-        style=[
-          "display: flex", "align-items: center", "gap: 12px",
-          "padding: 10px 0", "border-bottom: 1px solid #f5f5f5",
-        ],
+        style=expense_row_style,
         [
           // Payer avatar
           @html.div(
@@ -248,32 +200,24 @@ fn Model::view_expenses_list(self : Model, dispatch : @rabbita.Dispatch[Msg]) ->
           ),
           // Description + subtitle
           @html.div(
-            style=["flex: 1", "min-width: 0"],
+            style=expense_info_style,
             [
+              @html.div(style=expense_desc_style, expense.description),
               @html.div(
-                style=["font-weight: 600", "font-size: 14px", "margin-bottom: 1px"],
-                expense.description,
-              ),
-              @html.div(
-                style=["font-size: 12px", "color: #999"],
+                style=expense_sub_style,
                 "\{find_person_name(self.people, expense.paid_by)} paid · \{expense.split_among.length()} way split",
               ),
             ],
           ),
           // Amount
           @html.span(
-            style=["font-weight: 700", "font-size: 15px", "color: #333", "white-space: nowrap"],
+            style=expense_amount_style,
             "$\{@shared.format_amount(expense.amount)}",
           ),
           // Delete
           @html.button(
             on_click=dispatch(DeleteExpense(expense.id)),
-            style=[
-              "width: 28px", "height: 28px", "background: #fee", "color: #e53935",
-              "border: none", "border-radius: 8px", "cursor: pointer",
-              "font-size: 13px", "font-weight: 700", "flex-shrink: 0",
-              "display: flex", "align-items: center", "justify-content: center",
-            ],
+            style=delete_btn_style,
             "X",
           ),
         ],
@@ -289,16 +233,11 @@ fn Model::view_settlements(self : Model) -> @rabbita.Html {
     "Who Owes Who",
     self.settlements.map(fn(s) {
       @html.div(
-        style=[
-          "display: flex", "align-items: center", "gap: 10px",
-          "padding: 12px 0", "border-bottom: 1px solid #f5f5f5",
-        ],
+        style=settlement_row_style,
         [
           // From person
           @html.div(
-            style=[
-              "display: flex", "align-items: center", "gap: 6px", "flex: 1",
-            ],
+            style=settlement_person_style,
             [
               @html.div(
                 style=[
@@ -309,21 +248,14 @@ fn Model::view_settlements(self : Model) -> @rabbita.Html {
                 ],
                 s.from_name.iter().collect()[0].to_string().to_upper(),
               ),
-              @html.span(style=["font-weight: 600", "font-size: 14px"], s.from_name),
+              @html.span(style=settlement_name_style, s.from_name),
             ],
           ),
           // Arrow
-          @html.div(
-            style=[
-              "color: #ccc", "font-size: 18px", "padding: 0 4px",
-            ],
-            "->",
-          ),
+          @html.div(style=settlement_arrow_style, "->"),
           // To person
           @html.div(
-            style=[
-              "display: flex", "align-items: center", "gap: 6px", "flex: 1",
-            ],
+            style=settlement_person_style,
             [
               @html.div(
                 style=[
@@ -334,15 +266,12 @@ fn Model::view_settlements(self : Model) -> @rabbita.Html {
                 ],
                 s.to_name.iter().collect()[0].to_string().to_upper(),
               ),
-              @html.span(style=["font-weight: 600", "font-size: 14px"], s.to_name),
+              @html.span(style=settlement_name_style, s.to_name),
             ],
           ),
           // Amount
           @html.span(
-            style=[
-              "font-weight: 700", "font-size: 15px", "color: #43a047",
-              "background: #e8f5e9", "padding: 4px 10px", "border-radius: 8px",
-            ],
+            style=settlement_amount_style,
             "$\{@shared.format_amount(s.amount)}",
           ),
         ],
@@ -357,19 +286,10 @@ fn view_card(
   children : Array[@rabbita.Html],
 ) -> @rabbita.Html {
   @html.div(
-    style=[
-      "background: white", "border-radius: 14px", "padding: 18px 20px", "margin-bottom: 14px",
-      "box-shadow: 0 1px 8px rgba(0,0,0,0.06)",
-    ],
+    style=card_style,
     {
       let all : Array[@rabbita.Html] = [
-        @html.h2(
-          style=[
-            "font-size: 13px", "font-weight: 700", "color: #999", "margin-bottom: 14px",
-            "text-transform: uppercase", "letter-spacing: 0.5px",
-          ],
-          title,
-        ),
+        @html.h2(style=card_title_style, title),
       ]
       for child in children {
         all.push(child)
