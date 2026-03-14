@@ -73,8 +73,8 @@ function _M0DTP419moonbit_2dcommunity7rabbita8internal7runtime3Cmd5Empty() {}
 _M0DTP419moonbit_2dcommunity7rabbita8internal7runtime3Cmd5Empty.prototype.$tag = 3;
 const _M0DTP419moonbit_2dcommunity7rabbita8internal7runtime3Cmd5Empty__ = new _M0DTP419moonbit_2dcommunity7rabbita8internal7runtime3Cmd5Empty();
 const $_4503599627370496L = { hi: -1048576, lo: 0 };
-const $9218868437227405312L = { hi: 2146435072, lo: 0 };
 const $9221120237041090561L = { hi: 2146959360, lo: 1 };
+const $9218868437227405312L = { hi: 2146435072, lo: 0 };
 const $2L = { hi: 0, lo: 2 };
 class $PanicError extends Error {}
 function $panic() {
@@ -665,7 +665,7 @@ function _M0DTPC14json8JsonPath5Index(param0, param1) {
   this._1 = param1;
 }
 _M0DTPC14json8JsonPath5Index.prototype.$tag = 2;
-function _M0TPC15queue5QueueGRP38bobzhang6kanban8frontend3MsgE(param0, param1, param2) {
+function _M0TPC15queue5QueueGRP48bobzhang6kanban8frontend3app3MsgE(param0, param1, param2) {
   this.length = param0;
   this.first = param1;
   this.last = param2;
@@ -683,7 +683,7 @@ function _M0TPC15queue4ConsGWRP419moonbit_2dcommunity7rabbita8internal7runtime9S
   this.content = param0;
   this.next = param1;
 }
-function _M0TPC13ref3RefGRP38bobzhang6kanban8frontend5ModelE(param0) {
+function _M0TPC13ref3RefGRP48bobzhang6kanban8frontend3app5ModelE(param0) {
   this.val = param0;
 }
 function _M0TPC13set3SetGRP419moonbit_2dcommunity7rabbita8internal7runtime2IdE(param0, param1, param2, param3, param4, param5, param6) {
@@ -1026,11 +1026,11 @@ function _M0TP219moonbit_2dcommunity7rabbita3App(param0, param1) {
   this.sandbox = param0;
   this.init_cmd = param1;
 }
-function _M0TP219moonbit_2dcommunity7rabbita10DispatcherGRP38bobzhang6kanban8frontend3MsgE(param0, param1) {
+function _M0TP219moonbit_2dcommunity7rabbita10DispatcherGRP48bobzhang6kanban8frontend3app3MsgE(param0, param1) {
   this.id = param0;
   this.inbox = param1;
 }
-function _M0TP219moonbit_2dcommunity7rabbita9TypedCellGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE(param0, param1, param2, param3, param4, param5) {
+function _M0TP219moonbit_2dcommunity7rabbita9TypedCellGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE(param0, param1, param2, param3, param4, param5) {
   this.model = param0;
   this.dispatcher = param1;
   this.dispatch = param2;
@@ -1075,6 +1075,139 @@ _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Text.prototype.$tag = 1;
 function _M0DTP319moonbit_2dcommunity7rabbita4http4Body5Empty() {}
 _M0DTP319moonbit_2dcommunity7rabbita4http4Body5Empty.prototype.$tag = 2;
 const _M0DTP319moonbit_2dcommunity7rabbita4http4Body5Empty__ = new _M0DTP319moonbit_2dcommunity7rabbita4http4Body5Empty();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg4Init() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg4Init.prototype.$tag = 0;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg4Init__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg4Init();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg8GotBoard(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg8GotBoard.prototype.$tag = 1;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg13ShowAddColumn() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg13ShowAddColumn.prototype.$tag = 2;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg13ShowAddColumn__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg13ShowAddColumn();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg13HideAddColumn() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg13HideAddColumn.prototype.$tag = 3;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg13HideAddColumn__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg13HideAddColumn();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg21NewColumnTitleChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg21NewColumnTitleChanged.prototype.$tag = 4;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg9AddColumn() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg9AddColumn.prototype.$tag = 5;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg9AddColumn__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg9AddColumn();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnAdded(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnAdded.prototype.$tag = 6;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg17StartRenameColumn(param0, param1) {
+  this._0 = param0;
+  this._1 = param1;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg17StartRenameColumn.prototype.$tag = 7;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg18CancelRenameColumn() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg18CancelRenameColumn.prototype.$tag = 8;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg18CancelRenameColumn__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg18CancelRenameColumn();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg24RenameColumnTitleChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg24RenameColumnTitleChanged.prototype.$tag = 9;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg19ConfirmRenameColumn() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg19ConfirmRenameColumn.prototype.$tag = 10;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg19ConfirmRenameColumn__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg19ConfirmRenameColumn();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnRenamed() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnRenamed.prototype.$tag = 11;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnRenamed__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnRenamed();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg12DeleteColumn(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg12DeleteColumn.prototype.$tag = 12;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnDeleted() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnDeleted.prototype.$tag = 13;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnDeleted__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnDeleted();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg14MoveColumnLeft(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg14MoveColumnLeft.prototype.$tag = 14;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg15MoveColumnRight(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg15MoveColumnRight.prototype.$tag = 15;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnMoved() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnMoved.prototype.$tag = 16;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnMoved__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnMoved();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg11ShowAddCard(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg11ShowAddCard.prototype.$tag = 17;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg11HideAddCard() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg11HideAddCard.prototype.$tag = 18;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg11HideAddCard__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg11HideAddCard();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg19NewCardTitleChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg19NewCardTitleChanged.prototype.$tag = 19;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg18NewCardDescChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg18NewCardDescChanged.prototype.$tag = 20;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg19NewCardColorChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg19NewCardColorChanged.prototype.$tag = 21;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg7AddCard() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg7AddCard.prototype.$tag = 22;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg7AddCard__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg7AddCard();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg9CardAdded(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg9CardAdded.prototype.$tag = 23;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg13StartEditCard(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg13StartEditCard.prototype.$tag = 24;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg14CancelEditCard() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg14CancelEditCard.prototype.$tag = 25;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg14CancelEditCard__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg14CancelEditCard();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg16EditTitleChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg16EditTitleChanged.prototype.$tag = 26;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg15EditDescChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg15EditDescChanged.prototype.$tag = 27;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg16EditColorChanged(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg16EditColorChanged.prototype.$tag = 28;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg12SaveEditCard() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg12SaveEditCard.prototype.$tag = 29;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg12SaveEditCard__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg12SaveEditCard();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg11CardUpdated() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg11CardUpdated.prototype.$tag = 30;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg11CardUpdated__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg11CardUpdated();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg10DeleteCard(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg10DeleteCard.prototype.$tag = 31;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg11CardDeleted() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg11CardDeleted.prototype.$tag = 32;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg11CardDeleted__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg11CardDeleted();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg16SelectCardToMove(param0) {
+  this._0 = param0;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg16SelectCardToMove.prototype.$tag = 33;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg10CancelMove() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg10CancelMove.prototype.$tag = 34;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg10CancelMove__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg10CancelMove();
+function _M0DTP48bobzhang6kanban8frontend3app3Msg10MoveCardTo(param0, param1) {
+  this._0 = param0;
+  this._1 = param1;
+}
+_M0DTP48bobzhang6kanban8frontend3app3Msg10MoveCardTo.prototype.$tag = 35;
+function _M0DTP48bobzhang6kanban8frontend3app3Msg9CardMoved() {}
+_M0DTP48bobzhang6kanban8frontend3app3Msg9CardMoved.prototype.$tag = 36;
+const _M0DTP48bobzhang6kanban8frontend3app3Msg9CardMoved__ = new _M0DTP48bobzhang6kanban8frontend3app3Msg9CardMoved();
 function _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared5BoardE4Json(param0, param1) {
   this._0 = param0;
   this._1 = param1;
@@ -1084,139 +1217,6 @@ function _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcomm
   this._0 = param0;
 }
 _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared5BoardE4Text.prototype.$tag = 1;
-function _M0DTP38bobzhang6kanban8frontend3Msg4Init() {}
-_M0DTP38bobzhang6kanban8frontend3Msg4Init.prototype.$tag = 0;
-const _M0DTP38bobzhang6kanban8frontend3Msg4Init__ = new _M0DTP38bobzhang6kanban8frontend3Msg4Init();
-function _M0DTP38bobzhang6kanban8frontend3Msg8GotBoard(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg8GotBoard.prototype.$tag = 1;
-function _M0DTP38bobzhang6kanban8frontend3Msg13ShowAddColumn() {}
-_M0DTP38bobzhang6kanban8frontend3Msg13ShowAddColumn.prototype.$tag = 2;
-const _M0DTP38bobzhang6kanban8frontend3Msg13ShowAddColumn__ = new _M0DTP38bobzhang6kanban8frontend3Msg13ShowAddColumn();
-function _M0DTP38bobzhang6kanban8frontend3Msg13HideAddColumn() {}
-_M0DTP38bobzhang6kanban8frontend3Msg13HideAddColumn.prototype.$tag = 3;
-const _M0DTP38bobzhang6kanban8frontend3Msg13HideAddColumn__ = new _M0DTP38bobzhang6kanban8frontend3Msg13HideAddColumn();
-function _M0DTP38bobzhang6kanban8frontend3Msg21NewColumnTitleChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg21NewColumnTitleChanged.prototype.$tag = 4;
-function _M0DTP38bobzhang6kanban8frontend3Msg9AddColumn() {}
-_M0DTP38bobzhang6kanban8frontend3Msg9AddColumn.prototype.$tag = 5;
-const _M0DTP38bobzhang6kanban8frontend3Msg9AddColumn__ = new _M0DTP38bobzhang6kanban8frontend3Msg9AddColumn();
-function _M0DTP38bobzhang6kanban8frontend3Msg11ColumnAdded(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg11ColumnAdded.prototype.$tag = 6;
-function _M0DTP38bobzhang6kanban8frontend3Msg17StartRenameColumn(param0, param1) {
-  this._0 = param0;
-  this._1 = param1;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg17StartRenameColumn.prototype.$tag = 7;
-function _M0DTP38bobzhang6kanban8frontend3Msg18CancelRenameColumn() {}
-_M0DTP38bobzhang6kanban8frontend3Msg18CancelRenameColumn.prototype.$tag = 8;
-const _M0DTP38bobzhang6kanban8frontend3Msg18CancelRenameColumn__ = new _M0DTP38bobzhang6kanban8frontend3Msg18CancelRenameColumn();
-function _M0DTP38bobzhang6kanban8frontend3Msg24RenameColumnTitleChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg24RenameColumnTitleChanged.prototype.$tag = 9;
-function _M0DTP38bobzhang6kanban8frontend3Msg19ConfirmRenameColumn() {}
-_M0DTP38bobzhang6kanban8frontend3Msg19ConfirmRenameColumn.prototype.$tag = 10;
-const _M0DTP38bobzhang6kanban8frontend3Msg19ConfirmRenameColumn__ = new _M0DTP38bobzhang6kanban8frontend3Msg19ConfirmRenameColumn();
-function _M0DTP38bobzhang6kanban8frontend3Msg13ColumnRenamed() {}
-_M0DTP38bobzhang6kanban8frontend3Msg13ColumnRenamed.prototype.$tag = 11;
-const _M0DTP38bobzhang6kanban8frontend3Msg13ColumnRenamed__ = new _M0DTP38bobzhang6kanban8frontend3Msg13ColumnRenamed();
-function _M0DTP38bobzhang6kanban8frontend3Msg12DeleteColumn(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg12DeleteColumn.prototype.$tag = 12;
-function _M0DTP38bobzhang6kanban8frontend3Msg13ColumnDeleted() {}
-_M0DTP38bobzhang6kanban8frontend3Msg13ColumnDeleted.prototype.$tag = 13;
-const _M0DTP38bobzhang6kanban8frontend3Msg13ColumnDeleted__ = new _M0DTP38bobzhang6kanban8frontend3Msg13ColumnDeleted();
-function _M0DTP38bobzhang6kanban8frontend3Msg14MoveColumnLeft(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg14MoveColumnLeft.prototype.$tag = 14;
-function _M0DTP38bobzhang6kanban8frontend3Msg15MoveColumnRight(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg15MoveColumnRight.prototype.$tag = 15;
-function _M0DTP38bobzhang6kanban8frontend3Msg11ColumnMoved() {}
-_M0DTP38bobzhang6kanban8frontend3Msg11ColumnMoved.prototype.$tag = 16;
-const _M0DTP38bobzhang6kanban8frontend3Msg11ColumnMoved__ = new _M0DTP38bobzhang6kanban8frontend3Msg11ColumnMoved();
-function _M0DTP38bobzhang6kanban8frontend3Msg11ShowAddCard(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg11ShowAddCard.prototype.$tag = 17;
-function _M0DTP38bobzhang6kanban8frontend3Msg11HideAddCard() {}
-_M0DTP38bobzhang6kanban8frontend3Msg11HideAddCard.prototype.$tag = 18;
-const _M0DTP38bobzhang6kanban8frontend3Msg11HideAddCard__ = new _M0DTP38bobzhang6kanban8frontend3Msg11HideAddCard();
-function _M0DTP38bobzhang6kanban8frontend3Msg19NewCardTitleChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg19NewCardTitleChanged.prototype.$tag = 19;
-function _M0DTP38bobzhang6kanban8frontend3Msg18NewCardDescChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg18NewCardDescChanged.prototype.$tag = 20;
-function _M0DTP38bobzhang6kanban8frontend3Msg19NewCardColorChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg19NewCardColorChanged.prototype.$tag = 21;
-function _M0DTP38bobzhang6kanban8frontend3Msg7AddCard() {}
-_M0DTP38bobzhang6kanban8frontend3Msg7AddCard.prototype.$tag = 22;
-const _M0DTP38bobzhang6kanban8frontend3Msg7AddCard__ = new _M0DTP38bobzhang6kanban8frontend3Msg7AddCard();
-function _M0DTP38bobzhang6kanban8frontend3Msg9CardAdded(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg9CardAdded.prototype.$tag = 23;
-function _M0DTP38bobzhang6kanban8frontend3Msg13StartEditCard(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg13StartEditCard.prototype.$tag = 24;
-function _M0DTP38bobzhang6kanban8frontend3Msg14CancelEditCard() {}
-_M0DTP38bobzhang6kanban8frontend3Msg14CancelEditCard.prototype.$tag = 25;
-const _M0DTP38bobzhang6kanban8frontend3Msg14CancelEditCard__ = new _M0DTP38bobzhang6kanban8frontend3Msg14CancelEditCard();
-function _M0DTP38bobzhang6kanban8frontend3Msg16EditTitleChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg16EditTitleChanged.prototype.$tag = 26;
-function _M0DTP38bobzhang6kanban8frontend3Msg15EditDescChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg15EditDescChanged.prototype.$tag = 27;
-function _M0DTP38bobzhang6kanban8frontend3Msg16EditColorChanged(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg16EditColorChanged.prototype.$tag = 28;
-function _M0DTP38bobzhang6kanban8frontend3Msg12SaveEditCard() {}
-_M0DTP38bobzhang6kanban8frontend3Msg12SaveEditCard.prototype.$tag = 29;
-const _M0DTP38bobzhang6kanban8frontend3Msg12SaveEditCard__ = new _M0DTP38bobzhang6kanban8frontend3Msg12SaveEditCard();
-function _M0DTP38bobzhang6kanban8frontend3Msg11CardUpdated() {}
-_M0DTP38bobzhang6kanban8frontend3Msg11CardUpdated.prototype.$tag = 30;
-const _M0DTP38bobzhang6kanban8frontend3Msg11CardUpdated__ = new _M0DTP38bobzhang6kanban8frontend3Msg11CardUpdated();
-function _M0DTP38bobzhang6kanban8frontend3Msg10DeleteCard(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg10DeleteCard.prototype.$tag = 31;
-function _M0DTP38bobzhang6kanban8frontend3Msg11CardDeleted() {}
-_M0DTP38bobzhang6kanban8frontend3Msg11CardDeleted.prototype.$tag = 32;
-const _M0DTP38bobzhang6kanban8frontend3Msg11CardDeleted__ = new _M0DTP38bobzhang6kanban8frontend3Msg11CardDeleted();
-function _M0DTP38bobzhang6kanban8frontend3Msg16SelectCardToMove(param0) {
-  this._0 = param0;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg16SelectCardToMove.prototype.$tag = 33;
-function _M0DTP38bobzhang6kanban8frontend3Msg10CancelMove() {}
-_M0DTP38bobzhang6kanban8frontend3Msg10CancelMove.prototype.$tag = 34;
-const _M0DTP38bobzhang6kanban8frontend3Msg10CancelMove__ = new _M0DTP38bobzhang6kanban8frontend3Msg10CancelMove();
-function _M0DTP38bobzhang6kanban8frontend3Msg10MoveCardTo(param0, param1) {
-  this._0 = param0;
-  this._1 = param1;
-}
-_M0DTP38bobzhang6kanban8frontend3Msg10MoveCardTo.prototype.$tag = 35;
-function _M0DTP38bobzhang6kanban8frontend3Msg9CardMoved() {}
-_M0DTP38bobzhang6kanban8frontend3Msg9CardMoved.prototype.$tag = 36;
-const _M0DTP38bobzhang6kanban8frontend3Msg9CardMoved__ = new _M0DTP38bobzhang6kanban8frontend3Msg9CardMoved();
 function _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardsE3Err(param0) {
   this._0 = param0;
 }
@@ -1225,7 +1225,7 @@ function _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardsE2Ok(param0) {
   this._0 = param0;
 }
 _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardsE2Ok.prototype.$tag = 1;
-function _M0TP38bobzhang6kanban8frontend5Model(param0, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15) {
+function _M0TP48bobzhang6kanban8frontend3app5Model(param0, param1, param2, param3, param4, param5, param6, param7, param8, param9, param10, param11, param12, param13, param14, param15) {
   this.columns = param0;
   this.cards = param1;
   this.adding_to_column = param2;
@@ -1283,9 +1283,9 @@ function _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardsE2Ok(param0) {
   this._0 = param0;
 }
 _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardsE2Ok.prototype.$tag = 1;
+const _M0FP0205moonbit_2dcommunity_2frabbita_2fTypedCell_5bbobzhang_2fkanban_2ffrontend_2fapp_2fModel_2c_20bobzhang_2fkanban_2ffrontend_2fapp_2fMsg_5d_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eIsCell = { method_0: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4stepGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE, method_1: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4viewGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE, method_2: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell5flagsGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE };
 const _M0FP092moonbitlang_2fcore_2fbuiltin_2fStringBuilder_24as_24_40moonbitlang_2fcore_2fbuiltin_2eLogger = { method_0: _M0IPB13StringBuilderPB6Logger13write__string, method_1: _M0IP016_24default__implPB6Logger16write__substringGRPB13StringBuilderE, method_2: _M0IPB13StringBuilderPB6Logger11write__view, method_3: _M0IPB13StringBuilderPB6Logger11write__char };
 const _M0FP0133moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2fSandbox_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eScheduler = { method_0: _M0IP419moonbit_2dcommunity7rabbita8internal7runtime7SandboxP419moonbit_2dcommunity7rabbita8internal7runtime9Scheduler3add, method_1: _M0IP419moonbit_2dcommunity7rabbita8internal7runtime7SandboxP419moonbit_2dcommunity7rabbita8internal7runtime9Scheduler17add__url__changed, method_2: _M0IP419moonbit_2dcommunity7rabbita8internal7runtime7SandboxP419moonbit_2dcommunity7rabbita8internal7runtime9Scheduler17add__url__request };
-const _M0FP0193moonbit_2dcommunity_2frabbita_2fTypedCell_5bbobzhang_2fkanban_2ffrontend_2fModel_2c_20bobzhang_2fkanban_2ffrontend_2fMsg_5d_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eIsCell = { method_0: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4stepGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE, method_1: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4viewGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE, method_2: _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell5flagsGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE };
 const _M0FPB4null = _M0DTPB4Json4Null__;
 const _M0FPB19wasm__helper__cache = new _M0TPB15WasmHelperCache(false, undefined);
 const _M0FPC16uint6410max__value = $_1L;
@@ -1377,15 +1377,15 @@ const _M0FP38bobzhang6kanban6shared10api__cards = "/api/cards";
 const _M0FP38bobzhang6kanban6shared13position__gap = 1000;
 const _M0FP419moonbit_2dcommunity7rabbita8internal7runtime4none = _M0DTP419moonbit_2dcommunity7rabbita8internal7runtime3Cmd5Empty__;
 const _M0FPB4seed = _M0FPB12random__seed();
-const _M0FP319moonbit_2dcommunity7rabbita3cmd4none = _M0FP419moonbit_2dcommunity7rabbita8internal7runtime4none;
-const _M0FPC16double13neg__infinity = _M0MPC15int645Int6423reinterpret__as__double($_4503599627370496L);
-const _M0FPC16double8infinity = _M0MPC15int645Int6423reinterpret__as__double($9218868437227405312L);
+const _M0FP419moonbit_2dcommunity7rabbita8internal7runtime17global__id__count = _M0FPC13ref3newGiE(0);
 const _M0FPB33brute__force__find_2econstr_2f422 = 0;
 const _M0FPB43boyer__moore__horspool__find_2econstr_2f408 = 0;
+const _M0FP319moonbit_2dcommunity7rabbita3cmd4none = _M0FP419moonbit_2dcommunity7rabbita8internal7runtime4none;
+const _M0FPC16double13neg__infinity = _M0MPC15int645Int6423reinterpret__as__double($_4503599627370496L);
 const _M0FPC16double14not__a__number = _M0MPC15int645Int6423reinterpret__as__double($9221120237041090561L);
+const _M0FPC16double8infinity = _M0MPC15int645Int6423reinterpret__as__double($9218868437227405312L);
 const _M0FPC17strconv25max__mantissa__fast__path = _M0IPC16uint646UInt64PB3Shl3shl($2L, 52);
 const _M0FPC17strconv28checked__mul_2econstr_2f2631 = $0L;
-const _M0FP419moonbit_2dcommunity7rabbita8internal7runtime17global__id__count = _M0FPC13ref3newGiE(0);
 function _M0FPC15abort5abortGuE(msg) {
   $panic();
 }
@@ -9606,8 +9606,8 @@ function _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6sh
     return _M0FPC14json13decode__errorGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE(path, "Array::from_json: expected array");
   }
 }
-function _M0MPC15queue5Queue3newGRP38bobzhang6kanban8frontend3MsgE() {
-  return new _M0TPC15queue5QueueGRP38bobzhang6kanban8frontend3MsgE(0, undefined, undefined);
+function _M0MPC15queue5Queue3newGRP48bobzhang6kanban8frontend3app3MsgE() {
+  return new _M0TPC15queue5QueueGRP48bobzhang6kanban8frontend3app3MsgE(0, undefined, undefined);
 }
 function _M0MPC15queue5Queue3newGRP419moonbit_2dcommunity7rabbita8internal7runtime2IdE() {
   return new _M0TPC15queue5QueueGRP419moonbit_2dcommunity7rabbita8internal7runtime2IdE(0, undefined, undefined);
@@ -9694,8 +9694,8 @@ function _M0MPC15queue5Queue3popGRP419moonbit_2dcommunity7rabbita8internal7runti
     }
   }
 }
-function _M0FPC13ref3newGRP38bobzhang6kanban8frontend5ModelE(x) {
-  return new _M0TPC13ref3RefGRP38bobzhang6kanban8frontend5ModelE(x);
+function _M0FPC13ref3newGRP48bobzhang6kanban8frontend3app5ModelE(x) {
+  return new _M0TPC13ref3RefGRP48bobzhang6kanban8frontend3app5ModelE(x);
 }
 function _M0FPC13ref3newGiE(x) {
   return new _M0TPC13ref3RefGiE(x);
@@ -9952,18 +9952,18 @@ function _M0MPC13set3Set9to__arrayGRP419moonbit_2dcommunity7rabbita8internal7run
   }
   return arr;
 }
-function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_119, _x_120) {
-  const _de_columns_122 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4None__);
-  const _de_cards_121 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared4CardEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4None__);
+function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_125, _x_126) {
+  const _de_columns_128 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4None__);
+  const _de_cards_127 = new _M0TPC13ref3RefGORPB5ArrayGRP38bobzhang6kanban6shared4CardEE(_M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4None__);
   let _map;
   _L: {
-    if (_x_119.$tag === 6) {
-      const _Object = _x_119;
+    if (_x_125.$tag === 6) {
+      const _Object = _x_125;
       const __map = _Object._0;
       _map = __map;
       break _L;
     } else {
-      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_120, _1: "Expected object to deserialize Board" }));
+      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_126, _1: "Expected object to deserialize Board" }));
     }
   }
   let _v;
@@ -9979,7 +9979,7 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_119
       }
       break _L$2;
     }
-    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared6ColumnE(_v, _M0MPC14json8JsonPath8add__key(_x_120, "columns"));
+    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared6ColumnE(_v, _M0MPC14json8JsonPath8add__key(_x_126, "columns"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -9987,7 +9987,7 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_119
     } else {
       return _bind;
     }
-    _de_columns_122.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4Some(_tmp);
+    _de_columns_128.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared6ColumnEE4Some(_tmp);
   }
   let _v$2;
   _L$3: {
@@ -10002,7 +10002,7 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_119
       }
       break _L$3;
     }
-    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared4CardE(_v$2, _M0MPC14json8JsonPath8add__key(_x_120, "cards"));
+    const _bind = _M0IPC15array5ArrayPC14json8FromJson10from__jsonGRP38bobzhang6kanban6shared4CardE(_v$2, _M0MPC14json8JsonPath8add__key(_x_126, "cards"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10010,41 +10010,41 @@ function _M0IP38bobzhang6kanban6shared5BoardPC14json8FromJson10from__json(_x_119
     } else {
       return _bind;
     }
-    _de_cards_121.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4Some(_tmp);
+    _de_cards_127.val = new _M0DTPC16option6OptionGRPB5ArrayGRP38bobzhang6kanban6shared4CardEE4Some(_tmp);
   }
-  let _de_columns_122$2;
-  const _bind = _de_columns_122.val;
+  let _de_columns_128$2;
+  const _bind = _de_columns_128.val;
   if (_bind.$tag === 1) {
     const _Some = _bind;
     const _v$3 = _Some._0;
-    _de_columns_122$2 = _v$3;
+    _de_columns_128$2 = _v$3;
   } else {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_120, _1: "Missing field columns" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_126, _1: "Missing field columns" }));
   }
-  let _de_cards_121$2;
-  const _bind$2 = _de_cards_121.val;
+  let _de_cards_127$2;
+  const _bind$2 = _de_cards_127.val;
   if (_bind$2.$tag === 1) {
     const _Some = _bind$2;
     const _v$3 = _Some._0;
-    _de_cards_121$2 = _v$3;
+    _de_cards_127$2 = _v$3;
   } else {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_120, _1: "Missing field cards" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_126, _1: "Missing field cards" }));
   }
-  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared5Board(_de_columns_122$2, _de_cards_121$2));
+  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared5Board(_de_columns_128$2, _de_cards_127$2));
 }
-function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88, _x_89) {
-  const _de_title_92 = new _M0TPC13ref3RefGOsE(undefined);
-  const _de_position_91 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_id_90 = new _M0TPC13ref3RefGOiE(undefined);
+function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_92, _x_93) {
+  const _de_title_96 = new _M0TPC13ref3RefGOsE(undefined);
+  const _de_position_95 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_id_94 = new _M0TPC13ref3RefGOiE(undefined);
   let _map;
   _L: {
-    if (_x_88.$tag === 6) {
-      const _Object = _x_88;
+    if (_x_92.$tag === 6) {
+      const _Object = _x_92;
       const __map = _Object._0;
       _map = __map;
       break _L;
     } else {
-      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Expected object to deserialize Column" }));
+      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_93, _1: "Expected object to deserialize Column" }));
     }
   }
   let _v;
@@ -10060,7 +10060,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88
       }
       break _L$2;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_89, "id"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_93, "id"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10068,7 +10068,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88
     } else {
       return _bind;
     }
-    _de_id_90.val = _tmp;
+    _de_id_94.val = _tmp;
   }
   let _v$2;
   _L$3: {
@@ -10083,7 +10083,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88
       }
       break _L$3;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_89, "title"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_93, "title"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10091,7 +10091,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88
     } else {
       return _bind;
     }
-    _de_title_92.val = _tmp;
+    _de_title_96.val = _tmp;
   }
   let _v$3;
   _L$4: {
@@ -10106,7 +10106,7 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88
       }
       break _L$4;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_89, "position"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_93, "position"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10114,53 +10114,53 @@ function _M0IP38bobzhang6kanban6shared6ColumnPC14json8FromJson10from__json(_x_88
     } else {
       return _bind;
     }
-    _de_position_91.val = _tmp;
+    _de_position_95.val = _tmp;
   }
-  let _de_title_92$2;
-  const _bind = _de_title_92.val;
+  let _de_title_96$2;
+  const _bind = _de_title_96.val;
   if (_bind === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Missing field title" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_93, _1: "Missing field title" }));
   } else {
     const _Some = _bind;
     const _v$4 = _Some;
-    _de_title_92$2 = _v$4;
+    _de_title_96$2 = _v$4;
   }
-  let _de_position_91$2;
-  const _bind$2 = _de_position_91.val;
+  let _de_position_95$2;
+  const _bind$2 = _de_position_95.val;
   if (_bind$2 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Missing field position" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_93, _1: "Missing field position" }));
   } else {
     const _Some = _bind$2;
     const _v$4 = _Some;
-    _de_position_91$2 = _v$4;
+    _de_position_95$2 = _v$4;
   }
-  let _de_id_90$2;
-  const _bind$3 = _de_id_90.val;
+  let _de_id_94$2;
+  const _bind$3 = _de_id_94.val;
   if (_bind$3 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_89, _1: "Missing field id" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_93, _1: "Missing field id" }));
   } else {
     const _Some = _bind$3;
     const _v$4 = _Some;
-    _de_id_90$2 = _v$4;
+    _de_id_94$2 = _v$4;
   }
-  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared6Column(_de_id_90$2, _de_title_92$2, _de_position_91$2));
+  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared6Column(_de_id_94$2, _de_title_96$2, _de_position_95$2));
 }
-function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, _x_43) {
-  const _de_title_49 = new _M0TPC13ref3RefGOsE(undefined);
-  const _de_position_48 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_id_47 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_description_46 = new _M0TPC13ref3RefGOsE(undefined);
-  const _de_column_id_45 = new _M0TPC13ref3RefGOiE(undefined);
-  const _de_color_44 = new _M0TPC13ref3RefGOsE(undefined);
+function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_44, _x_45) {
+  const _de_title_51 = new _M0TPC13ref3RefGOsE(undefined);
+  const _de_position_50 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_id_49 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_description_48 = new _M0TPC13ref3RefGOsE(undefined);
+  const _de_column_id_47 = new _M0TPC13ref3RefGOiE(undefined);
+  const _de_color_46 = new _M0TPC13ref3RefGOsE(undefined);
   let _map;
   _L: {
-    if (_x_42.$tag === 6) {
-      const _Object = _x_42;
+    if (_x_44.$tag === 6) {
+      const _Object = _x_44;
       const __map = _Object._0;
       _map = __map;
       break _L;
     } else {
-      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Expected object to deserialize Card" }));
+      return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_45, _1: "Expected object to deserialize Card" }));
     }
   }
   let _v;
@@ -10176,7 +10176,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
       }
       break _L$2;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_43, "id"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v, _M0MPC14json8JsonPath8add__key(_x_45, "id"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10184,7 +10184,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
     } else {
       return _bind;
     }
-    _de_id_47.val = _tmp;
+    _de_id_49.val = _tmp;
   }
   let _v$2;
   _L$3: {
@@ -10199,7 +10199,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
       }
       break _L$3;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_43, "column_id"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$2, _M0MPC14json8JsonPath8add__key(_x_45, "column_id"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10207,7 +10207,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
     } else {
       return _bind;
     }
-    _de_column_id_45.val = _tmp;
+    _de_column_id_47.val = _tmp;
   }
   let _v$3;
   _L$4: {
@@ -10222,7 +10222,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
       }
       break _L$4;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_43, "title"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$3, _M0MPC14json8JsonPath8add__key(_x_45, "title"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10230,7 +10230,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
     } else {
       return _bind;
     }
-    _de_title_49.val = _tmp;
+    _de_title_51.val = _tmp;
   }
   let _v$4;
   _L$5: {
@@ -10245,7 +10245,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
       }
       break _L$5;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$4, _M0MPC14json8JsonPath8add__key(_x_43, "description"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$4, _M0MPC14json8JsonPath8add__key(_x_45, "description"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10253,7 +10253,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
     } else {
       return _bind;
     }
-    _de_description_46.val = _tmp;
+    _de_description_48.val = _tmp;
   }
   let _v$5;
   _L$6: {
@@ -10268,7 +10268,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
       }
       break _L$6;
     }
-    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$5, _M0MPC14json8JsonPath8add__key(_x_43, "color"));
+    const _bind = _M0IPC16string6StringPC14json8FromJson10from__json(_v$5, _M0MPC14json8JsonPath8add__key(_x_45, "color"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10276,7 +10276,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
     } else {
       return _bind;
     }
-    _de_color_44.val = _tmp;
+    _de_color_46.val = _tmp;
   }
   let _v$6;
   _L$7: {
@@ -10291,7 +10291,7 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
       }
       break _L$7;
     }
-    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$6, _M0MPC14json8JsonPath8add__key(_x_43, "position"));
+    const _bind = _M0IPC13int3IntPC14json8FromJson10from__json(_v$6, _M0MPC14json8JsonPath8add__key(_x_45, "position"));
     let _tmp;
     if (_bind.$tag === 1) {
       const _ok = _bind;
@@ -10299,63 +10299,63 @@ function _M0IP38bobzhang6kanban6shared4CardPC14json8FromJson10from__json(_x_42, 
     } else {
       return _bind;
     }
-    _de_position_48.val = _tmp;
+    _de_position_50.val = _tmp;
   }
-  let _de_title_49$2;
-  const _bind = _de_title_49.val;
+  let _de_title_51$2;
+  const _bind = _de_title_51.val;
   if (_bind === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field title" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_45, _1: "Missing field title" }));
   } else {
     const _Some = _bind;
     const _v$7 = _Some;
-    _de_title_49$2 = _v$7;
+    _de_title_51$2 = _v$7;
   }
-  let _de_position_48$2;
-  const _bind$2 = _de_position_48.val;
+  let _de_position_50$2;
+  const _bind$2 = _de_position_50.val;
   if (_bind$2 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field position" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_45, _1: "Missing field position" }));
   } else {
     const _Some = _bind$2;
     const _v$7 = _Some;
-    _de_position_48$2 = _v$7;
+    _de_position_50$2 = _v$7;
   }
-  let _de_id_47$2;
-  const _bind$3 = _de_id_47.val;
+  let _de_id_49$2;
+  const _bind$3 = _de_id_49.val;
   if (_bind$3 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field id" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_45, _1: "Missing field id" }));
   } else {
     const _Some = _bind$3;
     const _v$7 = _Some;
-    _de_id_47$2 = _v$7;
+    _de_id_49$2 = _v$7;
   }
-  let _de_description_46$2;
-  const _bind$4 = _de_description_46.val;
+  let _de_description_48$2;
+  const _bind$4 = _de_description_48.val;
   if (_bind$4 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field description" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_45, _1: "Missing field description" }));
   } else {
     const _Some = _bind$4;
     const _v$7 = _Some;
-    _de_description_46$2 = _v$7;
+    _de_description_48$2 = _v$7;
   }
-  let _de_column_id_45$2;
-  const _bind$5 = _de_column_id_45.val;
+  let _de_column_id_47$2;
+  const _bind$5 = _de_column_id_47.val;
   if (_bind$5 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field column_id" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_45, _1: "Missing field column_id" }));
   } else {
     const _Some = _bind$5;
     const _v$7 = _Some;
-    _de_column_id_45$2 = _v$7;
+    _de_column_id_47$2 = _v$7;
   }
-  let _de_color_44$2;
-  const _bind$6 = _de_color_44.val;
+  let _de_color_46$2;
+  const _bind$6 = _de_color_46.val;
   if (_bind$6 === undefined) {
-    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_43, _1: "Missing field color" }));
+    return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE3Err(new _M0DTPC15error5Error61moonbitlang_2fcore_2fjson_2eJsonDecodeError_2eJsonDecodeError({ _0: _x_45, _1: "Missing field color" }));
   } else {
     const _Some = _bind$6;
     const _v$7 = _Some;
-    _de_color_44$2 = _v$7;
+    _de_color_46$2 = _v$7;
   }
-  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared4Card(_de_id_47$2, _de_column_id_45$2, _de_title_49$2, _de_description_46$2, _de_color_44$2, _de_position_48$2));
+  return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardRPC14json15JsonDecodeErrorE2Ok(new _M0TP38bobzhang6kanban6shared4Card(_de_id_49$2, _de_column_id_47$2, _de_title_51$2, _de_description_48$2, _de_color_46$2, _de_position_50$2));
 }
 function _M0FP38bobzhang6kanban6shared21validate__card__title(title) {
   return _M0IP016_24default__implPB2Eq10not__equalGsE(title, "") && _M0MPC16string6String20char__length_2einner(title, 0, undefined) <= _M0FP38bobzhang6kanban6shared16max__card__title;
@@ -11906,7 +11906,7 @@ function _M0MP419moonbit_2dcommunity7rabbita8internal7runtime5VNode6insert(self,
         break _L$4;
       }
     }
-    const slot = _M0FPC13ref3newGRP38bobzhang6kanban8frontend5ModelE(h);
+    const slot = _M0FPC13ref3newGRP48bobzhang6kanban8frontend3app5ModelE(h);
     _M0IP016_24default__implP319moonbit_2dcommunity7rabbita3dom13IsEventTarget20add__event__listenerGRP319moonbit_2dcommunity7rabbita3dom7ElementE(element, e, (x) => {
       const _func = slot.val;
       _func(x, { self: sandbox, method_table: _M0FP0133moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2fSandbox_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eScheduler });
@@ -12250,7 +12250,7 @@ function _M0FP419moonbit_2dcommunity7rabbita8internal7runtime11diff__props(old, 
       _L$3: {
         const _bind = _M0MPB3Map3getGsRPC13ref3RefGWRP319moonbit_2dcommunity7rabbita3dom5EventRP419moonbit_2dcommunity7rabbita8internal7runtime9SchedulerEuEE(slots, event);
         if (_bind === undefined) {
-          const slot$2 = _M0FPC13ref3newGRP38bobzhang6kanban8frontend5ModelE(handler);
+          const slot$2 = _M0FPC13ref3newGRP48bobzhang6kanban8frontend3app5ModelE(handler);
           _M0IP016_24default__implP319moonbit_2dcommunity7rabbita3dom13IsEventTarget20add__event__listenerGRP319moonbit_2dcommunity7rabbita3dom7ElementE(parent, event, (e) => {
             const _func = slot$2.val;
             _func(e, { self: sandbox, method_table: _M0FP0133moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2fSandbox_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eScheduler });
@@ -13148,7 +13148,7 @@ function _M0MP419moonbit_2dcommunity7rabbita8internal7runtime7Sandbox3new(root) 
   const _bind$7 = false;
   const _bind$8 = false;
   const _bind$9 = "";
-  const _bind$10 = _M0MPC15queue5Queue3newGRP38bobzhang6kanban8frontend3MsgE();
+  const _bind$10 = _M0MPC15queue5Queue3newGRP48bobzhang6kanban8frontend3app3MsgE();
   sandbox.val = new _M0TP419moonbit_2dcommunity7rabbita8internal7runtime7Sandbox(live_map, _bind$3, _bind$10, _bind$8, _bind$4, _bind$7, root$2, captured_link_listener, _bind$9, _bind$5, _bind$6);
   return _M0MPC16option6Option6unwrapGRP419moonbit_2dcommunity7rabbita8internal7runtime7SandboxE(sandbox.val);
 }
@@ -14176,7 +14176,7 @@ function _M0MP219moonbit_2dcommunity7rabbita3App5mount(self, element_id) {
   _M0MP419moonbit_2dcommunity7rabbita8internal7runtime7Sandbox10initialize(self.sandbox);
   _M0MP419moonbit_2dcommunity7rabbita8internal7runtime7Sandbox5flush(self.sandbox);
 }
-function _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4stepGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE(self, scheduler) {
+function _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4stepGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE(self, scheduler) {
   let msg;
   _L: {
     const _bind = _M0MPC15queue5Queue3popGWRP419moonbit_2dcommunity7rabbita8internal7runtime9SchedulerEuE(self.dispatcher.inbox);
@@ -14204,24 +14204,24 @@ function _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7ra
   scheduler.method_table.method_0(scheduler.self, cmd);
   _M0MP419moonbit_2dcommunity7rabbita8internal7runtime5Flags11mark__dirty(self.flags);
 }
-function _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4viewGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE(self) {
+function _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell4viewGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE(self) {
   const _func = self.view;
   return _func(self.dispatch, self.model.val);
 }
-function _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell5flagsGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE(self) {
+function _M0IP219moonbit_2dcommunity7rabbita9TypedCellP419moonbit_2dcommunity7rabbita8internal7runtime6IsCell5flagsGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE(self) {
   return self.flags;
 }
-function _M0MP219moonbit_2dcommunity7rabbita10Dispatcher7messageGRP38bobzhang6kanban8frontend3MsgE(self, msg) {
+function _M0MP219moonbit_2dcommunity7rabbita10Dispatcher7messageGRP48bobzhang6kanban8frontend3app3MsgE(self, msg) {
   return _M0FP419moonbit_2dcommunity7rabbita8internal7runtime7message(self.id, () => {
     _M0MPC15queue5Queue4pushGWRP419moonbit_2dcommunity7rabbita8internal7runtime9SchedulerEuE(self.inbox, msg);
   });
 }
-function _M0FP219moonbit_2dcommunity7rabbita20cell__with__dispatchGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE(model, update, view) {
+function _M0FP219moonbit_2dcommunity7rabbita20cell__with__dispatchGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE(model, update, view) {
   const flags = _M0MP419moonbit_2dcommunity7rabbita8internal7runtime5Flags3new();
-  const dispatcher = new _M0TP219moonbit_2dcommunity7rabbita10DispatcherGRP38bobzhang6kanban8frontend3MsgE(_M0MP419moonbit_2dcommunity7rabbita8internal7runtime5Flags2id(flags), _M0MPC15queue5Queue3newGRP38bobzhang6kanban8frontend3MsgE());
-  const dispatch = (m) => _M0MP219moonbit_2dcommunity7rabbita10Dispatcher7messageGRP38bobzhang6kanban8frontend3MsgE(dispatcher, m);
-  const model$2 = _M0FPC13ref3newGRP38bobzhang6kanban8frontend5ModelE(model);
-  return { _0: dispatch, _1: { self: new _M0TP219moonbit_2dcommunity7rabbita9TypedCellGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE(model$2, dispatcher, dispatch, update, view, flags), method_table: _M0FP0193moonbit_2dcommunity_2frabbita_2fTypedCell_5bbobzhang_2fkanban_2ffrontend_2fModel_2c_20bobzhang_2fkanban_2ffrontend_2fMsg_5d_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eIsCell } };
+  const dispatcher = new _M0TP219moonbit_2dcommunity7rabbita10DispatcherGRP48bobzhang6kanban8frontend3app3MsgE(_M0MP419moonbit_2dcommunity7rabbita8internal7runtime5Flags2id(flags), _M0MPC15queue5Queue3newGRP48bobzhang6kanban8frontend3app3MsgE());
+  const dispatch = (m) => _M0MP219moonbit_2dcommunity7rabbita10Dispatcher7messageGRP48bobzhang6kanban8frontend3app3MsgE(dispatcher, m);
+  const model$2 = _M0FPC13ref3newGRP48bobzhang6kanban8frontend3app5ModelE(model);
+  return { _0: dispatch, _1: { self: new _M0TP219moonbit_2dcommunity7rabbita9TypedCellGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE(model$2, dispatcher, dispatch, update, view, flags), method_table: _M0FP0205moonbit_2dcommunity_2frabbita_2fTypedCell_5bbobzhang_2fkanban_2ffrontend_2fapp_2fModel_2c_20bobzhang_2fkanban_2ffrontend_2fapp_2fMsg_5d_24as_24_40moonbit_2dcommunity_2frabbita_2finternal_2fruntime_2eIsCell } };
 }
 function _M0MP319moonbit_2dcommunity7rabbita4http4Body13content__type(self) {
   switch (self.$tag) {
@@ -14396,8 +14396,103 @@ function _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(url, body, expect) {
 function _M0FP319moonbit_2dcommunity7rabbita4http4postGRP38bobzhang6kanban6shared6ColumnE(url, body, expect) {
   return _M0FP319moonbit_2dcommunity7rabbita4http7requestGRP38bobzhang6kanban6shared6ColumnE(url, "POST", expect, body);
 }
-function _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch) {
-  return _M0FP319moonbit_2dcommunity7rabbita4http3getGRP38bobzhang6kanban6shared5BoardE(_M0FP38bobzhang6kanban6shared10api__board, new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared5BoardE4Json((result) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg8GotBoard(result)), (json) => {
+function _M0MP48bobzhang6kanban8frontend3app5Model12view__header(self, dispatch) {
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%)", "padding: 20px 32px", "margin-bottom: 24px", "border-radius: 12px", "display: flex", "justify-content: space-between", "align-items: center"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html10h1_2einnerGsE(["color: white", "font-size: 22px", "font-weight: 700", "letter-spacing: -0.3px"], undefined, undefined, undefined, -1, undefined, undefined, "Kanban Board"), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 8px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [self.moving_card !== 0 ? _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 8px 16px", "background: rgba(255,255,255,0.2)", "color: white", "border: 1px solid rgba(255,255,255,0.3)", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg10CancelMove__), undefined, "Cancel Move") : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), self.adding_column ? _M0FP319moonbit_2dcommunity7rabbita4html4text("") : _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 8px 16px", "background: rgba(255,255,255,0.2)", "color: white", "border: 1px solid rgba(255,255,255,0.3)", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg13ShowAddColumn__), undefined, "+ Column")])]);
+}
+function _M0MP48bobzhang6kanban8frontend3app5Model23view__add__column__form(self, dispatch) {
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["min-width: 272px", "max-width: 272px", "background: white", "border-radius: 10px", "padding: 16px", "border: 2px dashed #cbd5e1"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, self.new_column_title, -1, -1, -1, undefined, "Column title", undefined, ["width: 100%", "padding: 8px 10px", "border: 1px solid #e2e8f0", "border-radius: 6px", "font-size: 14px", "outline: none", "margin-bottom: 8px"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg21NewColumnTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 6px 14px", "background: #0d9488", "color: white", "border: none", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg9AddColumn__), undefined, "Add"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 6px 14px", "background: #f1f5f9", "color: #64748b", "border: none", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg13HideAddColumn__), undefined, "Cancel")])]);
+}
+function _M0FP48bobzhang6kanban8frontend3app16view__drop__zone(dispatch, column_id, index) {
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["height: 6px", "margin: 4px 0", "border-radius: 3px", "background: #99f6e4", "border: 2px dashed #14b8a6", "cursor: pointer", "transition: all 0.15s"], undefined, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg10MoveCardTo(column_id, index)), undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("")]);
+}
+function _M0FP48bobzhang6kanban8frontend3app19view__color__picker(dispatch, current, on_change) {
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 4px", "margin-bottom: 8px", "flex-wrap: wrap"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, _M0MPC15array5Array3mapGsRP319moonbit_2dcommunity7rabbita4html4HtmlE(_M0FP38bobzhang6kanban6shared13valid__colors, (c) => {
+    const bg = c === "" ? "#f1f5f9" : _M0FP38bobzhang6kanban6shared14color__to__css(c);
+    const is_selected = c === current;
+    const border = is_selected ? "2px solid #1a1a2e" : "2px solid transparent";
+    return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["width: 24px", "height: 24px", "border-radius: 50%", `background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`, "cursor: pointer", `border: ${_M0IPC16string6StringPB4Show10to__string(border)}`], undefined, undefined, undefined, -1, dispatch(on_change(c)), undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("")]);
+  }));
+}
+function _M0MP48bobzhang6kanban8frontend3app5Model16view__card__item(self, dispatch, card) {
+  const is_moving = self.moving_card === card.id;
+  let border_left;
+  let css;
+  _L: {
+    _L$2: {
+      const _bind = _M0FP38bobzhang6kanban6shared14color__to__css(card.color);
+      if (_bind === "") {
+        border_left = "3px solid #e2e8f0";
+      } else {
+        css = _bind;
+        break _L$2;
+      }
+      break _L;
+    }
+    border_left = `3px solid ${_M0IPC16string6StringPB4Show10to__string(css)}`;
+  }
+  const bg = is_moving ? "#f0fdfa" : "white";
+  if (self.editing_card === card.id) {
+    return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["background: white", "border-radius: 8px", "padding: 12px", "border: 1px solid #0d9488", "margin-bottom: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, self.edit_title, -1, -1, -1, undefined, "Card title", undefined, ["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 13px", "outline: none", "margin-bottom: 6px"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg16EditTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html16textarea_2einnerGsE(["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 12px", "outline: none", "resize: vertical", "font-family: inherit", "margin-bottom: 6px"], undefined, undefined, undefined, -1, undefined, self.edit_desc, 2, undefined, "Description (optional)", -1, -1, undefined, undefined, -1, -1, undefined, undefined, (v) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg15EditDescChanged(v)), undefined, ""), _M0FP48bobzhang6kanban8frontend3app19view__color__picker(dispatch, self.edit_color, (c) => new _M0DTP48bobzhang6kanban8frontend3app3Msg16EditColorChanged(c)), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #0d9488", "color: white", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg12SaveEditCard__), undefined, "Save"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #f1f5f9", "color: #64748b", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg14CancelEditCard__), undefined, "Cancel")])]);
+  } else {
+    const _tmp = [`background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`, "border-radius: 8px", "padding: 10px 12px", `border-left: ${_M0IPC16string6StringPB4Show10to__string(border_left)}`, "margin-bottom: 6px", "border: 1px solid #f0f0f5", "transition: all 0.15s"];
+    const _tmp$2 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 14px", "font-weight: 500", "color: #1e293b", "margin-bottom: 4px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(card.title)]);
+    const _tmp$3 = _M0IP016_24default__implPB2Eq10not__equalGsE(card.description, "") ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 12px", "color: #64748b", "margin-bottom: 6px", "line-height: 1.4"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(card.description)]) : _M0FP319moonbit_2dcommunity7rabbita4html4text("");
+    const _tmp$4 = ["display: flex", "gap: 4px", "justify-content: flex-end"];
+    const move_bg = is_moving ? "#0d9488" : "#f8fafc";
+    const move_fg = is_moving ? "white" : "#64748b";
+    return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _tmp$3, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$4, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #e2e8f0", `background: ${_M0IPC16string6StringPB4Show10to__string(move_bg)}`, `color: ${_M0IPC16string6StringPB4Show10to__string(move_fg)}`], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg16SelectCardToMove(card.id)), undefined, is_moving ? "Moving..." : "Move"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #e2e8f0", "background: #f8fafc", "color: #64748b"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg13StartEditCard(card)), undefined, "Edit"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg10DeleteCard(card.id)), undefined, "Del")])]);
+  }
+}
+function _M0MP48bobzhang6kanban8frontend3app5Model21view__add__card__form(self, dispatch) {
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["padding: 10px", "background: #f8fafc", "border-radius: 8px", "border: 1px solid #e2e8f0", "margin-top: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, self.new_card_title, -1, -1, -1, undefined, "Card title", undefined, ["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 13px", "outline: none", "margin-bottom: 6px"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg19NewCardTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html16textarea_2einnerGsE(["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 12px", "outline: none", "resize: vertical", "font-family: inherit", "margin-bottom: 6px"], undefined, undefined, undefined, -1, undefined, self.new_card_desc, 2, undefined, "Description (optional)", -1, -1, undefined, undefined, -1, -1, undefined, undefined, (v) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg18NewCardDescChanged(v)), undefined, ""), _M0FP48bobzhang6kanban8frontend3app19view__color__picker(dispatch, self.new_card_color, (c) => new _M0DTP48bobzhang6kanban8frontend3app3Msg19NewCardColorChanged(c)), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #0d9488", "color: white", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg7AddCard__), undefined, "Add Card"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #f1f5f9", "color: #64748b", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg11HideAddCard__), undefined, "Cancel")])]);
+}
+function _M0MP48bobzhang6kanban8frontend3app5Model12view__column(self, dispatch, column, col_index, total_cols) {
+  const col_cards = _M0FP38bobzhang6kanban6shared17cards__in__column(self.cards, column.id);
+  const is_moving = self.moving_card !== 0;
+  const _tmp = ["min-width: 272px", "max-width: 272px", "background: #f1f5f9", "border-radius: 10px", "padding: 12px", "display: flex", "flex-direction: column", "max-height: calc(100vh - 140px)"];
+  const _tmp$2 = self.renaming_column === column.id ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["margin-bottom: 10px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, self.rename_column_title, -1, -1, -1, undefined, undefined, undefined, ["width: 100%", "padding: 6px 8px", "border: 1px solid #0d9488", "border-radius: 4px", "font-size: 14px", "outline: none", "font-weight: 600"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg24RenameColumnTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 4px", "margin-top: 4px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 10px", "background: #0d9488", "color: white", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 11px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg19ConfirmRenameColumn__), undefined, "Save"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 10px", "background: #e2e8f0", "color: #64748b", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 11px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg18CancelRenameColumn__), undefined, "Cancel")])]) : _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "justify-content: space-between", "align-items: center", "margin-bottom: 10px", "padding: 0 2px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 14px", "font-weight: 600", "color: #334155", "cursor: pointer"], undefined, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg17StartRenameColumn(column.id, column.title)), undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(column.title), _M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["color: #94a3b8", "font-weight: 400", "margin-left: 6px"], undefined, undefined, undefined, -1, undefined, _M0IP016_24default__implPB4Show10to__stringGiE(col_cards.length))]), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 2px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [col_index > 0 ? _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 6px", "background: transparent", "color: #94a3b8", "border: none", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg14MoveColumnLeft(column.id)), undefined, "◀") : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), col_index < (total_cols - 1 | 0) ? _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 6px", "background: transparent", "color: #94a3b8", "border: none", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg15MoveColumnRight(column.id)), undefined, "▶") : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 6px", "background: transparent", "color: #dc2626", "border: none", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg12DeleteColumn(column.id)), undefined, "✕")])]);
+  const _tmp$3 = ["flex: 1", "overflow-y: auto"];
+  const items = [];
+  const _bind = col_cards.length;
+  let _tmp$4 = 0;
+  while (true) {
+    const i = _tmp$4;
+    if (i < _bind) {
+      const card = col_cards[i];
+      if (is_moving) {
+        _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(items, _M0FP48bobzhang6kanban8frontend3app16view__drop__zone(dispatch, column.id, i));
+      }
+      _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(items, _M0MP48bobzhang6kanban8frontend3app5Model16view__card__item(self, dispatch, card));
+      _tmp$4 = i + 1 | 0;
+      continue;
+    } else {
+      break;
+    }
+  }
+  if (is_moving) {
+    _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(items, _M0FP48bobzhang6kanban8frontend3app16view__drop__zone(dispatch, column.id, col_cards.length));
+  }
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$3, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, items), self.adding_to_column === column.id ? _M0MP48bobzhang6kanban8frontend3app5Model21view__add__card__form(self, dispatch) : _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["width: 100%", "padding: 8px", "background: transparent", "color: #94a3b8", "border: 1px dashed #cbd5e1", "border-radius: 6px", "cursor: pointer", "font-size: 13px", "margin-top: 6px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg11ShowAddCard(column.id)), undefined, "+ Add Card")]);
+}
+function _M0MP48bobzhang6kanban8frontend3app5Model4view(self, dispatch) {
+  const sorted_columns = _M0FP38bobzhang6kanban6shared18sort__by__positionGRP38bobzhang6kanban6shared6ColumnE(self.columns, (c) => c.position);
+  const _tmp = ["padding: 16px 24px", "min-height: 100vh"];
+  const _tmp$2 = _M0MP48bobzhang6kanban8frontend3app5Model12view__header(self, dispatch);
+  let _tmp$3;
+  if (self.loading) {
+    _tmp$3 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["text-align: center", "padding: 60px 0", "color: #94a3b8", "font-size: 15px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("Loading...")]);
+  } else {
+    const _tmp$4 = ["display: flex", "gap: 16px", "overflow-x: auto", "padding-bottom: 16px", "align-items: flex-start"];
+    const cols = _M0MPC15array5Array4mapiGRP38bobzhang6kanban6shared6ColumnRP319moonbit_2dcommunity7rabbita4html4HtmlE(sorted_columns, (i, col) => _M0MP48bobzhang6kanban8frontend3app5Model12view__column(self, dispatch, col, i, sorted_columns.length));
+    if (self.adding_column) {
+      _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(cols, _M0MP48bobzhang6kanban8frontend3app5Model23view__add__column__form(self, dispatch));
+    }
+    _tmp$3 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$4, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, cols);
+  }
+  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _tmp$3]);
+}
+function _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) {
+  return _M0FP319moonbit_2dcommunity7rabbita4http3getGRP38bobzhang6kanban6shared5BoardE(_M0FP38bobzhang6kanban6shared10api__board, new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared5BoardE4Json((result) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg8GotBoard(result)), (json) => {
     let _try_err;
     _L: {
       const _bind = _M0FPC14json10from__jsonGRP38bobzhang6kanban6shared5BoardE(json, undefined);
@@ -14415,7 +14510,7 @@ function _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch) {
     return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared5BoardsE3Err("Failed to decode board");
   }));
 }
-function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
+function _M0MP48bobzhang6kanban8frontend3app5Model6update(self, msg, dispatch) {
   let target_col;
   let target_idx;
   _L: {
@@ -14458,7 +14553,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                       _L$19: {
                                         switch (msg.$tag) {
                                           case 0: {
-                                            return { _0: _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch), _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, true) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, true), _1: _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) };
                                           }
                                           case 1: {
                                             const _GotBoard = msg;
@@ -14469,14 +14564,14 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                               board = _board;
                                               break _L$19;
                                             } else {
-                                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, false) };
+                                              return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, false), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                             }
                                           }
                                           case 2: {
-                                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, true, "", model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, true, "", self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                           }
                                           case 3: {
-                                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, false, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, false, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                           }
                                           case 4: {
                                             const _NewColumnTitleChanged = msg;
@@ -14485,12 +14580,12 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$18;
                                           }
                                           case 5: {
-                                            if (!_M0FP38bobzhang6kanban6shared23validate__column__title(model.new_column_title)) {
-                                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                            if (!_M0FP38bobzhang6kanban6shared23validate__column__title(self.new_column_title)) {
+                                              return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                             }
-                                            const title$2 = model.new_column_title;
+                                            const title$2 = self.new_column_title;
                                             const _bind = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$2) }];
-                                            const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGRP38bobzhang6kanban6shared6ColumnE(_M0FP38bobzhang6kanban6shared12api__columns, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind, 0, 1)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared6ColumnE4Json((result) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg11ColumnAdded(result)), (json) => {
+                                            const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGRP38bobzhang6kanban6shared6ColumnE(_M0FP38bobzhang6kanban6shared12api__columns, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind, 0, 1)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared6ColumnE4Json((result) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnAdded(result)), (json) => {
                                               let _try_err;
                                               _L$20: {
                                                 const _bind$2 = _M0FPC14json10from__jsonGRP38bobzhang6kanban6shared6ColumnE(json, undefined);
@@ -14507,7 +14602,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                               }
                                               return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared6ColumnsE3Err("Failed to decode column");
                                             }));
-                                            return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, false, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, false, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: cmd };
                                           }
                                           case 6: {
                                             const _ColumnAdded = msg;
@@ -14518,7 +14613,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                               col = _col;
                                               break _L$17;
                                             } else {
-                                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                              return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                             }
                                           }
                                           case 7: {
@@ -14530,7 +14625,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$16;
                                           }
                                           case 8: {
-                                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, 0, model.rename_column_title, model.moving_card, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, 0, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                           }
                                           case 9: {
                                             const _RenameColumnTitleChanged = msg;
@@ -14539,20 +14634,20 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$15;
                                           }
                                           case 10: {
-                                            const id$6 = model.renaming_column;
-                                            if (id$6 === 0 || !_M0FP38bobzhang6kanban6shared23validate__column__title(model.rename_column_title)) {
-                                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                            const id$6 = self.renaming_column;
+                                            if (id$6 === 0 || !_M0FP38bobzhang6kanban6shared23validate__column__title(self.rename_column_title)) {
+                                              return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                             }
-                                            const title$3 = model.rename_column_title;
-                                            const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13ColumnRenamed__));
+                                            const title$3 = self.rename_column_title;
+                                            const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnRenamed__));
                                             const _tmp = _M0FP38bobzhang6kanban6shared11api__column(id$6);
                                             const _bind$2 = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$3) }];
                                             const cmd$2 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 1)))), expect);
-                                            const columns = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared6ColumnRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.id === id$6 ? new _M0TP38bobzhang6kanban6shared6Column(c.id, title$3, c.position) : c);
-                                            return { _0: cmd$2, _1: new _M0TP38bobzhang6kanban8frontend5Model(columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, 0, model.rename_column_title, model.moving_card, model.loading) };
+                                            const columns = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared6ColumnRP38bobzhang6kanban6shared6ColumnE(self.columns, (c) => c.id === id$6 ? new _M0TP38bobzhang6kanban6shared6Column(c.id, title$3, c.position) : c);
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, 0, self.rename_column_title, self.moving_card, self.loading), _1: cmd$2 };
                                           }
                                           case 11: {
-                                            return { _0: _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch), _1: model };
+                                            return { _0: self, _1: _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) };
                                           }
                                           case 12: {
                                             const _DeleteColumn = msg;
@@ -14561,7 +14656,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$14;
                                           }
                                           case 13: {
-                                            return { _0: _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch), _1: model };
+                                            return { _0: self, _1: _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) };
                                           }
                                           case 14: {
                                             const _MoveColumnLeft = msg;
@@ -14576,7 +14671,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$13;
                                           }
                                           case 16: {
-                                            return { _0: _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch), _1: model };
+                                            return { _0: self, _1: _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) };
                                           }
                                           case 17: {
                                             const _ShowAddCard = msg;
@@ -14585,7 +14680,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$12;
                                           }
                                           case 18: {
-                                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, 0, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, 0, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                           }
                                           case 19: {
                                             const _NewCardTitleChanged = msg;
@@ -14606,15 +14701,15 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$9;
                                           }
                                           case 22: {
-                                            const col_id = model.adding_to_column;
-                                            if (col_id === 0 || !_M0FP38bobzhang6kanban6shared21validate__card__title(model.new_card_title)) {
-                                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                            const col_id = self.adding_to_column;
+                                            if (col_id === 0 || !_M0FP38bobzhang6kanban6shared21validate__card__title(self.new_card_title)) {
+                                              return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                             }
-                                            const title$4 = model.new_card_title;
-                                            const desc = model.new_card_desc;
-                                            const color = model.new_card_color;
+                                            const title$4 = self.new_card_title;
+                                            const desc = self.new_card_desc;
+                                            const color = self.new_card_color;
                                             const _bind$3 = [{ _0: "column_id", _1: _M0IPC16double6DoublePB6ToJson8to__json(col_id + 0) }, { _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$4) }, { _0: "description", _1: _M0IPC16string6StringPB6ToJson8to__json(desc) }, { _0: "color", _1: _M0IPC16string6StringPB6ToJson8to__json(color) }];
-                                            const cmd$3 = _M0FP319moonbit_2dcommunity7rabbita4http4postGRP38bobzhang6kanban6shared6ColumnE(_M0FP38bobzhang6kanban6shared10api__cards, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$3, 0, 4)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared4CardE4Json((result) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg9CardAdded(result)), (json) => {
+                                            const cmd$3 = _M0FP319moonbit_2dcommunity7rabbita4http4postGRP38bobzhang6kanban6shared6ColumnE(_M0FP38bobzhang6kanban6shared10api__cards, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$3, 0, 4)))), new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmdRP38bobzhang6kanban6shared4CardE4Json((result) => dispatch(new _M0DTP48bobzhang6kanban8frontend3app3Msg9CardAdded(result)), (json) => {
                                               let _try_err;
                                               _L$20: {
                                                 const _bind$4 = _M0FPC14json10from__jsonGRP38bobzhang6kanban6shared4CardE(json, undefined);
@@ -14631,7 +14726,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                               }
                                               return new _M0DTPC16result6ResultGRP38bobzhang6kanban6shared4CardsE3Err("Failed to decode card");
                                             }));
-                                            return { _0: cmd$3, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, 0, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, 0, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: cmd$3 };
                                           }
                                           case 23: {
                                             const _CardAdded = msg;
@@ -14642,7 +14737,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                               card$2 = _card;
                                               break _L$8;
                                             } else {
-                                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                              return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                             }
                                           }
                                           case 24: {
@@ -14652,7 +14747,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$7;
                                           }
                                           case 25: {
-                                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, 0, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, 0, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                           }
                                           case 26: {
                                             const _EditTitleChanged = msg;
@@ -14673,22 +14768,22 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$4;
                                           }
                                           case 29: {
-                                            const id$7 = model.editing_card;
-                                            if (id$7 === 0 || !_M0FP38bobzhang6kanban6shared21validate__card__title(model.edit_title)) {
-                                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                                            const id$7 = self.editing_card;
+                                            if (id$7 === 0 || !_M0FP38bobzhang6kanban6shared21validate__card__title(self.edit_title)) {
+                                              return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                             }
-                                            const title$5 = model.edit_title;
-                                            const desc$2 = model.edit_desc;
-                                            const color$2 = model.edit_color;
-                                            const expect$2 = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11CardUpdated__));
+                                            const title$5 = self.edit_title;
+                                            const desc$2 = self.edit_desc;
+                                            const color$2 = self.edit_color;
+                                            const expect$2 = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg11CardUpdated__));
                                             const _tmp$2 = _M0FP38bobzhang6kanban6shared9api__card(id$7);
                                             const _bind$4 = [{ _0: "title", _1: _M0IPC16string6StringPB6ToJson8to__json(title$5) }, { _0: "description", _1: _M0IPC16string6StringPB6ToJson8to__json(desc$2) }, { _0: "color", _1: _M0IPC16string6StringPB6ToJson8to__json(color$2) }];
                                             const cmd$4 = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp$2, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$4, 0, 3)))), expect$2);
-                                            const cards = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared4CardRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.id === id$7 ? new _M0TP38bobzhang6kanban6shared4Card(c.id, c.column_id, title$5, desc$2, color$2, c.position) : c);
-                                            return { _0: cmd$4, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, 0, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                            const cards = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared4CardRP38bobzhang6kanban6shared4CardE(self.cards, (c) => c.id === id$7 ? new _M0TP38bobzhang6kanban6shared4Card(c.id, c.column_id, title$5, desc$2, color$2, c.position) : c);
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, 0, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: cmd$4 };
                                           }
                                           case 30: {
-                                            return { _0: _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch), _1: model };
+                                            return { _0: self, _1: _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) };
                                           }
                                           case 31: {
                                             const _DeleteCard = msg;
@@ -14697,7 +14792,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$3;
                                           }
                                           case 32: {
-                                            return { _0: _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch), _1: model };
+                                            return { _0: self, _1: _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) };
                                           }
                                           case 33: {
                                             const _SelectCardToMove = msg;
@@ -14706,7 +14801,7 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L$2;
                                           }
                                           case 34: {
-                                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, 0, model.loading) };
+                                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, 0, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                           }
                                           case 35: {
                                             const _MoveCardTo = msg;
@@ -14717,29 +14812,29 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                                             break _L;
                                           }
                                           default: {
-                                            return { _0: _M0FP38bobzhang6kanban8frontend12fetch__board(dispatch), _1: model };
+                                            return { _0: self, _1: _M0FP48bobzhang6kanban8frontend3app12fetch__board(dispatch) };
                                           }
                                         }
                                       }
-                                      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(board.columns, board.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, false) };
+                                      return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(board.columns, board.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, false), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                     }
-                                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, v$8, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                    return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, v$8, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                   }
-                                  const columns = _M0MPC15array5Array4copyGRP38bobzhang6kanban6shared4CardE(model.columns);
+                                  const columns = _M0MPC15array5Array4copyGRP38bobzhang6kanban6shared4CardE(self.columns);
                                   _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(columns, col);
-                                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                                  return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                                 }
-                                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, id$5, title, model.moving_card, model.loading) };
+                                return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, id$5, title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                               }
-                              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, v$7, model.moving_card, model.loading) };
+                              return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, v$7, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                             }
-                            const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13ColumnDeleted__));
+                            const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg13ColumnDeleted__));
                             const cmd = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang6kanban6shared11api__column(id$4), expect);
-                            const columns = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.id !== id$4);
-                            const cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.column_id !== id$4);
-                            return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                            const columns = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared6ColumnE(self.columns, (c) => c.id !== id$4);
+                            const cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(self.cards, (c) => c.column_id !== id$4);
+                            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(columns, cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: cmd };
                           }
-                          const sorted = _M0FP38bobzhang6kanban6shared18sort__by__positionGRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.position);
+                          const sorted = _M0FP38bobzhang6kanban6shared18sort__by__positionGRP38bobzhang6kanban6shared6ColumnE(self.columns, (c) => c.position);
                           const idx = new _M0TPC13ref3RefGiE(-1);
                           const _bind = sorted.length;
                           let _tmp = 0;
@@ -14764,159 +14859,76 @@ function _M0FP38bobzhang6kanban8frontend6update(dispatch, msg, model) {
                             target_idx$2 = idx.val + 1 | 0;
                           }
                           if (idx.val < 0 || (target_idx$2 < 0 || target_idx$2 >= sorted.length)) {
-                            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+                            return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                           }
                           const other = _M0MPC15array5Array2atGRP38bobzhang6kanban6shared6ColumnE(sorted, target_idx$2);
                           const this_col = _M0MPC15array5Array2atGRP38bobzhang6kanban6shared6ColumnE(sorted, idx.val);
                           const new_pos = other.position;
-                          const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11ColumnMoved__));
+                          const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg11ColumnMoved__));
                           const _tmp$2 = _M0FP38bobzhang6kanban6shared17api__column__move(id$3);
                           const _bind$2 = [{ _0: "new_position", _1: _M0IPC16double6DoublePB6ToJson8to__json(new_pos + 0) }];
                           const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp$2, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind$2, 0, 1)))), expect);
-                          const columns = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared6ColumnRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.id === id$3 ? new _M0TP38bobzhang6kanban6shared6Column(c.id, c.title, other.position) : c.id === other.id ? new _M0TP38bobzhang6kanban6shared6Column(c.id, c.title, this_col.position) : c);
-                          return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                          const columns = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared6ColumnRP38bobzhang6kanban6shared6ColumnE(self.columns, (c) => c.id === id$3 ? new _M0TP38bobzhang6kanban6shared6Column(c.id, c.title, other.position) : c.id === other.id ? new _M0TP38bobzhang6kanban6shared6Column(c.id, c.title, this_col.position) : c);
+                          return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: cmd };
                         }
-                        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, column_id, "", "", "", model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                        return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, column_id, "", "", "", self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                       }
-                      return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, v$6, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                      return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, v$6, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                     }
-                    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, v$5, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                    return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, v$5, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                   }
-                  return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, v$4, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                  return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, v$4, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
                 }
-                const cards = _M0MPC15array5Array4copyGRP38bobzhang6kanban6shared4CardE(model.cards);
+                const cards = _M0MPC15array5Array4copyGRP38bobzhang6kanban6shared4CardE(self.cards);
                 _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(cards, card$2);
-                return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+                return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
               }
-              return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, card.id, card.title, card.description, card.color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+              return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, card.id, card.title, card.description, card.color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
             }
-            return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, v$3, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+            return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, v$3, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
           }
-          return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, v$2, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+          return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, v$2, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
         }
-        return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, v, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+        return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, v, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
       }
-      const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11CardDeleted__));
+      const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg11CardDeleted__));
       const cmd = _M0FP319moonbit_2dcommunity7rabbita4http6deleteGuE(_M0FP38bobzhang6kanban6shared9api__card(id$2), expect);
-      const cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.id !== id$2);
-      return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, model.moving_card, model.loading) };
+      const cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(self.cards, (c) => c.id !== id$2);
+      return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, self.moving_card, self.loading), _1: cmd };
     }
-    return model.moving_card === id ? { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, 0, model.loading) } : { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, model.cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, id, model.loading) };
+    return self.moving_card === id ? { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, 0, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none } : { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, self.cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, id, self.loading), _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
   }
-  const card_id = model.moving_card;
+  const card_id = self.moving_card;
   if (card_id === 0) {
-    return { _0: _M0FP319moonbit_2dcommunity7rabbita3cmd4none, _1: model };
+    return { _0: self, _1: _M0FP319moonbit_2dcommunity7rabbita3cmd4none };
   }
-  const col_cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(_M0FP38bobzhang6kanban6shared17cards__in__column(model.cards, target_col), (c) => c.id !== card_id);
+  const col_cards = _M0MPC15array5Array6filterGRP38bobzhang6kanban6shared4CardE(_M0FP38bobzhang6kanban6shared17cards__in__column(self.cards, target_col), (c) => c.id !== card_id);
   const new_position = _M0FP38bobzhang6kanban6shared23compute__move__position(col_cards, target_idx);
-  const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP38bobzhang6kanban8frontend3Msg9CardMoved__));
+  const expect = new _M0DTP319moonbit_2dcommunity7rabbita4http9ExpectingGRP419moonbit_2dcommunity7rabbita8internal7runtime3CmduE4Text((_result) => dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg9CardMoved__));
   const _tmp = _M0FP38bobzhang6kanban6shared15api__card__move(card_id);
   const _bind = [{ _0: "target_column_id", _1: _M0IPC16double6DoublePB6ToJson8to__json(target_col + 0) }, { _0: "new_position", _1: _M0IPC16double6DoublePB6ToJson8to__json(new_position + 0) }];
   const cmd = _M0FP319moonbit_2dcommunity7rabbita4http4postGuE(_tmp, new _M0DTP319moonbit_2dcommunity7rabbita4http4Body4Json(_M0MPC14json4Json6object(_M0MPB3Map11from__arrayGsRPB4JsonE(new _M0TPB9ArrayViewGUsRPB4JsonEE(_bind, 0, 2)))), expect);
   const pos = new_position === 0 ? _M0FP38bobzhang6kanban6shared13position__gap : new_position;
-  const cards = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared4CardRP38bobzhang6kanban6shared4CardE(model.cards, (c) => c.id === card_id ? new _M0TP38bobzhang6kanban6shared4Card(c.id, target_col, c.title, c.description, c.color, pos) : c);
-  return { _0: cmd, _1: new _M0TP38bobzhang6kanban8frontend5Model(model.columns, cards, model.adding_to_column, model.new_card_title, model.new_card_desc, model.new_card_color, model.editing_card, model.edit_title, model.edit_desc, model.edit_color, model.adding_column, model.new_column_title, model.renaming_column, model.rename_column_title, 0, model.loading) };
-}
-function _M0FP38bobzhang6kanban8frontend12view__header(dispatch, model) {
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["background: linear-gradient(135deg, #0d9488 0%, #0891b2 100%)", "padding: 20px 32px", "margin-bottom: 24px", "border-radius: 12px", "display: flex", "justify-content: space-between", "align-items: center"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html10h1_2einnerGsE(["color: white", "font-size: 22px", "font-weight: 700", "letter-spacing: -0.3px"], undefined, undefined, undefined, -1, undefined, undefined, "Kanban Board"), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 8px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [model.moving_card !== 0 ? _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 8px 16px", "background: rgba(255,255,255,0.2)", "color: white", "border: 1px solid rgba(255,255,255,0.3)", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg10CancelMove__), undefined, "Cancel Move") : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), model.adding_column ? _M0FP319moonbit_2dcommunity7rabbita4html4text("") : _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 8px 16px", "background: rgba(255,255,255,0.2)", "color: white", "border: 1px solid rgba(255,255,255,0.3)", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13ShowAddColumn__), undefined, "+ Column")])]);
-}
-function _M0FP38bobzhang6kanban8frontend23view__add__column__form(dispatch, model) {
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["min-width: 272px", "max-width: 272px", "background: white", "border-radius: 10px", "padding: 16px", "border: 2px dashed #cbd5e1"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, model.new_column_title, -1, -1, -1, undefined, "Column title", undefined, ["width: 100%", "padding: 8px 10px", "border: 1px solid #e2e8f0", "border-radius: 6px", "font-size: 14px", "outline: none", "margin-bottom: 8px"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg21NewColumnTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 6px 14px", "background: #0d9488", "color: white", "border: none", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg9AddColumn__), undefined, "Add"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 6px 14px", "background: #f1f5f9", "color: #64748b", "border: none", "border-radius: 6px", "cursor: pointer", "font-size: 13px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg13HideAddColumn__), undefined, "Cancel")])]);
-}
-function _M0FP38bobzhang6kanban8frontend16view__drop__zone(dispatch, column_id, index) {
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["height: 6px", "margin: 4px 0", "border-radius: 3px", "background: #99f6e4", "border: 2px dashed #14b8a6", "cursor: pointer", "transition: all 0.15s"], undefined, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg10MoveCardTo(column_id, index)), undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("")]);
-}
-function _M0FP38bobzhang6kanban8frontend19view__color__picker(dispatch, current, on_change) {
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 4px", "margin-bottom: 8px", "flex-wrap: wrap"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, _M0MPC15array5Array3mapGsRP319moonbit_2dcommunity7rabbita4html4HtmlE(_M0FP38bobzhang6kanban6shared13valid__colors, (c) => {
-    const bg = c === "" ? "#f1f5f9" : _M0FP38bobzhang6kanban6shared14color__to__css(c);
-    const is_selected = c === current;
-    const border = is_selected ? "2px solid #1a1a2e" : "2px solid transparent";
-    return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["width: 24px", "height: 24px", "border-radius: 50%", `background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`, "cursor: pointer", `border: ${_M0IPC16string6StringPB4Show10to__string(border)}`], undefined, undefined, undefined, -1, dispatch(on_change(c)), undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("")]);
-  }));
-}
-function _M0FP38bobzhang6kanban8frontend16view__card__item(dispatch, model, card) {
-  const is_moving = model.moving_card === card.id;
-  let border_left;
-  let css;
-  _L: {
-    _L$2: {
-      const _bind = _M0FP38bobzhang6kanban6shared14color__to__css(card.color);
-      if (_bind === "") {
-        border_left = "3px solid #e2e8f0";
-      } else {
-        css = _bind;
-        break _L$2;
-      }
-      break _L;
-    }
-    border_left = `3px solid ${_M0IPC16string6StringPB4Show10to__string(css)}`;
-  }
-  const bg = is_moving ? "#f0fdfa" : "white";
-  if (model.editing_card === card.id) {
-    return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["background: white", "border-radius: 8px", "padding: 12px", "border: 1px solid #0d9488", "margin-bottom: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, model.edit_title, -1, -1, -1, undefined, "Card title", undefined, ["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 13px", "outline: none", "margin-bottom: 6px"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg16EditTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html16textarea_2einnerGsE(["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 12px", "outline: none", "resize: vertical", "font-family: inherit", "margin-bottom: 6px"], undefined, undefined, undefined, -1, undefined, model.edit_desc, 2, undefined, "Description (optional)", -1, -1, undefined, undefined, -1, -1, undefined, undefined, (v) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg15EditDescChanged(v)), undefined, ""), _M0FP38bobzhang6kanban8frontend19view__color__picker(dispatch, model.edit_color, (c) => new _M0DTP38bobzhang6kanban8frontend3Msg16EditColorChanged(c)), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #0d9488", "color: white", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg12SaveEditCard__), undefined, "Save"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #f1f5f9", "color: #64748b", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg14CancelEditCard__), undefined, "Cancel")])]);
-  } else {
-    const _tmp = [`background: ${_M0IPC16string6StringPB4Show10to__string(bg)}`, "border-radius: 8px", "padding: 10px 12px", `border-left: ${_M0IPC16string6StringPB4Show10to__string(border_left)}`, "margin-bottom: 6px", "border: 1px solid #f0f0f5", "transition: all 0.15s"];
-    const _tmp$2 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 14px", "font-weight: 500", "color: #1e293b", "margin-bottom: 4px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(card.title)]);
-    const _tmp$3 = _M0IP016_24default__implPB2Eq10not__equalGsE(card.description, "") ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 12px", "color: #64748b", "margin-bottom: 6px", "line-height: 1.4"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(card.description)]) : _M0FP319moonbit_2dcommunity7rabbita4html4text("");
-    const _tmp$4 = ["display: flex", "gap: 4px", "justify-content: flex-end"];
-    const move_bg = is_moving ? "#0d9488" : "#f8fafc";
-    const move_fg = is_moving ? "white" : "#64748b";
-    return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _tmp$3, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$4, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #e2e8f0", `background: ${_M0IPC16string6StringPB4Show10to__string(move_bg)}`, `color: ${_M0IPC16string6StringPB4Show10to__string(move_fg)}`], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg16SelectCardToMove(card.id)), undefined, is_moving ? "Moving..." : "Move"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #e2e8f0", "background: #f8fafc", "color: #64748b"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg13StartEditCard(card)), undefined, "Edit"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 8px", "font-size: 11px", "cursor: pointer", "border-radius: 4px", "border: 1px solid #fecaca", "background: #fef2f2", "color: #dc2626"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg10DeleteCard(card.id)), undefined, "Del")])]);
-  }
-}
-function _M0FP38bobzhang6kanban8frontend21view__add__card__form(dispatch, model) {
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["padding: 10px", "background: #f8fafc", "border-radius: 8px", "border: 1px solid #e2e8f0", "margin-top: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, model.new_card_title, -1, -1, -1, undefined, "Card title", undefined, ["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 13px", "outline: none", "margin-bottom: 6px"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg19NewCardTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html16textarea_2einnerGsE(["width: 100%", "padding: 6px 8px", "border: 1px solid #e2e8f0", "border-radius: 4px", "font-size: 12px", "outline: none", "resize: vertical", "font-family: inherit", "margin-bottom: 6px"], undefined, undefined, undefined, -1, undefined, model.new_card_desc, 2, undefined, "Description (optional)", -1, -1, undefined, undefined, -1, -1, undefined, undefined, (v) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg18NewCardDescChanged(v)), undefined, ""), _M0FP38bobzhang6kanban8frontend19view__color__picker(dispatch, model.new_card_color, (c) => new _M0DTP38bobzhang6kanban8frontend3Msg19NewCardColorChanged(c)), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 6px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #0d9488", "color: white", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg7AddCard__), undefined, "Add Card"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 5px 12px", "background: #f1f5f9", "color: #64748b", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg11HideAddCard__), undefined, "Cancel")])]);
-}
-function _M0FP38bobzhang6kanban8frontend12view__column(dispatch, model, column, col_index, total_cols) {
-  const col_cards = _M0FP38bobzhang6kanban6shared17cards__in__column(model.cards, column.id);
-  const is_moving = model.moving_card !== 0;
-  const _tmp = ["min-width: 272px", "max-width: 272px", "background: #f1f5f9", "border-radius: 10px", "padding: 12px", "display: flex", "flex-direction: column", "max-height: calc(100vh - 140px)"];
-  const _tmp$2 = model.renaming_column === column.id ? _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["margin-bottom: 10px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html13input_2einnerGsE(18, undefined, model.rename_column_title, -1, -1, -1, undefined, undefined, undefined, ["width: 100%", "padding: 6px 8px", "border: 1px solid #0d9488", "border-radius: 4px", "font-size: 14px", "outline: none", "font-weight: 600"], undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, undefined, -1, -1, -1, undefined, undefined, undefined, (v) => dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg24RenameColumnTitleChanged(v)), undefined, ""), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 4px", "margin-top: 4px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 10px", "background: #0d9488", "color: white", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 11px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg19ConfirmRenameColumn__), undefined, "Save"), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 3px 10px", "background: #e2e8f0", "color: #64748b", "border: none", "border-radius: 4px", "cursor: pointer", "font-size: 11px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg18CancelRenameColumn__), undefined, "Cancel")])]) : _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "justify-content: space-between", "align-items: center", "margin-bottom: 10px", "padding: 0 2px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["font-size: 14px", "font-weight: 600", "color: #334155", "cursor: pointer"], undefined, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg17StartRenameColumn(column.id, column.title)), undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text(column.title), _M0FP319moonbit_2dcommunity7rabbita4html12span_2einnerGsE(["color: #94a3b8", "font-weight: 400", "margin-left: 6px"], undefined, undefined, undefined, -1, undefined, _M0IP016_24default__implPB4Show10to__stringGiE(col_cards.length))]), _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["display: flex", "gap: 2px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [col_index > 0 ? _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 6px", "background: transparent", "color: #94a3b8", "border: none", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg14MoveColumnLeft(column.id)), undefined, "◀") : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), col_index < (total_cols - 1 | 0) ? _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 6px", "background: transparent", "color: #94a3b8", "border: none", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg15MoveColumnRight(column.id)), undefined, "▶") : _M0FP319moonbit_2dcommunity7rabbita4html4text(""), _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["padding: 2px 6px", "background: transparent", "color: #dc2626", "border: none", "cursor: pointer", "font-size: 12px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg12DeleteColumn(column.id)), undefined, "✕")])]);
-  const _tmp$3 = ["flex: 1", "overflow-y: auto"];
-  const items = [];
-  const _bind = col_cards.length;
-  let _tmp$4 = 0;
-  while (true) {
-    const i = _tmp$4;
-    if (i < _bind) {
-      const card = col_cards[i];
-      if (is_moving) {
-        _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(items, _M0FP38bobzhang6kanban8frontend16view__drop__zone(dispatch, column.id, i));
-      }
-      _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(items, _M0FP38bobzhang6kanban8frontend16view__card__item(dispatch, model, card));
-      _tmp$4 = i + 1 | 0;
-      continue;
-    } else {
-      break;
-    }
-  }
-  if (is_moving) {
-    _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(items, _M0FP38bobzhang6kanban8frontend16view__drop__zone(dispatch, column.id, col_cards.length));
-  }
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$3, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, items), model.adding_to_column === column.id ? _M0FP38bobzhang6kanban8frontend21view__add__card__form(dispatch, model) : _M0FP319moonbit_2dcommunity7rabbita4html14button_2einnerGsE(["width: 100%", "padding: 8px", "background: transparent", "color: #94a3b8", "border: 1px dashed #cbd5e1", "border-radius: 6px", "cursor: pointer", "font-size: 13px", "margin-top: 6px"], undefined, undefined, undefined, -1, undefined, -1, undefined, undefined, -1, dispatch(new _M0DTP38bobzhang6kanban8frontend3Msg11ShowAddCard(column.id)), undefined, "+ Add Card")]);
-}
-function _M0FP38bobzhang6kanban8frontend4view(dispatch, model) {
-  const sorted_columns = _M0FP38bobzhang6kanban6shared18sort__by__positionGRP38bobzhang6kanban6shared6ColumnE(model.columns, (c) => c.position);
-  const _tmp = ["padding: 16px 24px", "min-height: 100vh"];
-  const _tmp$2 = _M0FP38bobzhang6kanban8frontend12view__header(dispatch, model);
-  let _tmp$3;
-  if (model.loading) {
-    _tmp$3 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(["text-align: center", "padding: 60px 0", "color: #94a3b8", "font-size: 15px"], undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_M0FP319moonbit_2dcommunity7rabbita4html4text("Loading...")]);
-  } else {
-    const _tmp$4 = ["display: flex", "gap: 16px", "overflow-x: auto", "padding-bottom: 16px", "align-items: flex-start"];
-    const cols = _M0MPC15array5Array4mapiGRP38bobzhang6kanban6shared6ColumnRP319moonbit_2dcommunity7rabbita4html4HtmlE(sorted_columns, (i, col) => _M0FP38bobzhang6kanban8frontend12view__column(dispatch, model, col, i, sorted_columns.length));
-    if (model.adding_column) {
-      _M0MPC15array5Array4pushGRP38bobzhang6kanban6shared4CardE(cols, _M0FP38bobzhang6kanban8frontend23view__add__column__form(dispatch, model));
-    }
-    _tmp$3 = _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp$4, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, cols);
-  }
-  return _M0FP319moonbit_2dcommunity7rabbita4html11div_2einnerGRPB5ArrayGRP319moonbit_2dcommunity7rabbita4html4HtmlEE(_tmp, undefined, undefined, undefined, -1, undefined, undefined, undefined, undefined, undefined, undefined, undefined, [_tmp$2, _tmp$3]);
+  const cards = _M0MPC15array5Array3mapGRP38bobzhang6kanban6shared4CardRP38bobzhang6kanban6shared4CardE(self.cards, (c) => c.id === card_id ? new _M0TP38bobzhang6kanban6shared4Card(c.id, target_col, c.title, c.description, c.color, pos) : c);
+  return { _0: new _M0TP48bobzhang6kanban8frontend3app5Model(self.columns, cards, self.adding_to_column, self.new_card_title, self.new_card_desc, self.new_card_color, self.editing_card, self.edit_title, self.edit_desc, self.edit_color, self.adding_column, self.new_column_title, self.renaming_column, self.rename_column_title, 0, self.loading), _1: cmd };
 }
 (() => {
   let dispatch;
   let app_cell;
   _L: {
-    const _bind = _M0FP219moonbit_2dcommunity7rabbita20cell__with__dispatchGRP38bobzhang6kanban8frontend5ModelRP38bobzhang6kanban8frontend3MsgE(new _M0TP38bobzhang6kanban8frontend5Model([], [], 0, "", "", "", 0, "", "", "", false, "", 0, "", 0, false), _M0FP38bobzhang6kanban8frontend6update, _M0FP38bobzhang6kanban8frontend4view);
+    const _bind = _M0FP219moonbit_2dcommunity7rabbita20cell__with__dispatchGRP48bobzhang6kanban8frontend3app5ModelRP48bobzhang6kanban8frontend3app3MsgE(new _M0TP48bobzhang6kanban8frontend3app5Model([], [], 0, "", "", "", 0, "", "", "", false, "", 0, "", 0, false), (dispatch$2, msg, model) => {
+      let model$2;
+      let cmd;
+      _L$2: {
+        const _bind$2 = _M0MP48bobzhang6kanban8frontend3app5Model6update(model, msg, dispatch$2);
+        const _model = _bind$2._0;
+        const _cmd = _bind$2._1;
+        model$2 = _model;
+        cmd = _cmd;
+        break _L$2;
+      }
+      return { _0: cmd, _1: model$2 };
+    }, (dispatch$2, model) => _M0MP48bobzhang6kanban8frontend3app5Model4view(model, dispatch$2));
     const _dispatch = _bind._0;
     const _app_cell = _bind._1;
     dispatch = _dispatch;
@@ -14924,7 +14936,7 @@ function _M0FP38bobzhang6kanban8frontend4view(dispatch, model) {
     break _L;
   }
   const app = _M0FP219moonbit_2dcommunity7rabbita3new(app_cell);
-  _M0MP219moonbit_2dcommunity7rabbita3App10with__init(app, dispatch(_M0DTP38bobzhang6kanban8frontend3Msg4Init__));
+  _M0MP219moonbit_2dcommunity7rabbita3App10with__init(app, dispatch(_M0DTP48bobzhang6kanban8frontend3app3Msg4Init__));
   _M0MP219moonbit_2dcommunity7rabbita3App5mount(app, "app");
 })();
 //# sourceMappingURL=frontend.js.map

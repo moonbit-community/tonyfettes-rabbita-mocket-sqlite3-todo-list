@@ -52,7 +52,6 @@ test "GotTodos/Ok populates todos and clears loading" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -91,10 +90,7 @@ test "InputChanged updates input field" {
 ///|
 test "InputChanged preserves todos" {
   let initial = { ..empty_model(), todos: sample_todos() }
-  let (model, _) = initial.update(
-    msg=InputChanged("x"),
-    dispatch=noop_dispatch,
-  )
+  let (model, _) = initial.update(msg=InputChanged("x"), dispatch=noop_dispatch)
   debug_inspect(
     model,
     content=(
@@ -107,7 +103,6 @@ test "InputChanged preserves todos" {
       #|  input: "x",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -169,7 +164,6 @@ test "TodoAdded/Ok appends to list" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -193,7 +187,6 @@ test "TodoAdded/Err leaves model unchanged" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -220,7 +213,6 @@ test "TodoToggled/Ok replaces matching todo" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -244,7 +236,6 @@ test "TodoToggled/Err leaves model unchanged" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -269,7 +260,6 @@ test "TodoDeleted/Ok removes the todo" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -293,7 +283,6 @@ test "TodoDeleted/Ok with nonexistent id is no-op" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
@@ -317,7 +306,6 @@ test "TodoDeleted/Err leaves model unchanged" {
       #|  input: "",
       #|  loading: false,
       #|}
-
     ),
   )
 }
