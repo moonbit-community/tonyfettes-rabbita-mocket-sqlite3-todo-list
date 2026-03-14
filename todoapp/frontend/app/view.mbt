@@ -85,7 +85,7 @@ fn Model::view_todos(
   if self.loading {
     return @html.p(style=muted_style, "Loading...")
   }
-  if self.todos.length() == 0 {
+  if self.todos is [] {
     return @html.p(
       style=["text-align: center", "color: #999", "padding: 20px"],
       "No todos yet. Add one above!",
@@ -93,15 +93,15 @@ fn Model::view_todos(
   }
   @html.ul(
     style=["list-style: none"],
-    self.todos.map(fn(todo) { view_todo_item(dispatch, todo) }),
+    self.todos.map(todo => todo.view_todo_item(dispatch)),
   )
 }
 
 ///|
 /// A single todo item: checkbox, text label, and delete button.
-fn view_todo_item(
-  dispatch : @rabbita.Dispatch[Msg],
+fn @shared.Todo::view_todo_item(
   todo : @shared.Todo,
+  dispatch : @rabbita.Dispatch[Msg],
 ) -> @rabbita.Html {
   let text_style : Array[String] = if todo.done {
     ["flex: 1", "text-decoration: line-through", "color: #999"]
